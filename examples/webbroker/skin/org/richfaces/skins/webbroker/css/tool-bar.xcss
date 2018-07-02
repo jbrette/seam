@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+        <u:selector name=".rich-toolbar">
+        </u:selector>
+
+        <u:selector name=".rich-toolbar-item">
+        </u:selector>
+
+        <u:selector name=".rich-toolbar-separator">
+        </u:selector>
+
+</f:template>

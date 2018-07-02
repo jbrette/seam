@@ -1,0 +1,113 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  template="/layout/template.xhtml">
+
+  <ui:define name="body">
+
+    <h:form id="editForm" enctype="multipart/form-data">
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+
+      <s:validateAll>
+
+        <rich:panel bodyClass="panelbody">
+          <f:facet name="header">
+            <h:outputText value="#{messages.editWebPage_pnl_attributes}"></h:outputText>
+          </f:facet>
+          <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+            <h:outputText value="#{messages.WebPage_Name}:" />
+            <s:decorate id="nameDecorate">
+              <h:inputText id="webPageName" value="#{webPage.name}" required="true" />
+            </s:decorate>
+
+            <h:outputText value="#{messages.WebPage_CKind}:" />
+            <s:decorate id="roleDecorate">
+              <h:selectOneRadio id="role" value="#{webPage.CKind}" layout="lineDirection" required="true">
+                <f:selectItem id="item1" itemLabel="For Everybody" itemValue="forEverybody" />
+                <f:selectItem id="item2" itemLabel="For The Head" itemValue="forTheCommitee" />
+              </h:selectOneRadio>
+            </s:decorate>
+
+            <h:outputText value="#{messages.WebPage_MenuPosition}:" />
+            <s:decorate id="menuPositionDecorate">
+              <h:inputText id="webPageMenuPosition" value="#{webPage.menuPosition}" required="true" />
+            </s:decorate>
+
+            <h:outputText value="#{messages.WebPage_LeftColumnSize}:" />
+            <s:decorate id="leftColumnSizeDecorate">
+              <h:inputText id="webPageLeftColumnSize" value="#{webPage.leftColumnSize}" required="true" />
+            </s:decorate>
+
+            <h:outputText value="#{messages.WebPage_CenterColumnSize}:" />
+            <s:decorate id="centerColumnSizeDecorate">
+              <h:inputText id="webPageCenterColumnSize" value="#{webPage.centerColumnSize}" required="true" />
+            </s:decorate>
+
+            <h:outputText value="#{messages.WebPage_RightColumnSize}:" />
+            <s:decorate id="rightColumnSizeDecorate">
+              <h:inputText id="webPageRightColumnSize" value="#{webPage.rightColumnSize}" required="true" />
+            </s:decorate>
+
+          </h:panelGrid>
+        </rich:panel>
+
+        <rich:panel bodyClass="panelbody" width="100%">
+          <f:facet name="header">
+            <h:outputText value="Page Header"></h:outputText>
+          </f:facet>
+          <s:decorate id="headerDecorate">
+            <rich:editor id="content" configuration="editorconfig" width="800" height="100"
+              value="#{webPage.headerText}" />
+          </s:decorate>
+        </rich:panel>
+
+        <rich:panel bodyClass="panelbody" width="100%">
+          <f:facet name="header">
+            <h:outputText value="Page Footer"></h:outputText>
+          </f:facet>
+          <s:decorate id="footerDecorate">
+            <rich:editor id="content" configuration="editorconfig" width="800" height="100"
+              value="#{webPage.footerText}" />
+          </s:decorate>
+        </rich:panel>
+
+      </s:validateAll>
+
+      <!-- actions -->
+      <rich:toolBar>
+        <rich:toolBarGroup location="left">
+
+          <h:commandLink id="updateWebPage" action="#{webPageHome.update}"
+            value="#{messages.editWebPage_btn_update}" rendered="#{webPageHome.managed}" />
+          <s:link id="cancelManaged" view="/includes/webcontent/viewWebPage.xhtml"
+            value="#{messages.editWebPage_btn_close}"
+            rendered="#{webPageHome.managed and s:hasRole('webcontentmgr')}" />
+
+          <h:commandLink id="createWebPage" action="#{webPageHome.persist}"
+            value="#{messages.editWebPage_btn_create}" rendered="#{!webPageHome.managed and s:hasRole('admin')}" />
+          <s:link id="cancel" view="/includes/webcontent/searchWebPage.xhtml"
+            value="#{messages.editWebPage_btn_cancel}"
+            rendered="#{!webPageHome.managed  and s:hasRole('admin')}" />
+        </rich:toolBarGroup>
+        <rich:toolBarGroup location="right">
+          <s:link id="deleteWebPage" action="#{webPageHome.remove}" value="#{messages.editWebPage_btn_delete}"
+            rendered="#{webPageHome.managed and s:hasRole('admin')}">
+          </s:link>
+        </rich:toolBarGroup>
+      </rich:toolBar>
+    </h:form>
+
+  </ui:define>
+</ui:composition>

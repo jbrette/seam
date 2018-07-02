@@ -1,0 +1,78 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a4j="http://richfaces.org/a4j" xmlns:e="http://jboss.com/products/seam/excel"
+  template="layout/template.xhtml">
+
+  <ui:define name="body">
+
+    <h:form id="searchForm">
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+      <!-- search results -->
+      <a4j:outputPanel id="searchResult">
+        <rich:dataTable value="#{accountOrderHome.allOrders}" var="aguideorder" id="orderTable"
+          style="xls-font: 10 Verdana; xls-column-widths: 8000 9000 10000"
+          rowClasses="datagridrow1, datagridrow2" width="100%">
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.AccountOrder_BuyerName}" style="xls-font: red bold" />
+            </f:facet>
+            <h:panelGroup id="viewAccountOrderControls">
+              <h:graphicImage value="/img/icons/contact16.png" />
+              <h:outputText value=" " />
+              <s:link id="link" disabled="#{not (s:hasRole('memberviewer'))}" view="/orderAccount.xhtml"
+                value="#{aguideorder.buyerName}">
+                <f:param name="pagesAccountOrderId" value="#{aguideorder.id}" />
+              </s:link>
+            </h:panelGroup>
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.AccountOrder_Email}" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{aguideorder.email}" />
+          </rich:column>
+          <rich:column style="xls-column-export:false">
+            <f:facet name="header">
+              <h:outputText value="#{messages.AccountOrder_City}" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{aguideorder.city}" />
+          </rich:column>
+          <rich:column rendered="#{s:hasRole('accounting')}">
+            <f:facet name="header">
+              <h:outputText value="#{messages.AccountOrder_PaymentInfo}" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{aguideorder.paymentInfo}" />
+          </rich:column>
+        </rich:dataTable>
+      </a4j:outputPanel>
+      <rich:toolBar id="searchBottomBar" itemSeparator="disc">
+        <rich:toolBarGroup>
+          <h:panelGroup id="addOrderControls" rendered="#{s:hasRole('memberviewer')}">
+            <h:graphicImage value="/img/icons/add1-16.png" />
+            <h:outputText value=" " />
+            <s:link id="create" view="/orderAccount.xhtml" value="Create New Order"
+              rendered="#{s:hasRole('memberviewer')}">
+              <f:param name="pagesAccountOrderId" />
+              <!-- suppress propagation of assocOrder id page parameter -->
+            </s:link>
+          </h:panelGroup>
+
+
+        </rich:toolBarGroup>
+      </rich:toolBar>
+    </h:form>
+
+  </ui:define>
+</ui:composition>

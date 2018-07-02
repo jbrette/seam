@@ -1,0 +1,241 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a4j="http://richfaces.org/a4j" template="layout/template.xhtml">
+
+  <ui:define name="body">
+    <script type="text/javascript">
+         function confirmDelete()
+          {
+                 return confirm("#{messages.jscript_confirmDelete}");
+          }
+    
+         function confirmSend()
+          {
+                 return confirm("#{messages.jscript_confirmSend}");
+          }
+        </script>
+    <h:form id="clubForm">
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+
+      <h:panelGrid columns="2">
+        <rich:panel bodyClass="panelbody" width="100%">
+          <f:facet name="header">
+            <h:outputText value="NewsLetter: #{newsLetter.title}"></h:outputText>
+          </f:facet>
+          <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+            <h:outputText value="#{messages.NewsLetter_Title}:" />
+            <h:outputText value="#{newsLetter.title}" />
+
+            <h:outputText value="#{messages.NewsLetter_Date}:" />
+            <h:outputText value="#{newsLetter.date}" />
+
+            <h:outputText value="#{messages.NewsLetter_NKind}:" />
+            <h:outputText value="#{newsLetter.NKind}" />
+
+            <h:outputText value="#{messages.NewsLetter_TemplateFile}:" />
+            <h:outputText value="#{newsLetter.templateFile}" />
+
+            <h:outputText value="#{messages.NewsLetter_Content}:" />
+            <h:outputText escape="false" value="#{newsLetter.content}" />
+
+          </h:panelGrid>
+        </rich:panel>
+        <rich:panel bodyClass="panelbody" width="100%">
+          <f:facet name="header">
+            <h:outputText value="Attachments:"></h:outputText>
+          </f:facet>
+          <rich:dataGrid value="#{newsLetter.attachments}" var="attachment"
+            rendered="#{not empty newsLetter.attachments}" columns="1" elements="3" width="100%">
+            <rich:panel bodyClass="panelbody" width="20%">
+              <f:facet name="header">
+                <h:outputText value="#{attachment.fileName}" />
+              </f:facet>
+              <s:link target="_blank" action="#{downloadAttachment.download}">
+                <f:param name="attachmentId" value="#{attachment.imageId}" />
+                <s:graphicImage fileName="viewNewsLetter-#{attachment.imageId}" value="#{attachment.thumbnail}">
+                  <s:transformImageSize width="75" maintainRatio="true" />
+                </s:graphicImage>
+              </s:link>
+            </rich:panel>
+          </rich:dataGrid>
+        </rich:panel>
+      </h:panelGrid>
+      <rich:toolBar>
+        <rich:toolBarGroup location="left">
+          <h:panelGroup id="editNewsLetterControls" rendered="#{s:hasRole('newsmgr')}">
+            <h:graphicImage value="/img/icons/edit16.png" />
+            <h:outputText value=" " />
+            <s:link id="editNewsLetter" view="/editNewsLetter.xhtml" value="Edit NewsLetter"
+              rendered="#{s:hasRole('newsmgr')}" />
+          </h:panelGroup>
+          <h:panelGroup id="cancelNewsLetterControls">
+            <h:graphicImage value="/img/icons/close16.png" />
+            <h:outputText value=" " />
+            <s:link id="closeNewsLetter" view="/searchNewsLetter.xhtml" value="Close NewsLetter" />
+          </h:panelGroup>
+          <h:panelGroup id="sendToMeControls" rendered="#{s:hasRole('newsmgr')}">
+            <h:graphicImage value="/img/icons/emailButton.png" />
+            <h:outputText value=" " />
+            <h:commandButton id="sendTestEmail" action="#{newsLetterHome.sendTestEmail}"
+              value="Send To Me First" rendered="#{s:hasRole('newsmgr')}">
+            </h:commandButton>
+          </h:panelGroup>
+
+        </rich:toolBarGroup>
+      </rich:toolBar>
+
+      <rich:panel bodyClass="panelbody" rendered="#{s:hasRole('newsmgr') and (newsLetter.readyForAnnouncement)}"
+        width="100%">
+        <f:facet name="header">
+          <h:outputText value="Mailing List Control"></h:outputText>
+        </f:facet>
+        <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+          <h:outputText value="#{messages.NewsLetter_MailingListBuildRequest}:" />
+          <s:decorate id="mailingListBuildRequestDecorate">
+            <h:selectOneMenu value="#{newsLetter.mailingListBuildRequest}">
+              <f:selectItem id="item01" itemLabel="Test" itemValue="testmembers" />
+              <f:selectItem id="item02" itemLabel="All Entries" itemValue="validentries" />
+              <f:selectItem id="item03" itemLabel="All Members" itemValue="allmembers" />
+              <f:selectItem id="item04" itemLabel="Bulletin Recipient - Not Late"
+                itemValue="nonlatebulletinmembers" />
+              <f:selectItem id="item05" itemLabel="Bulletin Recipient - Late " itemValue="latebulletinmembers" />
+              <f:selectItem id="item06" itemLabel="Bulletin Recipient - Other" itemValue="otherbulletinmembers" />
+              <f:selectItem id="item07" itemLabel="Non Late Members" itemValue="nonlatemembers" />
+              <f:selectItem id="item08" itemLabel="Late Members" itemValue="latemembers" />
+              <f:selectItem id="item09" itemLabel="Guest Members" itemValue="guestmembers" />
+              <f:selectItem id="item10" itemLabel="Sponsors" itemValue="sponsors" />
+              <f:selectItem id="item11" itemLabel="Advertisers" itemValue="advertisers" />
+              <f:selectItem id="item12" itemLabel="Partner Orgs" itemValue="partnerorgs" />
+              <f:selectItem id="item13" itemLabel="Board Members" itemValue="committeemembers" />
+              <f:selectItem id="item14" itemLabel="With 0 to 3 Kids" itemValue="kid_0_3_Members" />
+              <f:selectItem id="item15" itemLabel="With 3 to 6 Kids" itemValue="kid_3_6_Members" />
+              <f:selectItem id="item16" itemLabel="With 6 to 10 Kids" itemValue="kid_6_10_Members" />
+              <f:selectItem id="item17" itemLabel="With 10 to 15 Kids" itemValue="kid_10_15_Members" />
+              <f:selectItem id="item18" itemLabel="With 15 to 18 Kids" itemValue="kid_15_18_Members" />
+              <f:selectItem id="item19" itemLabel="With 18 to 20 Kids" itemValue="kid_18_20_Members" />
+              <f:selectItem id="item20" itemLabel="With 21 and more Kids" itemValue="kid_21_plus_Members" />
+            </h:selectOneMenu>
+          </s:decorate>
+
+          <h:outputText value=" " />
+          <h:outputText value=" " />
+
+          <h:selectOneMenu value="#{mailingHome.instance.member}">
+            <s:convertEntity />
+            <s:selectItems value="#{assocMemberHome.allMembersForEvents}" var="member"
+              label="#{member.assocName}" />
+          </h:selectOneMenu>
+          <h:commandButton id="submit" action="#{mailingHome.subscribe}" value="Add" />
+
+        </h:panelGrid>
+      </rich:panel>
+      <rich:toolBar rendered="#{s:hasRole('newsmgr') and (newsLetter.readyForAnnouncement)}">
+        <rich:toolBarGroup location="left">
+          <h:commandButton id="prepareMailing" action="#{newsLetterHome.buildMailingList}"
+            value="Prepare Mailing" rendered="#{s:hasRole('newsmgr')}">
+          </h:commandButton>
+          <h:commandButton id="cancelMailing" action="#{newsLetterHome.emptyMailingList}" value="Cancel Mailing"
+            rendered="#{s:hasRole('newsmgr')}">
+          </h:commandButton>
+        </rich:toolBarGroup>
+      </rich:toolBar>
+
+      <!-- actions -->
+
+
+    </h:form>
+
+    <h:form id="mailingForm">
+
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+      <rich:panel rendered="#{s:hasRole('newsmgr')}" width="100%">
+        <f:facet name="header">
+          <h:outputText value="NewsLetter Mailing"></h:outputText>
+        </f:facet>
+
+        <rich:dataTable value="#{newsLetter.mailings}" var="mailing" rendered="#{!empty newsLetter.mailings}"
+          id="mailingTable" rowClasses="datagridrow1, datagridrow2" width="100%">
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.AssocMember_AssocName}" />
+            </f:facet>
+            <h:outputText value="#{mailing.member.assocName}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.AssocMember_Email}" />
+            </f:facet>
+            <h:outputText value="#{mailing.member.email}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.Mailing_Sent}" />
+            </f:facet>
+            <h:panelGroup id="markControls" rendered="#{newsLetter.readyForAnnouncement}">
+              <s:link id="linkToggleToSent" value="#{mailing.state}" action="#{newsLetterHome.toggleToSent}"
+                rendered="#{not (mailing.sent)}">
+                <f:param name="mailingId" value="#{mailing.id}" />
+              </s:link>
+              <s:link id="linkToggleToUnsent" value="#{mailing.state}" action="#{newsLetterHome.toggleToUnsent}"
+                rendered="#{mailing.sent}">
+                <f:param name="mailingId" value="#{mailing.id}" />
+              </s:link>
+              <h:outputText value="#{messages.panelg_separator}" escape="false" />
+              <s:link id="linkDelete" action="#{newsLetterHome.deleteMailing}" onclick="return confirmDelete()"
+                value="delete">
+                <f:param name="mailingId" value="#{mailing.id}" />
+              </s:link>
+            </h:panelGroup>
+            <h:outputText value="#{mailing.state}" rendered="#{not (newsLetter.readyForAnnouncement)}" />
+          </rich:column>
+        </rich:dataTable>
+      </rich:panel>
+      <rich:toolBar>
+        <rich:toolBarGroup location="left">
+          <h:panelGroup id="sendingState" rendered="#{s:hasRole('newsmgr')}">
+            <h:outputText value="Sending State: " />
+            <h:outputText value="#{newsLetter.sendingState}" />
+          </h:panelGroup>
+          <h:panelGroup id="sendMailingControls" rendered="#{s:hasRole('newsmgr')}">
+            <h:graphicImage value="/img/icons/emailButton.png" />
+            <h:outputText value=" " />
+            <h:commandButton id="sendMailing" action="#{newsLetterHome.send2MailingList}"
+              onclick="return confirmSend()" value="Send Mailing" rendered="#{s:hasRole('newsmgr')}"
+              disabled="#{not (newsLetter.readyForAnnouncement)}">
+            </h:commandButton>
+          </h:panelGroup>
+          <h:panelGroup id="markAsSentControls" rendered="#{s:hasRole('newsmgr')}">
+            <h:graphicImage value="/img/icons/emailButton.png" />
+            <h:outputText value=" " />
+            <h:commandButton id="markAsSent" action="#{newsLetterHome.markAsSent}" value="Mark All As Sent"
+              rendered="#{s:hasRole('newsmgr')}" disabled="#{not (newsLetter.readyForAnnouncement)}">
+            </h:commandButton>
+          </h:panelGroup>
+        </rich:toolBarGroup>
+      </rich:toolBar>
+    </h:form>
+
+  </ui:define>
+</ui:composition>

@@ -1,0 +1,179 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" template="layout/template.xhtml">
+
+  <ui:define name="body">
+
+    <rich:panel width="100%">
+      <f:facet name="header">
+        <h:outputText value="#{assocMember.assocName}"></h:outputText>
+      </f:facet>
+      <h:form id="editForm" enctype="multipart/form-data">
+        <f:facet name="beforeInvalidField">
+          <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+        </f:facet>
+        <f:facet name="aroundInvalidField">
+          <s:span styleClass="errors" />
+        </f:facet>
+        <f:facet name="afterInvalidField">
+          <s:span>&#160;<s:message styleClass="errors" />
+          </s:span>
+        </f:facet>
+
+        <s:validateAll>
+
+
+          <h:panelGrid id="panel" columns="3" width="100%">
+            <rich:panel bodyClass="panelbody" width="33%">
+              <f:facet name="header">
+                <h:outputText value="Address"></h:outputText>
+              </f:facet>
+              <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+                <h:outputText value="#{messages.AssocMember_AssocName}:" />
+                <s:decorate id="assocNameDecorate">
+                  <h:inputText id="assocName" value="#{assocMember.assocName}" required="true" />
+                </s:decorate>
+
+                <h:outputText value="#{messages.AssocMember_Address}:" />
+                <s:decorate id="addressDecorate">
+                  <h:inputText id="address" value="#{assocMember.address}" />
+                </s:decorate>
+
+                <h:outputText value="#{messages.AssocMember_AptOrSuite}:" />
+                <s:decorate id="aptOrSuiteDecorate">
+                  <h:inputText id="aptOrSuite" value="#{assocMember.aptOrSuite}" />
+                </s:decorate>
+
+                <h:outputText value="#{messages.AssocMember_City}:" />
+                <s:decorate id="cityDecorate">
+                  <h:inputText id="city" value="#{assocMember.city}" />
+                </s:decorate>
+
+                <h:outputText value="#{messages.AssocMember_Zip}:" />
+                <s:decorate id="zipDecorate">
+                  <h:inputText id="zip" value="#{assocMember.zip}" />
+                </s:decorate>
+
+                <h:outputText value="#{messages.AssocMember_State}:" />
+                <h:selectOneMenu id="stateMenu" value="#{assocMember.state}" required="true">
+                  <s:selectItems value="#{codeList.USStateCodesAsStrings}" var="uscode" label="#{uscode}"
+                    noSelectionLabel="Select a State..." />
+                </h:selectOneMenu>
+
+                <h:outputText value="#{messages.AssocMember_Country}:" />
+                <s:decorate id="countryDecorate">
+                  <h:inputText id="country" value="#{assocMember.country}" />
+                </s:decorate>
+
+              </h:panelGrid>
+            </rich:panel>
+
+
+            <rich:panel bodyClass="panelbody" width="33%">
+              <f:facet name="header">
+                <h:outputText value="Communicate:"></h:outputText>
+              </f:facet>
+              <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+                <h:outputText value="#{messages.AssocMember_HomePhone}:" />
+                <s:decorate id="homePhoneDecorate">
+                  <h:inputText id="homePhone" value="#{assocMember.homePhone}" />
+                </s:decorate>
+
+                <h:outputText value="#{messages.AssocMember_InTheCitySince}:" />
+                <s:decorate id="inTheCitySinceDecorate">
+                  <h:inputText id="inTheCitySince" value="#{assocMember.inTheCitySince}" required="false">
+                    <s:convertDateTime pattern="yyyy" />
+                  </h:inputText>
+                </s:decorate>
+
+                <h:outputText value="#{messages.AssocMember_UseUSPS}:" />
+                <s:decorate id="useUSPSDecorate">
+                  <h:selectBooleanCheckbox id="useUSPS" value="#{assocMember.useUSPS}" />
+                </s:decorate>
+
+                <h:outputText value="#{messages.AssocMember_Email}:" />
+                <s:decorate id="emailDecorate">
+                  <h:inputText id="email" value="#{assocMember.email}" />
+                </s:decorate>
+
+                <h:outputText value="#{messages.AssocMember_UseEMail}:" />
+                <s:decorate id="useEMailDecorate">
+                  <h:selectBooleanCheckbox id="useEMail" value="#{assocMember.useEMail}" />
+                </s:decorate>
+
+                <h:outputText value="#{messages.AssocMember_Nation1}:" />
+                <s:decorate id="nation1Decorate">
+                  <h:selectOneMenu id="nation1" value="#{assocMember.nation1}" required="true">
+                    <s:selectItems value="#{codeList.UNCountryCodes}" var="uncode" label="#{uncode}"
+                      noSelectionLabel="Select a Country..." />
+                    <s:convertEnum />
+                  </h:selectOneMenu>
+                </s:decorate>
+
+                <h:outputText value="#{messages.AssocMember_Nation2}:" />
+                <s:decorate id="nation2Decorate">
+                  <h:selectOneMenu id="nation2" value="#{assocMember.nation2}" required="true">
+                    <s:selectItems value="#{codeList.UNCountryCodes}" var="uncode" label="#{uncode}"
+                      noSelectionLabel="Select a Country..." />
+                    <s:convertEnum />
+                  </h:selectOneMenu>
+                </s:decorate>
+
+              </h:panelGrid>
+            </rich:panel>
+          </h:panelGrid>
+          <rich:panel bodyClass="panelbody" width="100%" rendered="#{assocMemberHome.managed}">
+            <f:facet name="header">
+              <h:outputText value="Image:"></h:outputText>
+            </f:facet>
+            <s:graphicImage fileName="editAssocMember-#{assocMember.id}" value="#{assocMember.picture.data}">
+              <s:transformImageSize width="100" maintainRatio="true" />
+            </s:graphicImage>
+            <h:outputLabel for="picture">Select an new image</h:outputLabel>
+            <s:fileUpload id="picture" data="#{assocMemberHome.uploadedData}" accept="images/*"
+              fileName="#{assocMemberHome.uploadedFileName}"
+              contentType="#{assocMemberHome.uploadedContentType}" />
+            <h:commandButton value="Upload New Image" action="#{assocMemberHome.uploadImage}" />
+          </rich:panel>
+
+        </s:validateAll>
+
+        <!-- actions -->
+        <rich:toolBar>
+          <rich:toolBarGroup>
+            <h:panelGroup id="updateAssocMemberControls" rendered="#{assocMemberHome.managed}">
+              <h:graphicImage value="/img/icons/save2-16.png" />
+              <h:outputText value=" " />
+              <h:commandLink id="updateAssocMember" action="#{assocMemberHome.update}" value="Update Member"
+                rendered="#{assocMemberHome.managed}" />
+            </h:panelGroup>
+            <h:panelGroup id="cancelManagedControls" rendered="#{assocMemberHome.managed}">
+              <h:graphicImage value="/img/icons/close16.png" />
+              <h:outputText value=" " />
+              <s:link id="cancelManaged" view="/viewAssocMember.xhtml" value="Cancel"
+                rendered="#{assocMemberHome.managed}" />
+            </h:panelGroup>
+            <h:panelGroup id="createAssocMemberControls" rendered="#{!assocMemberHome.managed}">
+              <h:graphicImage value="/img/icons/save2-16.png" />
+              <h:outputText value=" " />
+              <h:commandLink id="createAssocMember" action="#{assocMemberHome.persist}" value="Create Member"
+                rendered="#{!assocMemberHome.managed}" />
+            </h:panelGroup>
+            <h:panelGroup id="cancel2ManagedControls" rendered="#{!assocMemberHome.managed}">
+              <h:graphicImage value="/img/icons/cancel16.png" />
+              <h:outputText value=" " />
+              <s:link id="cancel" view="/searchAssocMember.xhtml" value="Cancel"
+                rendered="#{!assocMemberHome.managed}" />
+            </h:panelGroup>
+          </rich:toolBarGroup>
+        </rich:toolBar>
+
+      </h:form>
+    </rich:panel>
+
+  </ui:define>
+</ui:composition>

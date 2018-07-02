@@ -1,0 +1,67 @@
+<m:message xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:m="http://jboss.com/products/seam/mail"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
+
+  <m:from name="FACCDallas" address="do-not-reply@faccdallas.com" />
+  <m:to name="#{amember.assocName}">#{amember.email}</m:to>
+  <m:subject>Event announcement: #{clubEvent.title}</m:subject>
+  <ui:repeat value="#{clubEvent.attachments}" var="attachmentFile">
+    <m:attachment value="#{attachmentFile.data}" contentType="#{attachmentFile.contentType}"
+      fileName="#{attachmentFile.fileName}" />
+  </ui:repeat>
+  <m:body>
+    <p>
+      <h:outputText value="Cher(e) Adherent(e) #{amember.assocName}" />
+      ,
+    </p>
+    <p />
+    <h:outputText escape="false" value="#{clubEvent.ARefCheckedContent}" />
+    <p />
+    <hr width="90%" />
+    <p />
+    <p>
+      <u>Info pratiques</u>
+    </p>
+    <p />
+    <h:panelGrid columns="2">
+      <h:outputText style="font-weight:bold" value="Inscription:" />
+      <h:panelGroup>
+        <a href="#{registrationLink}">S'enregistrer</a>
+      </h:panelGroup>
+
+      <h:outputText style="font-weight:bold" value="Hote:" />
+      <h:panelGroup>
+        <a href="#{clubEvent.locationLink}">#{clubEvent.hostName}</a>
+      </h:panelGroup>
+
+      <h:outputText style="font-weight:bold" value="" />
+      <h:outputText value="#{clubEvent.address}" />
+
+      <h:outputText style="font-weight:bold" value="" />
+      <h:panelGroup>
+        <h:outputText value="#{clubEvent.city}, " />
+        <h:outputText value="#{clubEvent.state} " />
+        <h:outputText value="#{clubEvent.zip}" />
+      </h:panelGroup>
+
+      <h:outputText style="font-weight:bold" value="Date:" />
+      <h:outputText value="#{clubEvent.startTime}">
+        <f:convertDateTime type="both" dateStyle="full" timeStyle="short" timeZone="CST" locale="fr" />
+      </h:outputText>
+
+      <h:outputText style="font-weight:bold" value="Date:" />
+      <h:outputText value="#{clubEvent.startTime}">
+        <f:convertDateTime type="both" dateStyle="full" timeStyle="short" timeZone="CST" locale="en" />
+      </h:outputText>
+
+      <h:outputText style="font-weight:bold" value="Tel:" />
+      <h:outputText value="#{clubEvent.phone}" />
+    </h:panelGrid>
+    <hr width="90%" />
+    <p />
+    <p>
+      Cordialement,<br /> Le Comite de Dallas Accueil
+    </p>
+    <p />
+  </m:body>
+</m:message>

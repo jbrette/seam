@@ -1,0 +1,81 @@
+<h:form xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j" itemSeparator="line">
+	
+	<h:panelGrid id="headerPart1" columns="2"  
+				columnClasses="leftHeaderColumn,rightHeaderColumn"
+				style="width : 100%; padding : 0px 20px">
+		<h:panelGroup id="langue">
+			<h:commandButton id="toEnglish"
+				action="#{globals.selectLanguage('en')}" value="ENGLISH" />
+			<h:outputText value="#{messages.panelg_separator}" escape="false" />
+			<h:commandButton id="toFrench"
+				action="#{globals.selectLanguage('fr')}" value="FRANÇAIS" />
+			<h:outputText value="#{messages.panelg_separator}" escape="false" />
+			<h:selectOneMenu value="#{globals.skin}" onchange="submit()">
+				<f:selectItem itemLabel="Blue Sky" itemValue="blueSky" />
+				<f:selectItem itemLabel="Wine" itemValue="wine" />
+				<f:selectItem itemLabel="Ruby" itemValue="ruby" />
+				<f:selectItem itemLabel="Japan Cherry" itemValue="japanCherry" />
+				<f:selectItem itemLabel="Emerald Town" itemValue="emeraldTown" />
+				<f:selectItem itemLabel="Default" itemValue="DEFAULT" />
+				<f:selectItem itemLabel="Deep Marine" itemValue="deepMarine" />
+				<f:selectItem itemLabel="Classic" itemValue="classic" />
+			</h:selectOneMenu>
+		</h:panelGroup>
+		<h:panelGroup id="guestHeaderControls"
+			rendered="#{not identity.loggedIn}">
+			<h:graphicImage value="/img/icons/user_silhouette.png" />
+			<h:outputText value="&#160;" />
+			<s:link id="loginLink" view="/includes/security/login.xhtml"
+				value="#{messages.login}" rel="nofollow">
+			</s:link>
+			<h:outputText value="#{messages.panelg_separator}" escape="false"
+				rendered="#{s:hasRole('admin')}" />
+			<h:outputLink value="#" id="registerLink"
+				rendered="#{s:hasRole('admin')}" rel="nofollow">
+				<h:outputText value="#{messages.register}" />
+				<rich:componentControl for="registerPanel" attachTo="registerLink"
+					operation="show" event="onclick" />
+			</h:outputLink>
+		</h:panelGroup>
+		<h:panelGroup id="authenticatedHeaderControls"
+			rendered="#{identity.loggedIn}">
+			<h:graphicImage value="/img/icons/user_silhouette.png" />
+			<h:outputText value="&#160;" />
+			<h:outputText value="#{authenticatedMember.assocName}" />
+			<h:outputText value="#{messages.panelg_separator}" escape="false" />
+			<s:link value="#{messages.logout}" id="logoutLink"
+				action="#{identity.logout}" />
+			<h:outputText value="#{messages.panelg_separator}" escape="false" />
+			<s:link id="profile" view="/viewAssocMember.xhtml"
+				value="#{messages.myprofile}" rendered="#{not currentUser.temporaryPassword}">
+				<f:param name="pagesAssocMemberId" value="#{authenticatedMember.id}" />
+			</s:link>
+			<s:link id="chgPasswd" view="/includes/security/login.xhtml"
+				value="#{messages.chngpswd}" rendered="#{currentUser.temporaryPassword}">
+			</s:link>
+		</h:panelGroup>
+	</h:panelGrid>
+	
+	<h:panelGrid id="headerPart2" columns="2">
+		<h:panelGroup id="ban21" style="padding : 0px 10px">
+			<img border="0" alt="USA, Dallas"
+				src="#{facesContext.externalContext.requestContextPath}/img/sponsors/logo_assocvide.png" width="400" height="130" />
+		</h:panelGroup>
+		<h:panelGroup id="ban22" style="padding : 0px 10px">
+		  <object width="570" height="130"
+            classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
+            <param name="movie" value="#{facesContext.externalContext.requestContextPath}/img/sponsors/flash.swf" />
+            <param name="quality" value="195" />
+            <embed width="570" height="130" src="#{facesContext.externalContext.requestContextPath}/img/sponsors/flash.swf"
+                quality="high" type="application/x-shockwave-flash"
+                pluginspage="http://www.macromedia.com/go/getflashplayer" /> </object>
+		</h:panelGroup>
+	</h:panelGrid>
+
+</h:form>

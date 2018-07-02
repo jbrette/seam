@@ -1,0 +1,219 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a4j="http://richfaces.org/a4j" template="/layout/template.xhtml">
+
+  <ui:define name="body">
+    <script type="text/javascript">
+    function confirmDelete()
+    {
+       return confirm("#{messages.jscript_confirmDelete}");
+    }
+    </script>
+
+    <rich:panel bodyClass="panelbody" width="100%">
+      <f:facet name="header">
+        <h:outputText value="#{webPage.name}"></h:outputText>
+      </f:facet>
+      <h:panelGrid columns="2">
+        <h:outputText value="#{messages.WebPage_Name}:" />
+        <h:outputText id="webPageName" value="#{webPage.name}" required="true" />
+
+        <h:outputText value="#{messages.WebPage_CKind}:" />
+        <h:outputText value="#{webPage.CKind}" />
+
+        <h:outputText value="#{messages.WebPage_Description}:" />
+        <h:outputText id="webPageLayout" value="#{webPage.layout}" required="true" />
+
+        <h:outputText value="#{messages.WebPage_MenuPosition}:" />
+        <h:outputText id="webPageMenuPosition" value="#{webPage.menuPosition}" required="true" />
+
+        <h:outputText value="#{messages.WebPage_ColumnSizes}:" />
+        <h:panelGroup>
+          <h:outputText id="webPageLeftColumnSize" value="#{webPage.leftColumnSize}" required="true" />
+          <h:outputText value="#{messages.panelg_separator}" escape="false" />
+          <h:outputText id="webPageCenterColumnSize" value="#{webPage.centerColumnSize}" required="true" />
+          <h:outputText value="#{messages.panelg_separator}" escape="false" />
+          <h:outputText id="webPageRightColumnSize" value="#{webPage.rightColumnSize}" required="true" />
+        </h:panelGroup>
+
+      </h:panelGrid>
+    </rich:panel>
+
+    <!-- actions -->
+    <rich:toolBar>
+      <rich:toolBarGroup location="left">
+        <h:panelGroup id="editWebPageControls" rendered="#{s:hasRole('webcontentmgr') or s:hasRole('admin')}">
+          <h:graphicImage value="/img/icons/edit16.png" />
+          <h:outputText value=" " />
+          <s:link id="editWebPage" view="/includes/webcontent/editWebPage.xhtml"
+            value="#{messages.viewWebPage_btn_editWebPage}"
+            rendered="#{s:hasRole('webcontentmgr') or s:hasRole('admin')}" />
+        </h:panelGroup>
+        <h:panelGroup id="cancelWebPageControls">
+          <h:graphicImage value="/img/icons/close16.png" />
+          <h:outputText value=" " />
+          <s:link id="closeWebPage" view="/includes/webcontent/searchWebPage.xhtml"
+            value="#{messages.viewWebPage_btn_closeWebPage}" />
+        </h:panelGroup>
+      </rich:toolBarGroup>
+    </rich:toolBar>
+
+    <rich:panel>
+      <f:facet name="header">
+        <h:outputText value="Active Articles"></h:outputText>
+      </f:facet>
+      <h:form id="activeForm">
+
+        <rich:dataTable value="#{webPage.activeArticles}" var="carticle" id="articleTable"
+          rowClasses="datagridrow1, datagridrow2" width="100%">
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Title" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{carticle.title}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Subject" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{carticle.subject}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Column In Page" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{carticle.columnInPage}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Order In Column" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{carticle.orderInPage}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Author" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{carticle.author.assocName}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Date" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{carticle.textDate}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Approved" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{carticle.visible}" />
+          </rich:column>
+          <rich:column id="action" width="auto" rendered="#{s:hasRole('webcontentmgr')}">
+            <f:facet name="header">
+                         Action
+                       </f:facet>
+            <s:fragment rendered="#{s:hasRole('webcontentmgr') or s:hasRole('admin')}">
+              <s:link id="editArticle" value="#{messages.viewWebPage_btn_editArticle}"
+                view="/includes/webcontent/editArticle.xhtml">
+                <f:param name="pagesWebPageId" value="#{carticle.webPage.id}" />
+                <f:param name="pagesArticleId" value="#{carticle.id}" />
+              </s:link>
+              <span> | </span>
+            </s:fragment>
+            <s:link id="deleteArticle" value="Delete" view="/includes/webcontent/editArticle.xhtml"
+              rendered="#{s:hasRole('boggus')}" onclick="return confirmDelete()">
+              <f:param name="pagesWebPageId" value="#{carticle.webPage.id}" />
+              <f:param name="pagesArticleId" value="#{carticle.id}" />
+            </s:link>
+          </rich:column>
+        </rich:dataTable>
+        <rich:toolBar>
+          <rich:toolBarGroup location="left">
+            <h:panelGroup id="addArticleControls" rendered="#{s:hasRole('webcontentmgr') or s:hasRole('admin')}">
+              <h:graphicImage value="/img/icons/add1-16.png" />
+              <h:outputText value=" " />
+              <h:commandLink id="createWebPageArticle" action="#{articleHome.persist}"
+                value="#{messages.viewWebPage_btn_addArticle}"
+                rendered="#{s:hasRole('webcontentmgr') or s:hasRole('admin')}" />
+            </h:panelGroup>
+          </rich:toolBarGroup>
+        </rich:toolBar>
+      </h:form>
+    </rich:panel>
+
+    <rich:panel>
+      <f:facet name="header">
+        <h:outputText value="Archived Articles"></h:outputText>
+      </f:facet>
+      <h:form id="archivedForm">
+
+        <rich:dataTable value="#{webPage.archivedArticles}" var="carticle" id="articleTable"
+          rowClasses="datagridrow1, datagridrow2" width="100%">
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Title" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{carticle.title}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Subject" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{carticle.subject}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Column In Page" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{carticle.columnInPage}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Order In Column" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{carticle.orderInPage}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Author" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{carticle.author.assocName}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Date" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{carticle.textDate}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Approved" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{carticle.visible}" />
+          </rich:column>
+          <rich:column id="action" width="auto" rendered="#{s:hasRole('webcontentmgr')}">
+            <f:facet name="header">
+                         Action
+                       </f:facet>
+            <s:fragment rendered="#{s:hasRole('webcontentmgr') or s:hasRole('admin')}">
+              <s:link id="editArticle" value="#{messages.viewWebPage_btn_editArticle}"
+                view="/includes/webcontent/editArticle.xhtml">
+                <f:param name="pagesWebPageId" value="#{carticle.webPage.id}" />
+                <f:param name="pagesArticleId" value="#{carticle.id}" />
+              </s:link>
+              <span> | </span>
+            </s:fragment>
+            <s:link id="deleteArticle" value="Delete" view="/includes/webcontent/editArticle.xhtml"
+              rendered="#{s:hasRole('boggus')}" onclick="return confirmDelete()">
+              <f:param name="pagesWebPageId" value="#{carticle.webPage.id}" />
+              <f:param name="pagesArticleId" value="#{carticle.id}" />
+            </s:link>
+          </rich:column>
+        </rich:dataTable>
+      </h:form>
+    </rich:panel>
+  </ui:define>
+</ui:composition>

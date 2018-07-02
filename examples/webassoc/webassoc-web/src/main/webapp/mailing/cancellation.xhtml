@@ -1,0 +1,53 @@
+<m:message xmlns="http://www.w3.org/1999/xhtml" xmlns:m="http://jboss.com/products/seam/mail"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
+
+  <m:from name="#{doNotReplyName}" address="#{doNotReplyAddr}" />
+  <m:to name="#{registration.member.assocName}">#{registration.member.email}</m:to>
+  <m:bcc name="EventContact">#{registration.event.eventContact.assocMember.email}</m:bcc>
+  <m:subject>Cancellation Message for #{registration.event.title}</m:subject>
+  <m:body>
+    <p>
+      <h:outputText value="Cher(e) Adherent(e) #{registration.member.assocName}" />
+      ,
+    </p>
+
+    <p>Le responsable de l'evenement ou vous meme venez d'annuler l'inscription des personnes suivantes :</p>
+    <ul>
+      <ui:repeat value="#{registration.tickets}" var="ticket">
+        <li><h:outputText value="${ticket.lastName} ${ticket.firstName}" />
+        </li>
+      </ui:repeat>
+    </ul>
+    <p>
+      a :
+      <h:outputText value=" #{registration.event.title}" />
+    </p>
+    <p />
+    <p>
+      Cordialement,<br /> Dallas Accueil.
+    </p>
+    <hr width="100%" />
+    <p>
+      <h:outputText value="Dear Member #{registration.member.assocName}" />
+      ,
+    </p>
+    <p>The event contact or yourself just cancelled the registration of the following persons:</p>
+    <ul>
+      <ui:repeat value="#{registration.tickets}" var="ticket">
+        <li><h:outputText value="${ticket.lastName} ${ticket.firstName}" />
+        </li>
+      </ui:repeat>
+    </ul>
+    <p>
+      to:
+      <h:outputText value=" #{registration.event.title}" />
+    </p>
+
+    <p>
+      Best Regards,<br /> Dallas Accueil.
+    </p>
+    <p />
+    <p />
+    <hr width="100%" />
+  </m:body>
+</m:message>

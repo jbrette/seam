@@ -1,0 +1,63 @@
+<h:form xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:s="http://jboss.com/products/seam/taglib" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a="http://richfaces.org/a4j" itemSeparator="line" style="height: 175px">
+  <s:div styleClass="headerPart1">
+    <h:panelGrid id="headerPart1" columns="3" style="width : 90%; padding : 0px 20px">
+      <h:panelGroup id="langue">
+        <h:commandButton id="toEnglish" action="#{globals.selectLanguage('en')}" value="ENGLISH" />
+        <h:outputText value="#{messages.panelg_separator}" escape="false" />
+        <h:commandButton id="toFrench" action="#{globals.selectLanguage('fr')}" value="FRANÇAIS" />
+      </h:panelGroup>
+      <h:panelGroup id="guestHeaderControls" rendered="#{not identity.loggedIn}">
+        <h:graphicImage value="/img/icons/user_silhouette.png" />
+        <h:outputText value="&#160;" />
+        <s:link id="loginLink" view="/includes/security/login.xhtml" value="#{messages.login}" rel="nofollow">
+        </s:link>
+        <h:outputText value="#{messages.panelg_separator}" escape="false" rendered="#{s:hasRole('admin')}" />
+        <h:outputLink value="#" id="registerLink" rendered="#{s:hasRole('admin')}" rel="nofollow">
+          <h:outputText value="#{messages.register}" />
+          <rich:componentControl for="registerPanel" attachTo="registerLink" operation="show" event="onclick" />
+        </h:outputLink>
+      </h:panelGroup>
+      <h:panelGroup id="authenticatedHeaderControls" rendered="#{identity.loggedIn}">
+        <h:graphicImage value="/img/icons/user_silhouette.png" />
+        <h:outputText value="&#160;" />
+        <h:outputText value="#{authenticatedMember.assocName}" />
+        <h:outputText value="#{messages.panelg_separator}" escape="false" />
+        <s:link value="#{messages.logout}" id="logoutLink" action="#{identity.logout}" />
+        <h:outputText value="#{messages.panelg_separator}" escape="false" />
+        <s:link id="profile" view="/viewAssocMember.xhtml" value="#{messages.myprofile}">
+          <f:param name="pagesAssocMemberId" value="#{authenticatedMember.id}" />
+        </s:link>
+
+      </h:panelGroup>
+      <h:panelGroup id="recherche">
+        <h:panelGrid id="tab_recherche" columns="3" border="0" cellspacing="0" cellpadding="0" align="right">
+          <input class="rech" onfocus="this.value='';" value="Search" type="text" name="tx_indexedsearch[sword]" />
+          <input class="ok" value="GO" type="submit" name="tx_indexedsearch[submit_button]" />
+        </h:panelGrid>
+      </h:panelGroup>
+    </h:panelGrid>
+  </s:div>
+  <h:panelGrid id="headerPart2" columns="1" styleClass="headerPart2">
+    <h:panelGroup id="ban1">
+      <h:outputText styleClass="headerFont"
+        value="French-American Chamber of Commerce - Dallas-Fort Worth Chapter" />
+
+    </h:panelGroup>
+    <h:panelGroup id="ban2" style="padding : 0px 20px">
+      <img border="0" alt="USA, Dallas"
+        src="#{facesContext.externalContext.requestContextPath}/img/sponsors/logo_assocvide.png" width="249"
+        height="110" />
+      <object width="534" height="110" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
+        <param name="movie" value="#{facesContext.externalContext.requestContextPath}/flash/ban_dec_fr.swf" />
+        <param name="quality" value="high" />
+        <embed width="534" height="110"
+          src="#{facesContext.externalContext.requestContextPath}/flash/ban_dec_fr.swf" quality="high"
+          type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+      </object>
+    </h:panelGroup>
+  </h:panelGrid>
+
+</h:form>

@@ -1,0 +1,55 @@
+                			<!-- h:selectOneMenu value="#{clubEvent.eventCoordinator}" -->
+                			<!-- s:convertEntity -->
+                			<!-- s:selectItems value="#{clubMembershipHome.membersOfClub}" var="mship" label="#{mship.member.lastName} #{mship.member.firstName}" -->
+                			<!-- h:selectOneMenu -->
+                			
+                			
+<h:outputText value="#{messages.toobar_separator}" escape="false"/>
+<a:commandLink id="prefLink" action="#{updatePreferencesAction.beginEditPreferences(currentUser.accountId)}" oncomplete="#{rich:component('prefPanel')}.show()" value="#{messages.preferences}"/>
+ 
+ 
+ 
+         <rich:dropDownMenu rendered="#{s:hasRole('admin')}">
+            <f:facet name="label"> 
+                <h:panelGroup>
+                    <h:graphicImage value="/img/icons/copy.gif" styleClass="pic"/>
+                    <h:outputText value="#{messages.Menu_File}"/>
+                </h:panelGroup>
+            </f:facet>
+            <rich:menuItem submitMode="none">
+				<s:link view="/buildPage.xhtml" id="home" 
+					propagation="none" value="Home" >							
+					<f:param name="pagesSearchFieldsCurrentPage" value="home" />
+				</s:link>
+			</rich:menuItem>
+            <rich:menuItem submitMode="ajax" value="New"
+                action="#{ddmenu.doNew}" icon="/img/icons/create_doc.gif">
+            </rich:menuItem>
+            <rich:menuItem submitMode="ajax" value="Open"
+                action="#{ddmenu.doOpen}" icon="/img/icons/open.gif" />
+            <rich:menuGroup value="Save As...">
+                <rich:menuItem submitMode="ajax" value="Save" 
+                    action="#{ddmenu.doSave}" icon="/img/icons/save.gif" />
+                <rich:menuItem submitMode="ajax" value="Save All"
+                    action="#{ddmenu.doSaveAll}">
+                    <f:facet name="icon">
+                        <h:graphicImage value="/img/icons/save_all.gif" />
+                    </f:facet>
+                </rich:menuItem>
+            </rich:menuGroup>
+            <rich:menuItem submitMode="ajax" value="Close"
+                action="#{ddmenu.doClose}" />
+            <rich:menuSeparator id="menuSeparator11" />
+            <rich:menuItem submitMode="ajax" value="Exit"
+                action="#{ddmenu.doExit}" />
+
+        </rich:dropDownMenu>
+      
+      
+
+        
+  	<security:jpa-token-store token-class="org.jboss.seam.example.webassoc.security.AccountAutoLoginToken"/>
+ 	<security:remember-me mode="autoLogin"/>
+        
+        
+             			

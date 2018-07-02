@@ -1,0 +1,95 @@
+package SeamSpacePermissions;
+
+dialect 'mvel'
+
+import java.security.Principal;
+
+import org.jboss.seam.security.permission.PermissionCheck;
+import org.jboss.seam.security.permission.RoleCheck;
+import org.jboss.seam.security.Role;
+
+import org.jboss.seam.example.webassoc.mship.AssocMember;
+import org.jboss.seam.example.webassoc.clubs.Club;
+import org.jboss.seam.example.webassoc.security.AccountMember;
+
+#*****************************************************************************************
+#  These rules allow members to manage permissions on their own images
+#*****************************************************************************************
+
+rule ManageClubPermissions
+  no-loop
+  activation-group "permissions"
+when
+  club: Club()
+  check: PermissionCheck(target == club, action == "seam.read-permissions", granted == false)
+then
+  check.grant();
+end
+
+rule GrantClubPermissions
+  no-loop
+  activation-group "permissions"
+when
+  club: Club()
+  check: PermissionCheck(target == club, action == "seam.grant-permission", granted == false)
+then
+  check.grant();
+end
+
+rule RevokeClubPermissions
+  no-loop
+  activation-group "permissions"
+when
+  club: Club()
+  check: PermissionCheck(target == club, action == "seam.revoke-permission", granted == false)
+then
+  check.grant();
+end
+
+#*****************************************************************************************
+#  Allow all users to read the available roles
+#*****************************************************************************************
+
+rule ReadRoles
+  no-loop
+  activation-group "permissions"
+when
+  check: PermissionCheck(target == "seam.role", action == "read", granted == false)
+  Role(name == "user")
+then
+  check.grant();
+end
+
+rule CreateAccount
+  no-loop
+  activation-group "permissions"
+when
+  check: PermissionCheck(target == "seam.account", action == "create", granted == false)
+  Role(name == "admin")
+then
+  check.grant();
+end
+
+#*****************************************************************************************
+#  The Following Rules are for Identity Management
+#*****************************************************************************************
+
+rule ManageUsers
+  no-loop
+  activation-group "permissions"
+when
+  check: PermissionCheck(target == "seam.user", granted == false)
+  Role(name == "admin")
+then
+  check.grant();
+end
+
+rule ManageRoles
+  no-loop
+  activation-group "permissions"
+when
+  check: PermissionCheck(target == "seam.role", granted == false)
+  Role(name == "admin")
+then
+  check.grant();
+end

@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://beust.com/testng/testng-1.0.dtd" >
+
+<suite name="AssocMember List" verbose="2" parallel="false">
+
+   <test name="AssocMember List">
+     <classes>
+       <class name="org.jboss.seam.example.webassoc.test.WebAssocTest"/>
+     </classes>
+   </test>
+	
+</suite>

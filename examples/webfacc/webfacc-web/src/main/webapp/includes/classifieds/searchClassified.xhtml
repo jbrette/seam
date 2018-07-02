@@ -1,0 +1,131 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a4j="http://richfaces.org/a4j" xmlns:e="http://jboss.com/products/seam/excel"
+  template="/layout/template.xhtml">
+
+  <ui:define name="body">
+
+    <div class="body">
+      <div class="dialog">
+        <h:form id="searchForm">
+          <f:facet name="beforeInvalidField">
+            <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+          </f:facet>
+          <f:facet name="aroundInvalidField">
+            <s:span styleClass="errors" />
+          </f:facet>
+          <f:facet name="afterInvalidField">
+            <s:span>&#160;<s:message styleClass="errors" />
+            </s:span>
+          </f:facet>
+
+          <span class="prop"> <span class="name">Classified Title :</span> <span class="value"><h:inputText
+                id="name" value="#{globals.searchedString}" />
+          </span> </span>
+
+          <!--   <a4j:commandButton value="Search" reRender="searchResults" action="#{excelTest.search}" /> -->
+          <h:commandButton id="submit" value="Search" action="newsearch" />
+
+          <!-- search results -->
+          <a4j:outputPanel id="searchResult">
+            <rich:dataTable value="#{classifieds.resultList}" var="fclassified"
+              rendered="#{!empty classifieds.resultList}" id="classifiedTable"
+              rowClasses="datagridrow1, datagridrow2" width="100%">
+              <rich:column>
+                <f:facet name="header">
+                  <h:outputText value="#{messages.Classified_Title}" />
+                </f:facet>
+                <s:link id="link2" view="/includes/classifieds/editClassified.xhtml"
+                  value="#{fclassified.title}">
+                  <f:param name="pagesClassifiedId" value="#{fclassified.id}" />
+                </s:link>
+              </rich:column>
+              <rich:column>
+                <f:facet name="header">
+                  <h:outputText value="#{messages.Classified_Visible}" />
+                </f:facet>
+                <h:outputText value="#{fclassified.visible}" />
+              </rich:column>
+              <rich:column>
+                <f:facet name="header">
+                  <h:outputText value="#{messages.Classified_Kind}" />
+                </f:facet>
+                <h:outputText value="#{fclassified.CKind}" />
+              </rich:column>
+              <rich:column>
+                <f:facet name="header">
+                  <h:outputText value="#{messages.Classified_Date}" />
+                </f:facet>
+                <h:outputText value="#{fclassified.date}" />
+              </rich:column>
+              <rich:column>
+                <f:facet name="header">
+                  <h:outputText value="#{messages.Classified_HomePhone}" />
+                </f:facet>
+                <h:outputText value="#{fclassified.homePhone}" />
+              </rich:column>
+              <rich:column>
+                <f:facet name="header">
+                  <h:outputText value="#{messages.Classified_CellPhone}" />
+                </f:facet>
+                <h:outputText value="#{fclassified.cellPhone}" />
+              </rich:column>
+              <rich:column>
+                <f:facet name="header">
+                  <h:outputText value="#{messages.Classified_Email}" />
+                </f:facet>
+                <h:outputText value="#{fclassified.email}" />
+              </rich:column>
+            </rich:dataTable>
+          </a4j:outputPanel>
+        </h:form>
+      </div>
+
+      <br />
+
+      <!-- pagination control -->
+      <rich:toolBar id="searchBottomBar" itemSeparator="disc">
+        <rich:toolBarGroup>
+          <h:panelGroup id="addClassifiedControls" rendered="#{s:hasRole('webcontentmgr')}">
+            <h:graphicImage value="/img/icons/add1-16.png" />
+            <h:outputText value=" " />
+            <s:link id="create" view="/includes/classifieds/editClassified.xhtml" value="Create New Classified"
+              rendered="#{s:hasRole('webcontentmgr')}">
+              <f:param name="pageClassifiedId" />
+              <!-- suppress propagation of assocMember id page parameter -->
+            </s:link>
+          </h:panelGroup>
+        </rich:toolBarGroup>
+
+        <rich:toolBarGroup location="right">
+
+          <s:link view="/includes/classifieds/searchClassified.xhtml" rendered="#{classifieds.previousExists}"
+            value="&lt;&lt; First Page">
+            <f:param name="pagesFirstResult" value="0" />
+          </s:link>
+
+          <s:link view="/includes/classifieds/searchClassified.xhtml" rendered="#{classifieds.previousExists}"
+            value="&lt; Previous Page">
+            <f:param name="pagesFirstResult" value="#{classifieds.previousFirstResult}" />
+          </s:link>
+
+          <s:link view="/includes/classifieds/searchClassified.xhtml" rendered="#{classifieds.nextExists}"
+            value="Next Page &gt;">
+            <f:param name="pagesFirstResult" value="#{classifieds.nextFirstResult}" />
+          </s:link>
+
+          <s:link view="/includes/classifieds/searchClassified.xhtml" rendered="#{classifieds.nextExists}"
+            value="Last Page &gt;&gt;">
+            <f:param name="pagesFirstResult" value="#{classifieds.lastFirstResult}" />
+          </s:link>
+
+        </rich:toolBarGroup>
+      </rich:toolBar>
+    </div>
+
+
+  </ui:define>
+</ui:composition>

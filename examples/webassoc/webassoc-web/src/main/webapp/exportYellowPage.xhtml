@@ -1,0 +1,111 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a4j="http://richfaces.org/a4j" xmlns:e="http://jboss.com/products/seam/excel"
+  template="layout/template.xhtml">
+
+  <ui:define name="body">
+
+    <h:form id="searchForm">
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+
+      <h:outputText value="#{messages.panelg_separator}" escape="false"
+        rendered="#{s:hasRole('memberviewer') or s:hasRole('accounting')}" />
+      <h:commandButton id="export2" value="Export" rendered="#{s:hasRole('member')}"
+        action="#{excelExporter.export('searchForm:memberTable')}" />
+      <h:outputText value="#{messages.panelg_separator}" escape="false"
+        rendered="#{s:hasRole('memberviewer') or s:hasRole('accounting')}" />
+      <h:panelGroup id="yellowPagesControls" rendered="#{s:hasRole('memberviewer') or s:hasRole('accounting')}">
+        <h:graphicImage value="/img/icons/page_white_excel.png" />
+        <h:outputText value=" " />
+        <s:link view="/yellowPages.xhtml" value="Yellow Pages">
+        </s:link>
+      </h:panelGroup>
+
+      <!-- search results -->
+      <rich:dataTable value="#{yellowPages.resultList}" var="ayellowpage" id="memberTable"
+        style="xls-font: 10 Verdana; xls-column-widths: 8000 9000 10000" rowClasses="datagridrow1, datagridrow2"
+        width="100%">
+        <rich:column>
+          <f:facet name="header">
+            <h:outputText value="#{messages.YellowPage_Cat1}" style="xls-font: red bold" />
+          </f:facet>
+          <h:outputText value="#{ayellowpage.cat1}" />
+        </rich:column>
+        <rich:column>
+          <f:facet name="header">
+            <h:outputText value="#{messages.YellowPage_Cat2}" style="xls-font: red bold" />
+          </f:facet>
+          <h:outputText value="#{ayellowpage.cat2}" />
+        </rich:column>
+        <rich:column>
+          <f:facet name="header">
+            <h:outputText value="#{messages.YellowPage_Name}" style="xls-font: red bold" />
+          </f:facet>
+          <s:link id="link" disabled="#{not (s:hasRole('member'))}" view="/viewYellowPage.xhtml"
+            value="#{ayellowpage.name}">
+            <f:param name="pagesYellowPageId" value="#{ayellowpage.id}" />
+          </s:link>
+        </rich:column>
+        <rich:column>
+          <f:facet name="header">
+            <h:outputText value="#{messages.YellowPage_WebSite1}" style="xls-font: red bold" />
+          </f:facet>
+          <h:outputLink value="http://#{ayellowpage.webSite1}" target="_blank">
+            <h:outputText value="#{ayellowpage.webSite1}"></h:outputText>
+          </h:outputLink>
+        </rich:column>
+        <rich:column>
+          <f:facet name="header">
+            <h:outputText value="#{messages.YellowPage_Phone1}" style="xls-font: red bold" />
+          </f:facet>
+          <h:outputText value="#{ayellowpage.phone1}" />
+        </rich:column>
+        <rich:column style="xls-column-export:false" rendered="#{s:hasRole('memberviewer')}">
+          <f:facet name="header">
+            <h:outputText value="Edit" style="xls-font: red bold" />
+          </f:facet>
+          <h:panelGroup id="editPage">
+            <h:graphicImage value="/img/icons/edit16.png" />
+            <h:outputText value=" " />
+            <s:link id="link1" view="/editYellowPage.xhtml" value="Edit">
+              <f:param name="pagesYellowPageId" value="#{ayellowpage.id}" />
+            </s:link>
+          </h:panelGroup>
+        </rich:column>
+
+      </rich:dataTable>
+
+      <rich:toolBar id="searchBottomBar" itemSeparator="disc">
+        <rich:toolBarGroup>
+          <h:panelGroup id="addYellowPage" rendered="#{s:hasRole('memberviewer')}">
+            <h:graphicImage value="/img/icons/add1-16.png" />
+            <h:outputText value=" " />
+            <s:link id="create" view="/editYellowPage.xhtml" value="Create New Page"
+              rendered="#{s:hasRole('memberviewer')}">
+              <f:param name="yellowPageId" />
+              <!-- suppress propagation of assocMember id page parameter -->
+            </s:link>
+          </h:panelGroup>
+
+
+        </rich:toolBarGroup>
+      </rich:toolBar>
+
+
+
+    </h:form>
+
+  </ui:define>
+</ui:composition>

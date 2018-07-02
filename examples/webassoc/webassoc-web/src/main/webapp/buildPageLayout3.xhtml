@@ -1,0 +1,80 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a4j="http://richfaces.org/a4j" xmlns:e="http://jboss.com/products/seam/excel"
+  template="layout/template.xhtml">
+
+  <ui:define name="body">
+    <rich:panel styleClass="panelbodyNoBorder">
+      <h:outputText escape="false" value="#{webPage.headerText}" />
+      <ul>
+        <rich:dataTable value="#{webPage.activeArticles}" var="article" id="articleTable" width="100%"
+          border="none">
+          <rich:column width="#{webPage.leftColumnSize}%">
+            <li />
+          </rich:column>
+          <rich:column width="#{webPage.centerColumnSize}%">
+            <h:panelGrid columns="1" rendered="#{article.layout==0}">
+              <h:outputText escape="false" value="#{article.description}" />
+            </h:panelGrid>
+            <h:panelGrid columns="2" rendered="#{article.layout==1}">
+              <s:graphicImage fileName="buildPageLayout3-#{article.id}" rendered="#{article.ilst.dataNotEmpty}"
+                value="#{article.ilst.data}">
+                <s:transformImageSize width="#{article.ilstWidth}" maintainRatio="true" />
+              </s:graphicImage>
+              <h:outputText escape="false" value="#{article.description}" />
+            </h:panelGrid>
+            <h:panelGrid columns="2" rendered="#{article.layout==2}">
+              <h:outputText escape="false" value="#{article.description}" />
+              <s:graphicImage fileName="buildPageLayout3-#{article.id}" rendered="#{article.ilst.dataNotEmpty}"
+                value="#{article.ilst.data}">
+                <s:transformImageSize width="#{article.ilstWidth}" maintainRatio="true" />
+              </s:graphicImage>
+            </h:panelGrid>
+            <h:panelGrid columns="1" rendered="#{article.layout==3}">
+              <s:graphicImage fileName="buildPageLayout3-#{article.id}" rendered="#{article.ilst.dataNotEmpty}"
+                value="#{article.ilst.data}">
+                <s:transformImageSize width="#{article.ilstWidth}" maintainRatio="true" />
+              </s:graphicImage>
+            </h:panelGrid>
+            <h:panelGrid columns="1" rendered="#{article.layout==4}">
+              <h:outputText escape="false" value="#{article.description}" />
+              <s:graphicImage fileName="buildPageLayout3-#{article.id}" rendered="#{article.ilst.dataNotEmpty}"
+                value="#{article.ilst.data}">
+                <s:transformImageSize width="#{article.ilstWidth}" maintainRatio="true" />
+              </s:graphicImage>
+            </h:panelGrid>
+            <h:panelGrid columns="1" rendered="#{article.layout==5}">
+              <s:graphicImage fileName="buildPageLayout3-#{article.id}" rendered="#{article.ilst.dataNotEmpty}"
+                value="#{article.ilst.data}">
+                <s:transformImageSize width="#{article.ilstWidth}" maintainRatio="true" />
+              </s:graphicImage>
+              <h:outputText escape="false" value="#{article.description}" />
+            </h:panelGrid>
+          </rich:column>
+          <rich:column width="#{webPage.rightColumnSize}%">
+            <rich:dataGrid value="#{article.attachments}" var="attachment" columns="1" elements="10"
+              width="100%">
+              <rich:panel bodyClass="panelbody">
+                <f:facet name="header">
+                  <h:outputText value="#{attachment.fileName}" />
+                </f:facet>
+                <s:link target="_blank" action="#{downloadAttachment.download}">
+                  <f:param name="attachmentId" value="#{attachment.imageId}" />
+                  <s:graphicImage fileName="buildPageLayout3-#{attachment.imageId}"
+                    rendered="#{attachment.thumbnailNotEmpty}" value="#{attachment.thumbnail}">
+                    <s:transformImageSize width="75" maintainRatio="true" />
+                  </s:graphicImage>
+                </s:link>
+              </rich:panel>
+            </rich:dataGrid>
+          </rich:column>
+        </rich:dataTable>
+      </ul>
+      <h:outputText escape="false" value="#{webPage.footerText}" />
+    </rich:panel>
+  </ui:define>
+
+</ui:composition>

@@ -1,0 +1,128 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a4j="http://richfaces.org/a4j" template="layout/template.xhtml">
+
+  <ui:define name="body">
+
+
+    <rich:panel>
+
+
+      <f:facet name="header">
+        <h:outputText value="#{messages.viewYellowPage_pnl_member}: #{yellowPage.name}"></h:outputText>
+      </f:facet>
+      <h:form id="yellowPageForm">
+        <f:facet name="beforeInvalidField">
+          <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+        </f:facet>
+        <f:facet name="aroundInvalidField">
+          <s:span styleClass="errors" />
+        </f:facet>
+        <f:facet name="afterInvalidField">
+          <s:span>&#160;<s:message styleClass="errors" />
+          </s:span>
+        </f:facet>
+
+        <h:panelGrid id="panel1" columns="2" width="100%">
+
+          <rich:panel bodyClass="panelbody" width="25%">
+            <f:facet name="header">
+              <h:outputText value="#{messages.viewYellowPage_pnl_address}"></h:outputText>
+            </f:facet>
+            <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+              <h:outputText value="#{messages.YellowPage_Cat1}:" />
+              <h:outputText value="#{yellowPage.cat1}" />
+
+              <h:outputText value="#{messages.YellowPage_Cat2}:" />
+              <h:outputText value="#{yellowPage.cat2}" />
+
+              <h:outputText value="#{messages.YellowPage_Comment}:" />
+              <h:outputText value="#{yellowPage.comment}" />
+
+              <h:outputText value="#{messages.YellowPage_ReferredBy}:" />
+              <h:outputLink value="mailto:#{yellowPage.referredBy.email}">
+                <h:outputText value="#{yellowPage.referredBy.assocName}" />
+              </h:outputLink>
+
+            </h:panelGrid>
+          </rich:panel>
+
+          <rich:panel bodyClass="panelbody" width="75%">
+            <f:facet name="header">
+              <h:outputText value="#{messages.viewYellowPage_pnl_communication}"></h:outputText>
+            </f:facet>
+            <h:panelGrid columnClasses="panelgridcol1, panelgridcol2,panelgridcol1, panelgridcol2" columns="4">
+
+              <h:outputText value="#{messages.YellowPage_Address}:" />
+              <h:outputText value="#{yellowPage.fullAddress}" />
+
+              <h:outputText value="#{messages.YellowPage_City}:" />
+              <h:outputText value="#{yellowPage.zip}, #{yellowPage.city} #{yellowPage.state}" />
+
+              <h:outputText value="#{messages.YellowPage_Phone1}:" />
+              <h:outputText value="#{yellowPage.phone1}" />
+
+              <h:outputText value="#{messages.YellowPage_Phone2}:" />
+              <h:outputText value="#{yellowPage.phone2}" />
+
+              <h:outputText value="#{messages.YellowPage_WebSite1}:" />
+              <h:outputText value="#{yellowPage.webSite1}" />
+
+              <h:outputText value=" " />
+              <h:outputText value=" " />
+
+              <h:outputText value="#{messages.YellowPage_WebSite2}:" />
+              <h:outputText value="#{yellowPage.webSite2}" />
+
+              <h:outputText value=" " />
+              <h:outputText value=" " />
+
+            </h:panelGrid>
+          </rich:panel>
+
+
+        </h:panelGrid>
+        <h:panelGrid id="panel2" columns="1" width="100%">
+          <s:graphicImage fileName="viewYellowPage-#{yellowPage.id}" value="#{yellowPage.picture.data}">
+            <s:transformImageSize width="300" maintainRatio="true" />
+          </s:graphicImage>
+        </h:panelGrid>
+
+        <!-- actions -->
+        <rich:toolBar>
+          <rich:toolBarGroup location="left">
+            <h:panelGroup id="updateYellowPageControls"
+              rendered="#{yellowPageHome.managed and s:hasRole('memberviewer')}">
+              <h:graphicImage value="/img/icons/edit16.png" />
+              <h:outputText value=" " />
+              <s:link id="editYellowPage" view="/editYellowPage.xhtml"
+                value="#{messages.viewYellowPage_btn_editYellowPage}" />
+            </h:panelGroup>
+            <h:panelGroup id="cancelManagedControls">
+              <h:graphicImage value="/img/icons/close16.png" />
+              <h:outputText value=" " />
+              <s:link id="closeYellowPage" view="/exportYellowPage.xhtml"
+                value="#{messages.viewYellowPage_btn_closeYellowPage}" />
+            </h:panelGroup>
+          </rich:toolBarGroup>
+          <rich:toolBarGroup location="right">
+            <h:panelGroup id="deleteYellowPageControls"
+              rendered="#{yellowPageHome.managed and s:hasRole('memberviewer')}">
+              <h:graphicImage value="/img/icons/remove-from-database16.png" />
+              <h:outputText value=" " />
+              <s:link id="deleteYellowPage" action="#{yellowPageHome.remove}" onclick="return confirmDelete()"
+                value="Delete YellowPage" rendered="#{yellowPageHome.managed and s:hasRole('memberviewer')}">
+              </s:link>
+            </h:panelGroup>
+          </rich:toolBarGroup>
+        </rich:toolBar>
+
+      </h:form>
+    </rich:panel>
+
+  </ui:define>
+</ui:composition>

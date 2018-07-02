@@ -1,0 +1,55 @@
+<m:message xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:m="http://jboss.com/products/seam/mail" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
+
+  <m:from name="FACCDallas" address="do-not-reply@faccdallas.com" />
+  <m:to name="#{registration.member.assocName}">#{registration.member.email}</m:to>
+  <m:subject>Annulation de  #{clubEvent.title}</m:subject>
+  <m:body>
+    <p>
+      <h:outputText value="Cher(e) Adherent(e) #{registration.member.assocName}" />
+      ,
+    </p>
+    <p />
+    <p>
+      Nous sommes dans l'obligation d'annuler pour le moment le
+      <h:outputText value=" #{clubEvent.title}" />
+      .<br /> Merci de confirmer la reception de ce message a
+      <h:outputText value=" #{clubEvent.eventContact.assocMember.email}" />
+    </p>
+    <p />
+    <p>L'evenement devait avoir lieu chez :</p>
+    <h:panelGrid columns="2">
+
+      <h:outputText style="font-weight:bold" value="Hote:" />
+      <h:outputText value="#{clubEvent.hostName}" />
+
+      <h:outputText style="font-weight:bold" value="" />
+      <h:outputText value="#{clubEvent.address}" />
+
+      <h:outputText style="font-weight:bold" value="" />
+      <h:panelGroup>
+        <h:outputText value="#{clubEvent.city}, " />
+        <h:outputText value="#{clubEvent.state} " />
+        <h:outputText value="#{clubEvent.zip}" />
+      </h:panelGroup>
+
+      <h:outputText style="font-weight:bold" value="Date:" />
+      <h:outputText value="#{clubEvent.startTime}">
+        <f:convertDateTime type="both" dateStyle="full" timeStyle="short" timeZone="CST" locale="fr" />
+      </h:outputText>
+
+      <h:outputText style="font-weight:bold" value="Date:" />
+      <h:outputText value="#{clubEvent.startTime}">
+        <f:convertDateTime type="both" dateStyle="full" timeStyle="short" timeZone="CST" locale="en" />
+      </h:outputText>
+
+      <h:outputText style="font-weight:bold" value="Tel:" />
+      <h:outputText value="#{clubEvent.phone}" />
+    </h:panelGrid>
+    <p />
+    <p>
+      Cordialement,<br /> Dallas Accueil.
+    </p>
+  </m:body>
+</m:message>

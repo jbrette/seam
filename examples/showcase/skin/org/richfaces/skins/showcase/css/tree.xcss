@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+        <u:selector name=".rich-tree">
+        </u:selector>
+
+        <u:selector name=".rich-tree-node">
+        </u:selector>
+
+        <u:selector name=".rich-tree-node-children">
+        </u:selector>
+
+        <u:selector name=".rich-tree-node-cildren">
+        </u:selector>
+
+        <u:selector name=".rich-tree-node-handle">
+        </u:selector>
+
+        <u:selector name=".rich-tree-node-handleicon">
+        </u:selector>
+
+        <u:selector name=".rich-tree-node-handleicon-collapsed">
+        </u:selector>
+
+        <u:selector name=".rich-tree-node-handleicon-expanded">
+        </u:selector>
+
+        <u:selector name=".rich-tree-node-highlighted">
+        </u:selector>
+
+        <u:selector name=".rich-tree-node-icon">
+        </u:selector>
+
+        <u:selector name=".rich-tree-node-selected">
+        </u:selector>
+
+        <u:selector name=".rich-tree-node-text">
+        </u:selector>
+
+</f:template>

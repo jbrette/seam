@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+        <u:selector name=".rich-box-bgcolor-additional">
+        </u:selector>
+
+        <u:selector name=".rich-box-bgcolor-edit">
+        </u:selector>
+
+        <u:selector name=".rich-box-bgcolor-editor">
+        </u:selector>
+
+        <u:selector name=".rich-box-bgcolor-general">
+        </u:selector>
+
+        <u:selector name=".rich-box-bgcolor-header">
+        </u:selector>
+
+        <u:selector name=".rich-box-bgcolor-panel">
+        </u:selector>
+
+        <u:selector name=".rich-box-bgcolor-tab">
+        </u:selector>
+
+        <u:selector name=".rich-box-bgcolor-table">
+        </u:selector>
+
+        <u:selector name=".rich-box-bgcolor-table-footer">
+        </u:selector>
+
+        <u:selector name=".rich-box-bgcolor-table-subfooter">
+        </u:selector>
+
+        <u:selector name=".rich-box-bgcolor-tip">
+        </u:selector>
+
+        <u:selector name=".rich-box-bgcolor-trim">
+        </u:selector>
+
+        <u:selector name=".rich-box-border-additional">
+        </u:selector>
+
+        <u:selector name=".rich-box-border-color-additional">
+        </u:selector>
+
+        <u:selector name=".rich-box-border-color-control-select">
+        </u:selector>
+
+        <u:selector name=".rich-box-border-color-general">
+        </u:selector>
+
+        <u:selector name=".rich-box-border-color-header">
+        </u:selector>
+
+        <u:selector name=".rich-box-border-color-panel">
+        </u:selector>
+
+        <u:selector name=".rich-box-border-color-subborder">
+        </u:selector>
+
+        <u:selector name=".rich-box-border-color-table">
+        </u:selector>
+
+        <u:selector name=".rich-box-border-color-tip">
+        </u:selector>
+
+        <u:selector name=".rich-box-border-control-select">
+        </u:selector>
+
+        <u:selector name=".rich-box-border-general">
+        </u:selector>
+
+        <u:selector name=".rich-box-border-header">
+        </u:selector>
+
+        <u:selector name=".rich-box-border-panel">
+        </u:selector>
+
+        <u:selector name=".rich-box-border-subborder">
+        </u:selector>
+
+        <u:selector name=".rich-box-border-table">
+        </u:selector>
+
+        <u:selector name=".rich-box-border-tip">
+        </u:selector>
+
+        <u:selector name=".rich-button">
+        </u:selector>
+
+        <u:selector name=".rich-button-button">
+        </u:selector>
+
+        <u:selector name=".rich-button-button-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-button-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-button-over">
+        </u:selector>
+
+        <u:selector name=".rich-button-press">
+        </u:selector>
+
+        <u:selector name=".rich-button-reset">
+        </u:selector>
+
+        <u:selector name=".rich-button-reset-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-button-submit">
+        </u:selector>
+
+        <u:selector name=".rich-button-submit-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-container">
+        </u:selector>
+
+        <u:selector name=".rich-field">
+        </u:selector>
+
+        <u:selector name=".rich-field-edit">
+        </u:selector>
+
+        <u:selector name=".rich-field-error">
+        </u:selector>
+
+        <u:selector name=".rich-fieldset">
+        </u:selector>
+
+        <u:selector name=".rich-font-family-general">
+        </u:selector>
+
+        <u:selector name=".rich-font-family-header">
+        </u:selector>
+
+        <u:selector name=".rich-font-size-general">
+        </u:selector>
+
+        <u:selector name=".rich-font-size-header">
+        </u:selector>
+
+        <u:selector name=".rich-form">
+        </u:selector>
+
+        <u:selector name=".rich-gradient-button">
+        </u:selector>
+
+        <u:selector name=".rich-gradient-button-inverse">
+        </u:selector>
+
+        <u:selector name=".rich-gradient-header">
+        </u:selector>
+
+        <u:selector name=".rich-gradient-header-inverse">
+        </u:selector>
+
+        <u:selector name=".rich-gradient-input">
+        </u:selector>
+
+        <u:selector name=".rich-gradient-menu">
+        </u:selector>
+
+        <u:selector name=".rich-gradient-menu-inverse">
+        </u:selector>
+
+        <u:selector name=".rich-gradient-tab">
+        </u:selector>
+
+        <u:selector name=".rich-gradient-tab-inverse">
+        </u:selector>
+
+        <u:selector name=".rich-hr">
+        </u:selector>
+
+        <u:selector name=".rich-input">
+        </u:selector>
+
+        <u:selector name=".rich-input-button">
+        </u:selector>
+
+        <u:selector name=".rich-input-button-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-input-password">
+        </u:selector>
+
+        <u:selector name=".rich-input-password-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-input-reset">
+        </u:selector>
+
+        <u:selector name=".rich-input-reset-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-input-submit">
+        </u:selector>
+
+        <u:selector name=".rich-input-submit-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-input-text">
+        </u:selector>
+
+        <u:selector name=".rich-input-text-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-isindex">
+        </u:selector>
+
+        <u:selector name=".rich-keygen">
+        </u:selector>
+
+        <u:selector name=".rich-legend">
+        </u:selector>
+
+        <u:selector name=".rich-link">
+        </u:selector>
+
+        <u:selector name=".rich-select">
+        </u:selector>
+
+        <u:selector name=".rich-select-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-text-color-general">
+        </u:selector>
+
+        <u:selector name=".rich-text-color-header">
+        </u:selector>
+
+        <u:selector name=".rich-text-color-link-general">
+        </u:selector>
+
+        <u:selector name=".rich-text-color-link-hover">
+        </u:selector>
+
+        <u:selector name=".rich-text-color-link-visited">
+        </u:selector>
+
+        <u:selector name=".rich-text-color-select">
+        </u:selector>
+
+        <u:selector name=".rich-text-color-tab-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-text-control-select">
+        </u:selector>
+
+        <u:selector name=".rich-text-general">
+        </u:selector>
+
+        <u:selector name=".rich-text-header">
+        </u:selector>
+
+        <u:selector name=".rich-text-tab-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-textarea">
+        </u:selector>
+
+        <u:selector name=".rich-textarea-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-textarea-textarea">
+        </u:selector>
+
+        <u:selector name=".rich-textarea-textarea-disabled">
+        </u:selector>
+
+</f:template>

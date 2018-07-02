@@ -1,0 +1,209 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a4j="http://richfaces.org/a4j" template="layout/template.xhtml">
+
+  <ui:define name="body">
+    <script type="text/javascript">
+    function confirmDelete()
+    {
+       return confirm("#{messages.jscript_confirmDelete}");
+    }
+    </script>
+
+    <rich:panel bodyClass="panelbody" width="100%">
+      <f:facet name="header">
+        <h:outputText value="#{club.name}"></h:outputText>
+      </f:facet>
+      <h:panelGrid columns="2">
+        <s:graphicImage fileName="viewClub-#{club.id}" rendered="#{club.picture.dataNotEmpty}"
+          value="#{club.picture.data}">
+          <s:transformImageSize width="100" maintainRatio="true" />
+        </s:graphicImage>
+        <h:outputFormat escape="false" value="#{club.description}" />
+
+      </h:panelGrid>
+    </rich:panel>
+
+    <!-- actions -->
+    <rich:toolBar>
+      <rich:toolBarGroup location="left">
+        <h:panelGroup id="editClubControls" rendered="#{s:hasPermission(club,'clb_mgt') or s:hasRole('admin')}">
+          <h:graphicImage value="/img/icons/edit16.png" />
+          <h:outputText value=" " />
+          <s:link id="editClub" view="/editClub.xhtml" value="#{messages.viewClub_btn_editClub}"
+            rendered="#{s:hasPermission(club,'clb_mgt') or s:hasRole('admin')}" />
+        </h:panelGroup>
+        <h:panelGroup id="cancelClubControls">
+          <h:graphicImage value="/img/icons/close16.png" />
+          <h:outputText value=" " />
+          <s:link id="closeClub" view="/chooseClub.xhtml" value="#{messages.viewClub_btn_closeClub}" />
+        </h:panelGroup>
+        <h:panelGroup id="memberListControls" rendered="#{s:hasRole('member')}">
+          <h:graphicImage value="/img/icons/text_list_numbers.png" />
+          <h:outputText value=" " />
+          <s:link id="memberList" view="/buildClubGMAP2.xhtml" value="#{messages.viewClub_btn_memberList}">
+            <f:param name="pagesClubId" value="#{club.id}" />
+          </s:link>
+        </h:panelGroup>
+      </rich:toolBarGroup>
+      <rich:toolBarGroup location="right">
+        <s:link id="link2" view="/includes/clubs/clubpermissions.xhtml" rendered="#{s:hasRole('admin')}"
+          value="#{messages.viewClub_btn_clubpermissions}" action="#{permissionSearch.search(club)}">
+          <f:param name="pagesClubId" value="#{club.id}" />
+        </s:link>
+        <s:link id="link3" view="/includes/clubs/clubMembershipPicker.xhtml"
+          rendered="#{s:hasPermission(club,'mbr_mgt') or s:hasRole('admin')}"
+          value="#{messages.viewClub_btn_membershipPicker}">
+          <f:param name="pagesClubId" value="#{club.id}" />
+        </s:link>
+      </rich:toolBarGroup>
+    </rich:toolBar>
+
+    <rich:panel>
+      <f:facet name="header">
+        <h:outputText value="Events"></h:outputText>
+      </f:facet>
+      <h:form id="clubEventForm">
+
+        <f:facet name="beforeInvalidField">
+          <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+        </f:facet>
+        <f:facet name="aroundInvalidField">
+          <s:span styleClass="errors" />
+        </f:facet>
+        <f:facet name="afterInvalidField">
+          <s:span>&#160;<s:message styleClass="errors" />
+          </s:span>
+        </f:facet>
+        <rich:dataGrid value="#{club.clubEvents}" id="eventTable" var="cevent" columns="5" elements="10"
+          width="100%">
+          <rich:panel bodyClass="panelbody" width="20%">
+            <f:facet name="header">
+              <s:link id="link" view="/editClubEvent.xhtml" value="#{cevent.title}" rel="nofollow">
+                <f:param name="pagesClubId" value="#{club.id}" />
+                <f:param name="pagesClubEventId" value="#{cevent.id}" />
+              </s:link>
+            </f:facet>
+            <h:panelGrid columns="2" columnClasses="panelgridcol1, panelgridcol2">
+              <h:outputText value="#{messages.ClubEvent_Date}:"></h:outputText>
+              <h:outputText value="#{cevent.startTime}" />
+
+              <h:outputText value="Photos:"></h:outputText>
+              <s:link id="link3" view="/photoAlbum.xhtml" disabled="#{not (s:hasRole('member')) }"
+                value="Photos (#{cevent.imagesCount})" rel="nofollow">
+                <f:param name="pagesClubId" value="#{cevent.club.id}" />
+                <f:param name="pagesClubEventId" value="#{cevent.id}" />
+              </s:link>
+            </h:panelGrid>
+          </rich:panel>
+          <f:facet name="footer">
+            <rich:datascroller for="eventTable" />
+          </f:facet>
+        </rich:dataGrid>
+        <rich:toolBar>
+          <rich:toolBarGroup location="left">
+            <h:panelGroup rendered="#{s:hasPermission(club,'evt_mgt') or s:hasRole('admin')}">
+              <h:graphicImage value="/img/icons/add-event16.png"
+                rendered="#{s:hasPermission(club,'evt_mgt') or s:hasRole('admin')}" />
+              <h:outputText value=" " />
+              <h:commandLink id="createClubEvent" action="#{clubEventHome.persist}"
+                rendered="#{s:hasPermission(club,'evt_mgt') or s:hasRole('admin')}">
+                <h:outputText value="#{messages.viewClub_btn_addEvent}" />
+              </h:commandLink>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{s:hasPermission(club,'evt_mgt') or s:hasRole('admin')}">
+              <h:graphicImage value="/img/icons/copy.gif"
+                rendered="#{s:hasPermission(club,'evt_mgt') or s:hasRole('admin')}" />
+              <h:outputText value=" " />
+              <h:commandLink id="repeatClubEvent" action="#{clubEventHome.repeatLast}"
+                rendered="#{s:hasPermission(club,'evt_mgt') or s:hasRole('admin')}">
+                <h:outputText value="#{messages.viewClub_btn_repeatLast}" />
+              </h:commandLink>
+            </h:panelGroup>
+          </rich:toolBarGroup>
+        </rich:toolBar>
+      </h:form>
+    </rich:panel>
+
+    <rich:panel>
+      <f:facet name="header">
+        <h:outputText value="Articles"></h:outputText>
+      </f:facet>
+      <h:form id="articleForm">
+
+        <rich:dataTable value="#{club.clubArticles}" var="carticle" id="articleTable"
+          rowClasses="datagridrow1, datagridrow2" width="100%">
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Article Title" style="xls-font: red bold" />
+            </f:facet>
+            <s:link id="link2" view="/includes/clubs/viewClubArticle.xhtml" value="#{carticle.title}"
+              rel="nofollow">
+              <f:param name="pagesClubId" value="#{carticle.club.id}" />
+              <f:param name="pagesClubArticleId" value="#{carticle.id}" />
+            </s:link>
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Subject" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{carticle.subject}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Author" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{carticle.author.assocName}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Date" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{carticle.textDate}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Approved" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{carticle.visible}" />
+          </rich:column>
+          <rich:column id="action" width="auto" rendered="#{s:hasRole('clubmgr')}">
+            <f:facet name="header">
+                         Action
+                       </f:facet>
+
+            <s:fragment rendered="#{s:hasPermission(club,'wri_art') or s:hasRole('admin')}">
+              <s:link id="editArticle" value="#{messages.viewClub_btn_editArticle}"
+                view="/includes/clubs/editClubArticle.xhtml">
+                <f:param name="pagesClubId" value="#{carticle.club.id}" />
+                <f:param name="pagesClubArticleId" value="#{carticle.id}" />
+              </s:link>
+              <span> | </span>
+            </s:fragment>
+            <s:link id="deleteArticle" value="Delete" view="/includes/clubs/editClubArticle.xhtml"
+              rendered="#{s:hasRole('boggus')}" onclick="return confirmDelete()">
+              <f:param name="pagesClubId" value="#{carticle.club.id}" />
+              <f:param name="pagesClubArticleId" value="#{carticle.id}" />
+            </s:link>
+          </rich:column>
+        </rich:dataTable>
+        <rich:toolBar>
+          <rich:toolBarGroup location="left">
+            <h:panelGroup id="addArticleControls"
+              rendered="#{s:hasPermission(club,'wri_art') or s:hasRole('admin')}">
+              <h:graphicImage value="/img/icons/add1-16.png" />
+              <h:outputText value=" " />
+              <h:commandLink id="createClubArticle" action="#{clubArticleHome.persist}"
+                value="#{messages.viewClub_btn_addArticle}"
+                rendered="#{s:hasPermission(club,'wri_art') or s:hasRole('admin')}" />
+            </h:panelGroup>
+          </rich:toolBarGroup>
+        </rich:toolBar>
+      </h:form>
+    </rich:panel>
+
+  </ui:define>
+</ui:composition>

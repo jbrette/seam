@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+        <u:selector name=".rich-dragindicator-iframe">
+        </u:selector>
+
+        <u:selector name=".rich-extdt-caption">
+        </u:selector>
+
+        <u:selector name=".rich-extdt-cell">
+        </u:selector>
+
+        <u:selector name=".rich-extdt-firstrow">
+        </u:selector>
+
+        <u:selector name=".rich-extdt-footer">
+        </u:selector>
+
+        <u:selector name=".rich-extdt-footer-continue">
+        </u:selector>
+
+        <u:selector name=".rich-extdt-footercell">
+        </u:selector>
+
+        <u:selector name=".rich-extdt-group-cell">
+        </u:selector>
+
+        <u:selector name=".rich-extdt-header">
+        </u:selector>
+
+        <u:selector name=".rich-extdt-header-continue">
+        </u:selector>
+
+        <u:selector name=".rich-extdt-headercell">
+        </u:selector>
+
+        <u:selector name=".rich-extdt-maindiv">
+        </u:selector>
+
+        <u:selector name=".rich-extdt-row">
+        </u:selector>
+
+        <u:selector name=".rich-extdt-subfooter">
+        </u:selector>
+
+        <u:selector name=".rich-extdt-subfootercell">
+        </u:selector>
+
+        <u:selector name=".rich-extdt-subheader">
+        </u:selector>
+
+        <u:selector name=".rich-extdt-subheadercell">
+        </u:selector>
+
+        <u:selector name=".rich-filter-input">
+        </u:selector>
+
+        <u:selector name=".rich-sdt-row-active">
+        </u:selector>
+
+        <u:selector name=".rich-sdt-row-selected">
+        </u:selector>
+
+        <u:selector name=".rich-table">
+        </u:selector>
+
+</f:template>

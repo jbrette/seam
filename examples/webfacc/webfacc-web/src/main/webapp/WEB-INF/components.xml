@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components xmlns="http://jboss.com/products/seam/components"
+            xmlns:core="http://jboss.com/products/seam/core"
+            xmlns:fwk="http://jboss.com/products/seam/framework"
+            xmlns:persistence="http://jboss.com/products/seam/persistence"
+            xmlns:security="http://jboss.com/products/seam/security"
+            xmlns:drools="http://jboss.com/products/seam/drools"
+            xmlns:web="http://jboss.com/products/seam/web"
+            xmlns:async="http://jboss.com/products/seam/async"
+            xmlns:mail="http://jboss.com/products/seam/mail"
+            xmlns:jms="http://jboss.com/products/seam/jms"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:international="http://jboss.com/products/seam/international"
+            xsi:schemaLocation=
+                "http://jboss.com/products/seam/core http://jboss.com/products/seam/core-2.3.xsd 
+                 http://jboss.com/products/seam/framework http://jboss.com/products/seam/framework-2.3.xsd
+                 http://jboss.com/products/seam/persistence http://jboss.com/products/seam/persistence-2.3.xsd
+                 http://jboss.com/products/seam/components http://jboss.com/products/seam/components-2.3.xsd
+                 http://jboss.com/products/seam/security http://jboss.com/products/seam/security-2.3.xsd
+                 http://jboss.com/products/seam/web http://jboss.com/products/seam/web-2.3.xsd
+                 http://jboss.com/products/seam/drools http://jboss.com/products/seam/drools-2.3.xsd
+                 http://jboss.com/products/seam/async http://jboss.com/products/seam/async-2.3.xsd
+                 http://jboss.com/products/seam/mail http://jboss.com/products/seam/mail-2.3.xsd
+                 http://jboss.com/products/seam/jms http://jboss.com/products/seam/jms-2.3.xsd
+                 http://jboss.com/products/seam/international http://jboss.com/products/seam/international-2.3.xsd">
+
+    <core:init jndi-pattern="@jndiPattern@" debug="false"/>
+ 
+    <core:manager conversation-timeout="120000" 
+                  concurrent-request-timeout="500"
+                  conversation-id-parameter="cid"/>
+    
+    <security:rule-based-permission-resolver security-rules="#{securityRules}"/>
+    
+    <security:jpa-identity-store 
+       user-class="org.jboss.seam.example.webassoc.security.AccountMember"
+       role-class="org.jboss.seam.example.webassoc.security.AccountMemberRole"
+       />
+    
+    <security:jpa-permission-store user-permission-class="org.jboss.seam.example.webassoc.security.AccountPermission"/>
+
+  
+    <drools:rule-base name="securityRules">
+       <drools:rule-files>
+           <value>/META-INF/security-rules.drl</value>
+       </drools:rule-files>
+    </drools:rule-base>
+    
+    <web:multipart-filter create-temp-files="true" 
+                          max-request-size="5000000" 
+                          url-pattern="*.seam"/>   
+                          
+    <web:context-filter url-pattern="/content/*"/>
+
+    <persistence:managed-persistence-context name="entityManager" auto-create="true"
+                persistence-unit-jndi-name="java:/webfaccEntityManagerFactory"/>
+    
+    <event type="org.jboss.seam.security.notLoggedIn">
+        <action execute="#{redirect.captureCurrentView}"/>
+        <action execute="#{identity.tryLogin}"/>
+    </event>
+    
+    <event type="org.jboss.seam.security.loginSuccessful">
+        <action execute="#{redirect.returnToCapturedView}"/>
+    </event>    
+
+	<jms:queue-connection queue-connection-factory-jndi-name="/ConnectionFactory" />
+	<jms:managed-queue-sender name="mailingQueueSender" auto-create="true" queue-jndi-name="/queue/mailingQueue"/>
+	
+
+     <!-- If you need to alter the SMTP gateway, comment out this mail-session, -->
+    <mail:mail-session host="207.210.242.34" port="25" username="webassoc" password="ieN9tQng" tls="false" ssl="false" debug="false" /> 
+    
+    
+    <international:locale-config default-locale="fr" supported-locales="en fr"/>
+    <international:locale-selector cookie-enabled="true"/>
+    
+    <async:quartz-dispatcher/>
+                
+</components>

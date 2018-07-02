@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+        <u:selector name=".rich-ddmenu-label-select">
+        </u:selector>
+
+        <u:selector name=".rich-ddmenu-label-unselect">
+        </u:selector>
+
+        <u:selector name=".rich-menu-group">
+        </u:selector>
+
+        <u:selector name=".rich-menu-group-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-menu-group-enabled">
+        </u:selector>
+
+        <u:selector name=".rich-menu-group-folder">
+        </u:selector>
+
+        <u:selector name=".rich-menu-group-hover">
+        </u:selector>
+
+        <u:selector name=".rich-menu-group-icon">
+        </u:selector>
+
+        <u:selector name=".rich-menu-group-icon-selected">
+        </u:selector>
+
+        <u:selector name=".rich-menu-group-label">
+        </u:selector>
+
+        <u:selector name=".rich-menu-group-label-selected">
+        </u:selector>
+
+        <u:selector name=".rich-menu-item">
+        </u:selector>
+
+        <u:selector name=".rich-menu-item-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-menu-item-enabled">
+        </u:selector>
+
+        <u:selector name=".rich-menu-item-folder">
+        </u:selector>
+
+        <u:selector name=".rich-menu-item-folder-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-menu-item-hover">
+        </u:selector>
+
+        <u:selector name=".rich-menu-item-icon">
+        </u:selector>
+
+        <u:selector name=".rich-menu-item-icon-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-menu-item-icon-enabled">
+        </u:selector>
+
+        <u:selector name=".rich-menu-item-icon-selected">
+        </u:selector>
+
+        <u:selector name=".rich-menu-item-label">
+        </u:selector>
+
+        <u:selector name=".rich-menu-item-label-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-menu-item-label-selected">
+        </u:selector>
+
+        <u:selector name=".rich-menu-list-bg">
+        </u:selector>
+
+        <u:selector name=".rich-menu-list-strut">
+        </u:selector>
+
+        <u:selector name=".rich-menu-separator">
+        </u:selector>
+
+</f:template>

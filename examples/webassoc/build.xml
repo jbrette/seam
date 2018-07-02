@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<project name="WEBASSOC" default="explode" basedir=".">
+
+    <!-- Example name -->
+    <property name="Name"                   value="Seam Association WEB Site"/>
+    <property name="example.name"           value="jboss-seam-webassoc"/>
+
+    <!-- Libraries -->
+    <property name="seam.excel.lib"       value="yes"/>
+    <property name="seam.ui.lib"          value="yes"/>
+    <property name="seam.debug.lib"       value="yes"/>
+    <property name="facelets.lib"         value="yes"/>
+    <property name="richfaces.lib"        value="yes"/>
+    <property name="richfaces-ui.lib"     value="yes"/>
+    <property name="drools.lib"           value="yes"/>
+    <property name="jcaptcha.lib"         value="yes"/>
+    <property name="seam.mail.lib"        value="yes" />
+    <property name="quartz.lib"           value="yes" />
+    <property name="deploy.meldware.mail" value="yes" />
+    <property name="seam.remoting.lib" value="yes"/>
+
+    <import file="../build.xml"/>
+
+    <path id="build.classpath.extras">
+      <path location="${lib.dir}/jboss-seam-excel.jar" />
+      <path location="${lib.dir}/jboss-seam-pdf.jar" />
+    </path>
+
+    <fileset id="jar.extras" dir="${resources.dir}">
+	<include name="*.png" />
+	<include name="META-INF/standard-jaxws-endpoint-config.xml" />
+    </fileset>
+
+    <fileset id="war.extras" dir="${resources.dir}">
+	<include name="WEB-INF/*.skin.properties" />
+    </fileset>
+
+    <target name="redirect" depends="explode">
+		<copy overwrite="yes" tofile="${war.deploy.dir}/home.xhtml"
+	              file="${war.deploy.dir}/home-redirected.xhtml" />
+		<copy overwrite="yes" tofile="${war.deploy.dir}/layout/template.xhtml"
+		      file="${war.deploy.dir}/layout/template-redirected.xhtml" />
+		<copy overwrite="yes" tofile="${war.deploy.dir}/editClubEvent.xhtml"
+		      file="${war.deploy.dir}/editClubEvent-redirected.xhtml" />
+    </target>
+
+</project>
+

@@ -1,0 +1,72 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:rich="http://richfaces.org/rich" template="layout/template.xhtml">
+
+  <ui:define name="body">
+    <h:form id="club" enctype="multipart/form-data">
+      <rich:panel styleClass="panelbodyNoBorder">
+        <rich:layout>
+          <rich:layoutPanel position="top" width="100%" style="padding:3px;">
+            <h:outputText styleClass="outputTextBig" escape="false" value="#{messages.webpage_04_04}" />
+            <hr />
+            <rich:spacer height="1" width="600" />
+          </rich:layoutPanel>
+          <rich:layoutPanel position="left" width="5%" style="padding:3px;">
+            <h:panelGroup>
+            </h:panelGroup>
+          </rich:layoutPanel>
+          <rich:layoutPanel position="center" width="90%" style="padding:3px;">
+            <rich:dataTable value="#{clubEventHome.photoAlbums}" var="fevent"
+              rendered="#{!empty clubEventHome.photoAlbums}" id="imageTable"
+              rowClasses="datagridrow1, datagridrow2" width="100%" rows="25">
+              <rich:column>
+                <f:facet name="header">
+                  <s:formattedText value="Image" />
+                </f:facet>
+                <s:graphicImage fileName="chooseAlbum-#{fevent.id}" value="#{fevent.club.picture.data}">
+                  <s:transformImageSize width="25" height="25" />
+                </s:graphicImage>
+              </rich:column>
+              <rich:column>
+                <f:facet name="header">
+                  <h:outputText value="Name" />
+                </f:facet>
+                <s:link id="link" view="/photoAlbum.xhtml" value="#{fevent.title}" rel="nofollow">
+                  <f:param name="pagesClubId" value="#{fevent.club.id}" />
+                  <f:param name="pagesClubEventId" value="#{fevent.id}" />
+                </s:link>
+              </rich:column>
+              <rich:column>
+                <f:facet name="header">
+                  <s:formattedText value="Date" />
+                </f:facet>
+                <h:outputText value="#{fevent.startTime}">
+                  <f:convertDateTime type="date" dateStyle="full" timeZone="CST" />
+                </h:outputText>
+              </rich:column>
+              <rich:column>
+                <f:facet name="header">
+                  <s:formattedText value="Nb Photos" />
+                </f:facet>
+                <h:outputText escape="false" value="#{fevent.imagesCount}" />
+              </rich:column>
+              <f:facet name="footer">
+                <rich:datascroller for="imageTable" maxPages="5" />
+              </f:facet>
+            </rich:dataTable>
+          </rich:layoutPanel>
+          <rich:layoutPanel position="right" width="5%" style="padding:3px;">
+            <h:panelGroup>
+            </h:panelGroup>
+          </rich:layoutPanel>
+          <rich:layoutPanel position="bottom" width="100%" style="padding:3px;">
+            <h:outputText escape="false" value="" />
+          </rich:layoutPanel>
+        </rich:layout>
+      </rich:panel>
+    </h:form>
+  </ui:define>
+</ui:composition>

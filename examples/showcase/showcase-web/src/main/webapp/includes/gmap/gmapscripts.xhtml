@@ -1,0 +1,40 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<script type="text/javascript">
+//<![CDATA[
+var l_map;
+var mbrs = new Array();
+var geocoder;
+
+function init(map) {
+    for (i = 0; i < mbrs.length; i++) {
+           map.addOverlay(mbrs[i]);
+    }
+
+}
+//Create the marker and corresponding information window
+function createInfoMarker(latLng, info) {
+   var marker = new GMarker(latLng);
+   GEvent.addListener(marker, "click",
+      function() {
+         marker.openInfoWindowHtml(info);
+      }
+   );
+  return marker;
+}
+
+function createInfoMarker2(latLng, info) {
+    var marker = new GMarker(latLng);
+    marker.bindInfoWindowHtml(info);
+    return marker;
+}
+
+function addAssocMember(assocName, lat, lng) {
+        if (lat && lng) {
+            latLng = new GLatLng(lat, lng, true);
+            marker = createInfoMarker2(latLng, "<html><b>"+assocName+"</b></html>");
+            mbrs[mbrs.length] = marker;
+        }
+}
+//]]>
+</script>

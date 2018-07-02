@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ===================================================================== -->
+<!-- The data srouce configuration for MySQL.  This is currently commented -->
+<!-- out to avoid problems in development.  Once we move to mysql for      -->
+<!-- development, this will change.                                        -->
+<!-- ===================================================================== -->
+<datasources>
+  <local-tx-datasource>
+    <jndi-name>WebAssocDS</jndi-name>
+    <connection-url>jdbc:mysql://localhost:3306/WEBASSOCDB</connection-url>
+    <driver-class>org.gjt.mm.mysql.Driver</driver-class>
+    <user-name>seamuser</user-name>
+    <min-pool-size>5</min-pool-size>
+    <max-pool-size>100</max-pool-size>
+    <blocking-timeout-millis>60000</blocking-timeout-millis>
+    <password>seamuser</password>
+    <exception-sorter-class-name>
+      org.jboss.resource.adapter.jdbc.vendor.MySQLExceptionSorter
+    </exception-sorter-class-name>
+    <new-connection-sql>SET SESSION sql_mode=ANSI_QUOTES;</new-connection-sql>
+    <check-valid-connection-sql>SELECT 1;</check-valid-connection-sql>
+    <metadata>
+      <type-mapping>mySQL</type-mapping>
+    </metadata>
+  </local-tx-datasource>
+</datasources>

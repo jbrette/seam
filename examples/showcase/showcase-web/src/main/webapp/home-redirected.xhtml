@@ -1,0 +1,37 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:rich="http://richfaces.org/rich" template="layout/template.xhtml">
+
+  <ui:define name="body">
+    <rich:panel styleClass="panelbodyNoBorder">
+      <rich:layout>
+        <rich:layoutPanel position="top" width="100%" style="padding:3px;">
+          <h:outputLink value="http://www.alemaxdesign.com/">
+            <h:outputText value="The server has moved."></h:outputText>
+          </h:outputLink>
+        </rich:layoutPanel>
+        <rich:layoutPanel position="left" width="#{webPageHome.homePage.leftColumnSize}%" style="padding:3px;">
+          <h:outputLink value="http://www.alemaxdesign.com/">
+            <h:outputText value="The server has moved."></h:outputText>
+          </h:outputLink>
+        </rich:layoutPanel>
+        <rich:layoutPanel position="center" width="#{webPageHome.homePage.centerColumnSize}%"
+          style="padding:3px;">
+          <h:outputLink value="http://www.alemaxdesign.com/">
+            <h:outputText value="The server has moved."></h:outputText>
+          </h:outputLink>
+        </rich:layoutPanel>
+        <rich:layoutPanel position="right" width="#{webPageHome.homePage.rightColumnSize}%" style="padding:3px;">
+        </rich:layoutPanel>
+        <rich:layoutPanel position="bottom" width="100%" style="padding:3px;">
+          <h:outputLink value="http://www.alemaxdesign.com/">
+            <h:outputText value="The server has moved."></h:outputText>
+          </h:outputLink>
+        </rich:layoutPanel>
+      </rich:layout>
+    </rich:panel>
+  </ui:define>
+</ui:composition>

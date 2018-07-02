@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+        <u:selector name=".rich-inslider-field">
+        </u:selector>
+
+        <u:selector name=".rich-inslider-handler">
+        </u:selector>
+
+        <u:selector name=".rich-inslider-handler-selected">
+        </u:selector>
+
+        <u:selector name=".rich-inslider-handler-selected-vertical">
+        </u:selector>
+
+        <u:selector name=".rich-inslider-handler-vertical">
+        </u:selector>
+
+        <u:selector name=".rich-inslider-left-num">
+        </u:selector>
+
+        <u:selector name=".rich-inslider-right-num">
+        </u:selector>
+
+        <u:selector name=".rich-inslider-tip">
+        </u:selector>
+
+        <u:selector name=".rich-inslider-track">
+        </u:selector>
+
+        <u:selector name=".rich-inslider-track-border">
+        </u:selector>
+
+        <u:selector name=".rich-slider">
+        </u:selector>
+
+</f:template>

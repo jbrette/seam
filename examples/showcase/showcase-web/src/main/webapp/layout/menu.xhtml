@@ -1,0 +1,317 @@
+<h:form id="menuForm" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:s="http://jboss.com/products/seam/taglib" xmlns:rich="http://richfaces.org/rich" itemSeparator="line">
+  <rich:toolBar>
+
+    <rich:dropDownMenu>
+      <f:facet name="label">
+        <h:panelGroup>
+          <h:graphicImage value="/img/icons/house.png" />
+          <h:outputText value="&#160;" />
+          <h:outputText value="#{messages.Menu_Home}" />
+        </h:panelGroup>
+      </f:facet>
+      <rich:menuItem submitMode="none">
+        <s:link view="/home.xhtml" id="homePage" value="#{messages.Menu_Home}" propagation="none" />
+      </rich:menuItem>
+    </rich:dropDownMenu>
+
+    <rich:dropDownMenu>
+      <f:facet name="label">
+        <h:panelGroup>
+          <h:graphicImage value="/img/icons/package.png" />
+          <h:outputText value="&#160;" />
+          <h:outputText value="#{messages.Menu_AssocAndLinks}" />
+        </h:panelGroup>
+      </f:facet>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout1.xhtml" id="menuAssocRules" value="#{messages.Menu_Assoc_Rules}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="Menu_Assoc_Rules" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/orderAccount.xhtml" id="menuAssocRegister" value="#{messages.Menu_Assoc_Register}"
+          propagation="none" rel="nofollow">
+          <f:param name="pagesGuideAccountId" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout2.xhtml" id="menuAssocCurrentBoard"
+          value="#{messages.Menu_Assoc_CurrentBoard}" propagation="none">
+          <f:param name="pagesWebPageName" value="Menu_Assoc_CurrentBoard" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuSeparator rendered="#{s:hasRole('boardmember') or s:hasRole('admin')}" />
+      <rich:menuGroup value="#{messages.Menu_Assoc_Administration}"
+        rendered="#{s:hasRole('boardmember') or s:hasRole('admin')}">
+        <rich:menuItem submitMode="none" rendered="#{s:hasRole('boardmember') or s:hasRole('admin')}">
+          <s:link view="/buildPageLayout3.xhtml" id="menuAssocByLaws" value="#{messages.Menu_Assoc_ByLaws}"
+            propagation="none">
+            <f:param name="pagesWebPageName" value="Menu_Assoc_ByLaws" />
+          </s:link>
+        </rich:menuItem>
+        <rich:menuItem submitMode="none" rendered="#{s:hasRole('boardmember') or s:hasRole('admin')}">
+          <s:link view="/buildPageLayout3.xhtml" id="menuAssocInsurance"
+            value="#{messages.Menu_Assoc_Insurance}" propagation="none">
+            <f:param name="pagesWebPageName" value="Menu_Assoc_Insurance" />
+          </s:link>
+        </rich:menuItem>
+        <rich:menuItem submitMode="none" rendered="#{s:hasRole('boardmember') or s:hasRole('admin')}">
+          <s:link view="/buildPageLayout3.xhtml" id="menuAssocMeetingMinutes"
+            value="#{messages.Menu_Assoc_MeetingMinutes}" propagation="none">
+            <f:param name="pagesWebPageName" value="Menu_Assoc_MeetingMinutes" />
+          </s:link>
+        </rich:menuItem>
+        <rich:menuSeparator />
+        <rich:menuItem submitMode="none" rendered="#{s:hasRole('boardmember') or s:hasRole('admin')}">
+          <s:link view="/searchVote.xhtml" id="menuSearchVote" value="#{messages.Menu_Votes_SearchVotes}"
+            propagation="none" />
+        </rich:menuItem>
+        <rich:menuSeparator />
+        <rich:menuItem submitMode="none"
+          rendered="#{s:hasRole('boardmember') or s:hasRole('membermgr') or s:hasRole('accounting')}">
+          <s:link view="/searchAccountOrder.xhtml" id="menuAssocSeeAccountOrders"
+            value="#{messages.Menu_Assoc_SeeAccountOrders}" propagation="none" />
+        </rich:menuItem>
+      </rich:menuGroup>
+      <rich:menuSeparator />
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout3.xhtml" id="menuAssocSettle" value="#{messages.Menu_Assoc_Settle}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="Menu_Assoc_Settle" />
+        </s:link>
+      </rich:menuItem>
+
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout2.xhtml" id="menuAssocGoodToKnow"
+          value="#{messages.Menu_Assoc_GoodToKnow}" propagation="none">
+          <f:param name="pagesWebPageName" value="Menu_Assoc_GoodToKnow" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuSeparator />
+      <rich:menuGroup value="#{messages.Menu_Links}">
+        <rich:menuItem submitMode="none">
+          <s:link view="/buildPageLayout2.xhtml" id="menuLinksUsefull" value="#{messages.Menu_Links_Usefull}"
+            propagation="none">
+            <f:param name="pagesWebPageName" value="Menu_Links_Usefull" />
+          </s:link>
+        </rich:menuItem>
+        <rich:menuItem submitMode="none">
+          <s:link view="/buildPageLayout2.xhtml" id="menuLinksOtherAssoc"
+            value="#{messages.Menu_Links_OtherAssoc}" propagation="none">
+            <f:param name="pagesWebPageName" value="Menu_Links_OtherAssoc" />
+          </s:link>
+        </rich:menuItem>
+      </rich:menuGroup>
+    </rich:dropDownMenu>
+
+    <rich:dropDownMenu rendered="#{s:hasRole('webuser')}">
+      <f:facet name="label">
+        <h:panelGroup>
+          <h:graphicImage value="/img/icons/addressbook16.png" />
+          <h:outputText value="&#160;" />
+          <h:outputText value="#{messages.Menu_MembersAndNews}" />
+        </h:panelGroup>
+      </f:facet>
+      <rich:menuItem submitMode="none"
+        rendered="#{s:hasRole('boardmember') or s:hasRole('membermgr') or s:hasRole('accounting')}">
+        <s:link view="/searchAssocMember.xhtml" id="menuMembersSearchAssocMember"
+          value="#{messages.Menu_Members_SearchAssocMember}" propagation="none" />
+      </rich:menuItem>
+      <rich:menuItem submitMode="none" rendered="#{s:hasRole('member')}">
+        <s:link view="/exportAssocMember.xhtml" id="menuMembersExportAssocMember"
+          value="#{messages.Menu_Members_ExportAssocMember}" propagation="none" />
+      </rich:menuItem>
+      <rich:menuSeparator />
+      <rich:menuItem submitMode="none" rendered="#{s:hasRole('webuser')}">
+        <s:link view="/searchNewsLetter.xhtml" id="menuNewsSearchNewsLetter"
+          value="#{messages.Menu_News_SearchNewsLetter}" propagation="none" />
+      </rich:menuItem>
+      <rich:menuItem submitMode="none" rendered="#{s:hasRole('member')}">
+        <s:link view="/buildPageLayout3.xhtml" id="menuArchiveBulletin" value="#{messages.Menu_News_Archives}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="Menu_News_Archives" />
+        </s:link>
+      </rich:menuItem>
+    </rich:dropDownMenu>
+
+    <rich:dropDownMenu>
+      <f:facet name="label">
+        <h:panelGroup>
+          <h:graphicImage value="/img/icons/newspaper.png" />
+          <h:outputText value="&#160;" />
+          <h:outputText value="#{messages.Menu_SponsorsAndClassified}" />
+        </h:panelGroup>
+      </f:facet>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildAdvertiserPage.xhtml" id="menuSponsorsSearchAdvertising"
+          value="#{messages.Menu_Sponsors_SearchAdvertiser}" propagation="none">
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildSponsorPage.xhtml" id="menuSponsorsSearchSponsors"
+          value="#{messages.Menu_Sponsors_SearchSponsor}" propagation="none">
+        </s:link>
+      </rich:menuItem>
+      <rich:menuSeparator />
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildClassifiedPage.xhtml" id="menuClassifiedSale"
+          value="#{messages.Menu_Classified_Sale}" propagation="none">
+          <f:param name="pagesSearchFieldsCurrentPageInt" value="0" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildClassifiedPage.xhtml" id="menuClassifiedRent"
+          value="#{messages.Menu_Classified_Rent}" propagation="none">
+          <f:param name="pagesSearchFieldsCurrentPageInt" value="1" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildClassifiedPage.xhtml" id="menuClassifiedBuy" value="#{messages.Menu_Classified_Buy}"
+          propagation="none">
+          <f:param name="pagesSearchFieldsCurrentPageInt" value="2" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuSeparator />
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildClubPage.xhtml" id="menuClubsOther" value="#{messages.Menu_Clubs_Other}"
+          propagation="none">
+          <f:param name="pagesSearchFieldsCurrentPageInt" value="7" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/exportYellowPage.xhtml" id="menuSponsorsYellowPages"
+          value="#{messages.Menu_Sponsors_YellowPages}" propagation="none">
+          <f:param name="pagesSearchFieldsCurrentPageInt" value="3" />
+        </s:link>
+      </rich:menuItem>
+    </rich:dropDownMenu>
+
+    <rich:dropDownMenu>
+      <f:facet name="label">
+        <h:panelGroup>
+          <h:graphicImage value="/img/icons/calendar_2.png" />
+          <h:outputText value="&#160;" />
+          <h:outputText value="#{messages.Menu_EventsAndClubs}" />
+        </h:panelGroup>
+      </f:facet>
+      <rich:menuItem submitMode="none">
+        <s:link view="/calendar.xhtml" id="calendar" value="#{messages.Menu_Events_Calendar}" propagation="none" />
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/chooseClub.xhtml" id="presentClub" value="#{messages.Menu_Clubs_Choose}"
+          propagation="none" />
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/viewClub.xhtml" id="menuClubsForEverybody" value="#{messages.Menu_Clubs_ForEverybody}"
+          propagation="none">
+          <f:param name="pagesClubId" value="1" />
+        </s:link>
+      </rich:menuItem>
+
+      <rich:menuSeparator />
+      <rich:menuGroup value="Clubs" rendered="#{s:hasRole('admin')}">
+        <rich:menuItem submitMode="none">
+          <s:link view="/buildClubPage.xhtml" id="menuClubsForTheHead" value="#{messages.Menu_Clubs_ForTheHead}"
+            propagation="none">
+            <f:param name="pagesSearchFieldsCurrentPageInt" value="1" />
+          </s:link>
+        </rich:menuItem>
+        <rich:menuItem submitMode="none">
+          <s:link view="/buildClubPage.xhtml" id="menuClubsForTheHand" value="#{messages.Menu_Clubs_ForTheHand}"
+            propagation="none">
+            <f:param name="pagesSearchFieldsCurrentPageInt" value="2" />
+          </s:link>
+        </rich:menuItem>
+        <rich:menuItem submitMode="none">
+          <s:link view="/buildClubPage.xhtml" id="menuClubsForTheFeet" value="#{messages.Menu_Clubs_ForTheFeet}"
+            propagation="none">
+            <f:param name="pagesSearchFieldsCurrentPageInt" value="3" />
+          </s:link>
+        </rich:menuItem>
+        <rich:menuItem submitMode="none">
+          <s:link view="/buildClubPage.xhtml" id="menuClubsForTheMouth"
+            value="#{messages.Menu_Clubs_ForTheMouth}" propagation="none">
+            <f:param name="pagesSearchFieldsCurrentPageInt" value="4" />
+          </s:link>
+        </rich:menuItem>
+        <rich:menuItem submitMode="none">
+          <s:link view="/buildClubPage.xhtml" id="menuClubsForTheGrownUp"
+            value="#{messages.Menu_Clubs_ForTheGrownUp}" propagation="none">
+            <f:param name="pagesSearchFieldsCurrentPageInt" value="5" />
+          </s:link>
+        </rich:menuItem>
+        <rich:menuItem submitMode="none">
+          <s:link view="/buildClubPage.xhtml" id="menuClubsForTheKids" value="#{messages.Menu_Clubs_ForTheKids}"
+            propagation="none">
+            <f:param name="pagesSearchFieldsCurrentPageInt" value="6" />
+          </s:link>
+        </rich:menuItem>
+      </rich:menuGroup>
+      <rich:menuSeparator rendered="#{s:hasRole('admin')}" />
+      <rich:menuItem submitMode="none" rendered="#{s:hasRole('admin')}">
+        <s:link view="/searchClubEvent.xhtml" id="menuEventsSearchEvents"
+          value="#{messages.Menu_Events_SearchEvent}" propagation="none" />
+      </rich:menuItem>
+      <rich:menuItem submitMode="none" rendered="#{s:hasRole('admin')}">
+        <s:link view="/searchClub.xhtml" id="menuClubsSearchClubs" value="#{messages.Menu_Clubs_SearchClub}"
+          propagation="none" />
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/chooseAlbum.xhtml" id="presentAlbum" value="#{messages.Menu_Events_PhotoAlbums}"
+          propagation="none" />
+      </rich:menuItem>
+
+
+    </rich:dropDownMenu>
+
+    <rich:dropDownMenu
+      rendered="#{s:hasRole('boardmember') or s:hasRole('admin') or s:hasRole('accounting') or s:hasRole('webcontentmgr')}">
+      <f:facet name="label">
+        <h:panelGroup>
+          <h:graphicImage value="/img/icons/bug.png" />
+          <h:outputText value="&#160;" />
+          <h:outputText value="#{messages.Menu_AdminAndUsers}" />
+        </h:panelGroup>
+      </f:facet>
+      <rich:menuItem submitMode="none"
+        rendered="#{s:hasRole('boardmember') or s:hasRole('admin') or s:hasRole('accounting')}">
+        <s:link view="/includes/tests/searchBug.xhtml" id="menuBugsSearchBugs"
+          value="#{messages.Menu_Admin_SearchBugs}" propagation="none" />
+      </rich:menuItem>
+      <rich:menuItem submitMode="none" rendered="#{s:hasRole('webcontentmgr')}">
+        <s:link view="/includes/webcontent/searchWebPage.xhtml" id="menuBugsSearchPages"
+          value="#{messages.Menu_Admin_SearchArticles}" propagation="none" />
+      </rich:menuItem>
+      <rich:menuItem submitMode="none" rendered="false">
+        <s:link view="/includes/webcontent/searchArticle.xhtml" id="menuBugsSearchArticles"
+          value="#{messages.Menu_Admin_SearchArticles}" propagation="none" />
+      </rich:menuItem>
+      <rich:menuItem submitMode="none" rendered="#{s:hasRole('webcontentmgr')}">
+        <s:link view="/includes/classifieds/searchClassified.xhtml" id="menuBugsSearchClassifieds"
+          value="#{messages.Menu_Admin_SearchClassifieds}" propagation="none" />
+      </rich:menuItem>
+      <rich:menuItem submitMode="none" rendered="#{s:hasRole('webcontentmgr')}">
+        <s:link view="/includes/sponsors/searchSponsor.xhtml" id="menuBugsSearchSponsors"
+          value="#{messages.Menu_Admin_SearchSponsors}" propagation="none" />
+      </rich:menuItem>
+      <rich:menuSeparator rendered="#{s:hasRole('admin')}" />
+      <rich:menuItem submitMode="none" rendered="#{s:hasRole('admin')}">
+        <s:link view="/includes/security/usermanager.xhtml" id="um" value="Users" propagation="none" />
+      </rich:menuItem>
+      <rich:menuItem submitMode="none" rendered="#{s:hasRole('admin')}">
+        <s:link view="/includes/security/rolemanager.xhtml" id="rm" value="Roles" propagation="none" />
+      </rich:menuItem>
+      <rich:menuItem submitMode="none" rendered="#{s:hasRole('admin')}">
+        <s:link view="/includes/security/adminutil.xhtml" id="am" value="Utils" propagation="none" />
+      </rich:menuItem>
+      <rich:menuItem submitMode="none" rendered="#{s:hasRole('admin')}">
+        <s:link view="/includes/mny/viewMnyAccount.xhtml" id="mny" value="AccountView" propagation="none">
+          <f:param name="pagesMnyAccountId" value="13" />
+        </s:link>
+      </rich:menuItem>
+    </rich:dropDownMenu>
+
+  </rich:toolBar>
+</h:form>

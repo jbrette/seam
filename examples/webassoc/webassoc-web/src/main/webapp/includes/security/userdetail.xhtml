@@ -1,0 +1,61 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  template="/layout/template.xhtml">
+
+  <ui:define name="body">
+
+    <h:form id="user">
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+
+      <rich:panel bodyClass="panelbody">
+        <f:facet name="header">
+          <h:outputText value="User Details"></h:outputText>
+        </f:facet>
+        <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+          <h:outputLabel for="username" value="Username" styleClass="formLabel" />
+          <h:inputText id="username" value="#{userAction.username}"
+            readonly="#{identityManager.userExists(userAction.username)}" />
+
+
+          <h:outputLabel for="password" value="Password" styleClass="formLabel" />
+          <h:inputSecret id="password" value="#{userAction.password}" />
+
+          <h:outputLabel for="confirm" value="Confirm password" styleClass="formLabel" />
+          <h:inputSecret id="confirm" value="#{userAction.confirm}" />
+
+          <h:outputLabel for="roles" value="Member of" styleClass="formLabel" />
+          <h:selectManyCheckbox id="roles" value="#{userAction.roles}" layout="pageDirection" styleClass="roles">
+            <s:selectItems value="#{identityManager.listGrantableRoles()}" var="role" label="#{role}" />
+          </h:selectManyCheckbox>
+
+          <h:outputLabel for="enabled" value="Account enabled" styleClass="formLabel" />
+          <h:selectBooleanCheckbox id="enabled" value="#{userAction.enabled}" />
+
+          <h:commandButton id="save" value="Save" action="#{userAction.save}" styleClass="formButton" />
+          <s:button id="cancel" view="/includes/security/usermanager.xhtml" value="Cancel" propagation="end"
+            styleClass="formButton" />
+
+
+        </h:panelGrid>
+      </rich:panel>
+
+    </h:form>
+
+
+  </ui:define>
+
+</ui:composition>
+

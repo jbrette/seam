@@ -1,0 +1,461 @@
+.rich-table,.rich-table-header,.rich-table-headercell,.rich-table-cell,.rich-subtable-cell,.rich-table-footercell,.rich-subtable-footercell
+	{
+	border-width: 0px;
+}
+
+.label {
+	font-weight: bold;
+}
+
+.panelbody150px {
+	width: 150px;
+}
+
+.outputTextBig {
+	font-weight: bold;
+	font-size: 30px;
+}
+
+.footerColumn {
+	text-align: center;
+	align: center;
+	width: 20%;
+}
+
+.leftHeaderColumn {
+	align: left;
+	text-align: left;
+	width: 50%;
+}
+
+.rightHeaderColumn {
+	align: right;
+	text-align: right;
+	width: 50%;
+}
+
+.leftBodyOneColumn {
+	text-align: left;
+	width: 100%;
+}
+
+.leftBodyTwoColumns {
+	text-align: left;
+	width: 50%;
+}
+
+.rightBodyTwoColumns {
+	text-align: left;
+	width: 50%;
+}
+
+.leftBodyThreeColumns {
+	text-align: left;
+	width: 33%;
+}
+
+.middleBodyThreeColumns {
+	text-align: left;
+	width: 33%;
+}
+
+.rightBodyThreeColumns {
+	text-align: left;
+	width: 33%;
+}
+
+.leftBody15Column {
+	text-align: left;
+	width: 15%;
+}
+
+.middleBody70Column {
+	text-align: left;
+	width: 70%;
+}
+
+.rightBody15Column {
+	text-align: left;
+	width: 15%;
+}
+
+
+
+.panelbody {
+	width: 100%;
+}
+
+.panelbodyNoBorder {
+	width: 100%;
+	border: 0px;
+}
+
+.latestNewsUL {
+	list-style-image: url("images/newspaper.png");
+}
+
+.panelgridcol1 {
+	background-color: #F0F0F0;
+	font-weight: bold;
+}
+
+.panelgridcol2 {
+	background-color: white;
+}
+
+.panelgridcol3 {
+	background-color: white;
+	width: 100 *;
+}
+
+.panelgridcol3 {
+	background-color: white;
+	font-weight: bold;
+}
+
+.panelgridcol4 {
+	background-color: #F0F0F0;
+}
+
+.datagridrow1 {
+	background-color: #F0F0F0;
+}
+
+.datagridrow2 {
+	background-color: white;
+}
+
+.error {
+	padding: 5px;
+	color: red;
+}
+
+.errors {
+	color: red;
+	vertical-align: middle;
+}
+
+img.errors {
+	padding-right: 5px;
+}
+
+.errors input {
+	border: 1px solid red;
+}
+
+.errors textarea {
+	border: 1px solid red;
+}
+
+.required {
+	color: red;
+	padding-left: 2px;
+}
+
+div.confirmed {
+	background: url("../img/icons/accept.png") top left no-repeat;
+	width: 16px;
+	height: 16px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.cancelled {
+	background: url("../img/icons/cross.png") top left no-repeat;
+	width: 16px;
+	height: 16px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.registered {
+	background: url("../img/icons/new.png") top left no-repeat;
+	width: 16px;
+	height: 16px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.error {
+	background: url("../img/icons/error.png") top left no-repeat;
+	width: 16px;
+	height: 16px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.waiting {
+	background: url("../img/icons/hand.png") top left no-repeat;
+	width: 16px;
+	height: 16px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.seam-date {
+	margin-top: 5px;
+	border: 1px solid #AAAAAA;
+	background: #fff url("../img/input.bg.gif") 0 0 repeat-x;
+	background-color: #FFFFFF;
+	color: #505050;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+table.seam-date td {
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-weight: 11px;
+	border: 0px;
+}
+
+.seam-date-monthNames {
+	width: 70px;
+	border: 1px solid #dddddd;
+	border-right: 3px solid #444444;
+	border-bottom: 3px solid #444444;
+	background-color: #ffffff;
+	font-size: 12px;
+	cursor: pointer;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-weight: normal;
+}
+
+a.seam-date-monthNameLink,a.seam-date-monthNameLink:visited {
+	text-align: center;
+	display: block;
+	color: #555555;
+}
+
+a.seam-date-monthNameLink:hover {
+	background-color: #CCCCCC;
+	color: red;
+}
+
+.seam-date-years {
+	height: 10em;
+	overflow: auto;
+	width: 60px;
+	border: 1px solid #dddddd;
+	border-right: 3px solid #444444;
+	border-bottom: 3px solid #444444;
+	background-color: #ffffff;
+	font-size: 12px;
+	cursor: pointer;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-weight: normal;
+}
+
+a.seam-date-yearLink,a.seam-date-yearLink:visited {
+	text-align: center;
+	display: block;
+	color: #555555;
+}
+
+a.seam-date-yearLink:hover {
+	background-color: #CCCCCC;
+	color: red;
+}
+
+tr.seam-date-header {
+	padding: 2px 0px 2px 0px;
+}
+
+td.seam-date-header {
+	padding: 0px 8px 0px 8px;
+	text-align: center;
+	color: gray;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+td.seam-date-header-prevMonth {
+	background-image: url("../img/cal-prev.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	padding: 0px 2px 0px 2px;
+	width: 17px;
+	height: 16px;
+	margin-left: 2px;
+}
+
+td.seam-date-header-nextMonth {
+	background-image: url("../img/cal-next.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	padding: 0px 2px 0px 2px;
+	width: 17px;
+	height: 16px;
+	margin-right: 2px;
+}
+
+tr.seam-date-headerDays {
+	color: white;
+	font-weight: normal;
+}
+
+tr.seam-date-headerDays>td {
+	background-color: #CCCCCC;
+	border: 1px solid #AAAAAA;
+	color: white;
+	text-align: center;
+	width: 26px;
+}
+
+tr.seam-date-footer {
+	background-color: white;
+	color: #505050;
+	font-weight: bold;
+}
+
+tr.seam-date-footer>td {
+	text-align: center;
+}
+
+td.seam-date-inMonth {
+	background-color: white;
+	color: black;
+	font-weight: normal;
+	cursor: pointer;
+	border: 1px solid #ece9d8;
+}
+
+td.seam-date-outMonth {
+	background-color: white;
+	color: #999999;
+	font-weight: normal;
+	cursor: pointer;
+	border: 1px solid #ece9d8;
+}
+
+td.seam-date-selected {
+	background-color: #CCCCCC;
+	border: 1px solid #AAAAAA;
+	color: black;
+	font-weight: normal;
+}
+
+td.seam-date-dayOff-inMonth {
+	background-color: #efefef;
+	color: black;
+	font-weight: normal;
+	cursor: pointer;
+	border: 1px solid #ece9d8;
+}
+
+td.seam-date-dayOff-outMonth {
+	background-color: #efefef;
+	color: #999999;
+	font-weight: normal;
+	cursor: pointer;
+	border: 1px solid #ece9d8;
+}
+
+td.seam-date-hover {
+	background-color: #CCCCCC;
+	border: 1px solid #AAAAAA;
+	cursor: pointer;
+	color: red;
+}
+
+body {
+	background: #fafafa
+}
+	
+.rich-page {
+	clear: both;
+	width: 1015px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.rich-page-header {
+	padding: 0px 0px 0px 0px;
+	float: left;
+	width: 1015px;
+	height: 200px;
+	background-image: url("images/background-top.png");
+	background-position: 0px 0px;
+	background-repeat: no-repeat;
+	background-color: #bed6f8;
+	margin: 0px;
+}
+
+.rich-page-header-content {
+	font-weight: bold;
+	font-size: 12px;
+	color: #fff;
+}
+
+.headerFont {
+	padding: 20px 20px; 
+	font-family: Arial Narrow; 
+	font-size: 16px; 
+	color: #0d81be;
+}
+
+.rich-page-subheader {
+	clear: both;
+	padding: 0px 0px;
+	margin: 0px 4px;
+	width: 1007px;
+	background-color: white;
+	
+}
+
+.rich-page-content {
+	clear: both;
+	padding: 0px 0px;
+	margin: 0px 4px;
+	width: 1007px;
+	border-top: 0px;
+	border-bottom: 0px;
+	border-left: 0px;
+	border-right: 0px;
+	
+}
+.rich-page-main {
+	border-top: 0px;
+	border-bottom: 0px;
+	border-left: 0px;
+	border-right: 0px;
+}
+
+.rich-page-sidebar {
+	clear: both;
+	padding: 10px 10px;	
+	width: 215px;
+}
+
+.rich-page-body {
+	clear: both;
+	padding: 10px 10px;
+	width: 770px;
+}
+
+.rich-page-footer {
+	padding: 0px 0px 0px 0px;
+	float: left;
+	width: 1015px;
+	height: 200px;
+	background-image: url("images/background-bottom.png");
+	background-position: 0px 0px;
+	background-repeat: no-repeat;
+	background-color: #bed6f8;
+	margin: 0px;
+}
+
+.rich-page-footer-content {
+	font-weight: bold;
+	font-size: 12px;
+	color: #fff;
+}
+
+.rich-toolbar {
+/*	background: url(/images/fondMenuNew.png);*/
+}
+
+.rich-toolbar-item {
+	font-size: 0.7em;
+	padding: 2px;
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f='http:/jsf.exadel.com/template'
+    xmlns:u='http:/jsf.exadel.com/template/util'
+    xmlns="http://www.w3.org/1999/xhtml" >
+
+
+            <f:importResource src="org/richfaces/skins/webbroker/css/calendar.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/color-picker.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/combobox.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/context-menu.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/core.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/data-filter-slider.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/data-table.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/datascroller.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/drag-drop.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/dropdown-menu.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/editor.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/extended-data-table.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/file-upload.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/gmap.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/inplace-input.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/inplace-select.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/inputnumber-slider.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/inputnumber-spinner.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/layout.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/list-shuttle.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/menu-components.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/message.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/modal-panel.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/ordering-list.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/paint2d.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/panel.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/panelbar.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/panelmenu.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/pick-list.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/progress-bar.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/scrollable-data-table.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/separator.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/simple-toggle-panel.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/spacer.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/suggestionbox.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/tab-panel.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/toggle-panel.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/tool-bar.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/tooltip.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/tree.xcss" />
+            <f:importResource src="org/richfaces/skins/webbroker/css/virtual-earth.xcss" />
+
+</f:template>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+        <u:selector name=".rich-pmenu">
+        </u:selector>
+
+        <u:selector name=".rich-pmenu-disabled-element">
+        </u:selector>
+
+        <u:selector name=".rich-pmenu-group">
+        </u:selector>
+
+        <u:selector name=".rich-pmenu-group-self-icon">
+        </u:selector>
+
+        <u:selector name=".rich-pmenu-group-self-label">
+        </u:selector>
+
+        <u:selector name=".rich-pmenu-hovered-element">
+        </u:selector>
+
+        <u:selector name=".rich-pmenu-item">
+        </u:selector>
+
+        <u:selector name=".rich-pmenu-item-icon">
+        </u:selector>
+
+        <u:selector name=".rich-pmenu-item-label">
+        </u:selector>
+
+        <u:selector name=".rich-pmenu-selected-element">
+        </u:selector>
+
+        <u:selector name=".rich-pmenu-top-group">
+        </u:selector>
+
+        <u:selector name=".rich-pmenu-top-group-div">
+        </u:selector>
+
+        <u:selector name=".rich-pmenu-top-group-self-icon">
+        </u:selector>
+
+        <u:selector name=".rich-pmenu-top-group-self-label">
+        </u:selector>
+
+        <u:selector name=".rich-pmenu-top-item">
+        </u:selector>
+
+        <u:selector name=".rich-pmenu-top-item-icon">
+        </u:selector>
+
+        <u:selector name=".rich-pmenu-top-item-label">
+        </u:selector>
+
+</f:template>

@@ -1,0 +1,352 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" template="layout/template.xhtml">
+
+  <ui:define name="body">
+    <script type="text/javascript">
+          function confirmDelete()
+           {
+                  return confirm("#{messages.jscript_confirmDelete}");
+           }
+        </script>
+
+    <rich:panel width="100%">
+      <f:facet name="header">
+        <h:outputText value="#{club.name}"></h:outputText>
+      </f:facet>
+      <h:form id="editForm">
+        <f:facet name="beforeInvalidField">
+          <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+        </f:facet>
+        <f:facet name="aroundInvalidField">
+          <s:span styleClass="errors" />
+        </f:facet>
+        <f:facet name="afterInvalidField">
+          <s:span>&#160;<s:message styleClass="errors" />
+          </s:span>
+        </f:facet>
+
+        <h:panelGrid id="panel" columns="2" width="100%">
+          <rich:panel bodyClass="panelbody" width="50%">
+            <f:facet name="header">
+              <h:outputText value="#{messages.editClubEvent_pnl_general}"></h:outputText>
+            </f:facet>
+            <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+              <h:outputText value="#{messages.ClubEvent_Title}:" />
+              <h:outputText id="title" value="#{clubEvent.title}" />
+
+              <h:outputText value="#{messages.editClubEvent_lbl_Date}:" />
+              <h:panelGroup id="dateControls">
+                <h:outputText value=" #{messages.editClubEvent_lbl_StartTime} " />
+                <h:outputText id="date" value="#{clubEvent.startTime}">
+                  <s:convertDateTime pattern="MM/dd/yyyy HH:mm" />
+                </h:outputText>
+                <h:outputText value="#{messages.panelg_separator}" escape="false" />
+                <h:outputText value=" #{messages.editClubEvent_lbl_EndTime} " />
+                <h:outputText id="endTime" value="#{clubEvent.endTime}">
+                  <s:convertDateTime pattern="MM/dd/yyyy HH:mm" />
+                </h:outputText>
+              </h:panelGroup>
+
+              <h:outputText value="#{messages.ClubEvent_HostName}:" />
+              <h:outputText id="hostName" value="#{clubEvent.hostName}" />
+
+              <h:outputText value="#{messages.ClubEvent_Address}:" />
+              <h:outputText id="address" value="#{clubEvent.address}" />
+
+              <h:outputText value="#{messages.ClubEvent_City}:" />
+              <h:panelGroup id="cityControls">
+                <h:outputText id="city" value="#{clubEvent.city}, " />
+                <h:outputText id="state" value="#{clubEvent.state} " />
+                <h:outputText id="zip" value="#{clubEvent.zip}" />
+              </h:panelGroup>
+
+              <h:outputText value="#{messages.ClubEvent_Phone}:" />
+              <h:outputText id="phone" value="#{clubEvent.phone}" />
+            </h:panelGrid>
+          </rich:panel>
+
+
+          <rich:panel bodyClass="panelbody" width="50%">
+            <f:facet name="header">
+              <h:outputText value="#{messages.editClubEvent_pnl_quota}"></h:outputText>
+            </f:facet>
+            <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+              <h:outputText value="#{messages.editClubEvent_lbl_Contact}:" />
+              <h:outputLink value="mailto:#{clubEvent.eventContact.assocMember.email}">
+                <h:outputText value="#{clubEvent.eventContact.lastName} #{clubEvent.eventContact.firstName}" />
+              </h:outputLink>
+
+              <h:outputText value="#{messages.editClubEvent_lbl_Adults}:" />
+              <h:panelGroup id="adultControls">
+                <h:outputText value=" Min: " />
+                <h:outputText id="adultMinimum" value="#{clubEvent.adultMinimum}" />
+                <h:outputText value="#{messages.panelg_separator}" escape="false" />
+                <h:outputText value=" #{messages.editClubEvent_lbl_Registered} : " />
+                <h:outputText value="#{clubEvent.adultNb}" />
+                <h:outputText value="#{messages.panelg_separator}" escape="false" />
+                <h:outputText value=" Max: " />
+                <h:outputText id="adultQuota" value="#{clubEvent.adultQuota}" />
+              </h:panelGroup>
+
+              <h:outputText value="#{messages.editClubEvent_lbl_Kids}:" />
+              <h:panelGroup id="kidControls">
+                <h:outputText value=" Min: " />
+                <h:outputText id="kidMinimum" value="#{clubEvent.kidMinimum}" />
+                <h:outputText value="#{messages.panelg_separator}" escape="false" />
+                <h:outputText value=" #{messages.editClubEvent_lbl_Registered} : " />
+                <h:outputText value="#{clubEvent.kidNb}" disabled="true" />
+                <h:outputText value="#{messages.panelg_separator}" escape="false" />
+                <h:outputText value=" Max: " />
+                <h:outputText id="kidQuota" value="#{clubEvent.kidQuota}" />
+              </h:panelGroup>
+
+              <h:outputText value="#{messages.editClubEvent_lbl_AdultFees}:" />
+              <h:panelGroup id="adultFeeControls">
+                <h:outputText value="#{messages.ClubEvent_AdultMemberFee}: $" />
+                <h:outputText id="adultMemberFee" value="#{clubEvent.adultMemberFee}" />
+                <h:outputText value="#{messages.panelg_separator}" escape="false" />
+                <h:outputText value="#{messages.ClubEvent_AdultNonMemberFee}: $" />
+                <h:outputText id="adultNonMemberFee" value="#{clubEvent.adultNonMemberFee}" />
+              </h:panelGroup>
+
+              <h:outputText value="#{messages.editClubEvent_lbl_KidFees}:" />
+              <h:panelGroup id="kidFeeControls">
+                <h:outputText value="#{messages.ClubEvent_KidMemberFee}: $" />
+                <h:outputText id="kidMemberFee" value="#{clubEvent.kidMemberFee}" />
+                <h:outputText value="#{messages.panelg_separator}" escape="false" />
+                <h:outputText value="#{messages.ClubEvent_KidNonMemberFee}: $" />
+                <h:outputText id="kidNonMemberFee" value="#{clubEvent.kidNonMemberFee}" />
+              </h:panelGroup>
+
+              <h:outputText value="#{messages.ClubEvent_Amount}: $" />
+              <h:outputText value="#{clubEvent.amount}" />
+            </h:panelGrid>
+          </rich:panel>
+
+        </h:panelGrid>
+
+        <!-- actions -->
+        <rich:toolBar>
+
+          <rich:toolBarGroup location="left">
+
+            <h:panelGroup id="annonceEventControls"
+              rendered="#{clubEventHome.managed and s:hasPermission(club,'clb_mgt')}">
+              <h:graphicImage value="/img/icons/edit16.png" />
+              <h:outputText value=" " />
+              <s:link id="updateClubEvent" view="/announceClubEvent.xhtml"
+                value="#{messages.editClubEvent_btn_upd}">
+                <f:param name="pagesClubId" value="#{club.id}" />
+                <f:param name="pagesClubEventId" value="#{clubEvent.id}" />
+              </s:link>
+            </h:panelGroup>
+            <h:panelGroup id="closeEventControls" rendered="#{clubEventHome.managed}">
+              <h:graphicImage value="/img/icons/close16.png" />
+              <h:outputText value=" " />
+              <s:link id="cancelManaged" view="/viewClub.xhtml" value="#{messages.editClubEvent_btn_cls}">
+                <f:param name="pagesClubId" value="#{club.id}" />
+              </s:link>
+            </h:panelGroup>
+            <h:commandLink id="cloneEvent" action="#{clubEventHome.iWillDoIt}"
+              value="#{messages.editClubEvent_btn_i_ll_do_it}" rendered="#{s:hasRole('boggus')}" />
+          </rich:toolBarGroup>
+          <rich:toolBarGroup location="right">
+            <h:panelGroup id="confirmEventControls"
+              rendered="#{s:hasPermission(club,'clb_mgt') and (clubEvent.free or s:hasRole('accounting'))}">
+              <h:graphicImage value="/img/icons/emailButton.png" />
+              <h:outputText value=" " />
+              <h:commandButton id="confirmEverybody" action="#{clubEventHome.confirmAllRegistrations}"
+                value="#{messages.announceClubEvent_btn_confemail}">
+              </h:commandButton>
+            </h:panelGroup>
+            <h:panelGroup id="cancelEventControls"
+              rendered="#{s:hasPermission(club,'clb_mgt') and (clubEvent.free or s:hasRole('accounting'))}">
+              <h:graphicImage value="/img/icons/emailButton.png" />
+              <h:outputText value=" " />
+              <h:commandButton id="cancellationEmail" action="#{clubEventHome.sendCancellationEmail}"
+                value="#{messages.announceClubEvent_btn_cancelemail}">
+              </h:commandButton>
+            </h:panelGroup>
+            <h:panelGroup id="deleteEventControls"
+              rendered="#{clubEventHome.managed and (clubEventHome.stillEmpty or s:hasRole('admin'))}">
+              <h:graphicImage value="/img/icons/remove-from-database16.png" />
+              <h:outputText value=" " />
+              <s:link id="deleteClubEvent" action="#{clubEventHome.remove}" onclick="return confirmDelete()"
+                value="#{messages.editClubEvent_btn_dlt}">
+                <f:param name="pagesClubId" value="#{club.id}" />
+              </s:link>
+            </h:panelGroup>
+
+          </rich:toolBarGroup>
+        </rich:toolBar>
+
+      </h:form>
+    </rich:panel>
+
+    <rich:panel width="100%">
+      <f:facet name="header">
+        <h:outputText value="Event registration"></h:outputText>
+      </f:facet>
+      <h:form id="registrationForm">
+        <f:facet name="beforeInvalidField">
+          <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+        </f:facet>
+        <f:facet name="aroundInvalidField">
+          <s:span styleClass="errors" />
+        </f:facet>
+        <f:facet name="afterInvalidField">
+          <s:span>&#160;<s:message styleClass="errors" />
+          </s:span>
+        </f:facet>
+        <rich:dataTable value="#{clubEvent.registrations}" var="registration"
+          rendered="#{!empty clubEvent.registrations}" id="registrationTable"
+          style="xls-font: 10 Verdana; xls-column-widths: 8000 9000 10000"
+          rowClasses="datagridrow1, datagridrow2" width="100%">
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.ClubEventRegistration_Member}" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{registration.member.assocName}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.editClubEvent_lbl_Registered}" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{registration.firstNames}" />
+          </rich:column>
+          <rich:column style="xls-column-export:false">
+            <f:facet name="header">
+              <h:outputText value="#{messages.editClubEvent_lbl_EditRegistered}" style="xls-font: red bold" />
+            </f:facet>
+            <h:panelGroup id="editTicketControls"
+              rendered="#{s:hasPermission(club,'clb_mgt') or (registration.member.id == authenticatedMember.id)}">
+              <h:graphicImage value="/img/icons/edit16.png" />
+              <h:outputText value=" " />
+              <s:link id="link1" view="/editClubEventRegistration.xhtml"
+                value="#{messages.editClubEvent_lbl_EditRegistered}">
+                <f:param name="pagesClubEventRegistrationId" value="#{registration.id}" />
+                <f:param name="pagesClubEventId" value="#{registration.event.id}" />
+              </s:link>
+            </h:panelGroup>
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.ClubEventRegistration_RegistrationDate}"
+                style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{registration.registrationDate}" />
+          </rich:column>
+          <rich:column rendered="#{not s:hasRole('accounting')}">
+            <f:facet name="header">
+              <h:outputText value="#{messages.ClubEventRegistration_Notes}" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{registration.notes}" />
+          </rich:column>
+          <rich:column style="xls-column-export:false" width="10px">
+            <f:facet name="header">
+              <h:outputText value="#{messages.editClubEvent_lbl_AdultRegistered}" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{registration.adultMemberNb}" />
+            <h:outputText value="#{messages.panelg_separator}" escape="false" />
+            <h:outputText value="#{registration.adultNonMemberNb}" />
+          </rich:column>
+          <rich:column style="xls-column-export:false" width="10px">
+            <f:facet name="header">
+              <h:outputText value="#{messages.editClubEvent_lbl_KidRegistered}" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{registration.kidMemberNb}" />
+            <h:outputText value="#{messages.panelg_separator}" escape="false" />
+            <h:outputText value="#{registration.kidNonMemberNb}" />
+          </rich:column>
+          <rich:column width="10px" rendered="#{not(clubEvent.free)}">
+            <f:facet name="header">
+              <h:outputText value="#{messages.ClubEventRegistration_Amount}" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{registration.amount}" />
+          </rich:column>
+          <rich:column rendered="#{s:hasRole('accounting') and not(clubEvent.free)}">
+            <f:facet name="header">
+              <h:outputText value="#{messages.ClubEventRegistration_PaymentInfo}" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{registration.paymentInfo}" />
+          </rich:column>
+          <rich:column rendered="#{s:hasRole('accounting') and not(clubEvent.free)}">
+            <f:facet name="header">
+              <h:outputText value="#{messages.ClubEventRegistration_Paid}" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{registration.paid ? 'X' : '' }" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.ClubEventRegistration_Status}" style="xls-font: red bold" />
+            </f:facet>
+            <div class="#{registration.cssStyleName}" />
+          </rich:column>
+          <rich:column rendered="#{s:hasRole('accounting') and not(clubEvent.free)}">
+            <f:facet name="header">
+              <h:outputText value="#{messages.ClubEventRegistration_RefundInfo}" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{registration.refundInfo}" />
+          </rich:column>
+          <rich:column rendered="#{s:hasRole('accounting') and not(clubEvent.free)}">
+            <f:facet name="header">
+              <h:outputText value="#{messages.ClubEventRegistration_Refunded}" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{registration.refunded ? 'X' : '' }" />
+          </rich:column>
+          <rich:column rendered="#{s:hasRole('admin')}">
+            <f:facet name="header">
+              <h:outputText value="Who did what" style="xls-font: red bold" />
+            </f:facet>
+            <h:panelGroup id="checkWhoDidWhat">
+              <h:outputText value="#{registration.registeringMember.assocName}" />
+              <h:outputText value="#{messages.panelg_separator}" escape="false" />
+              <h:outputText value="#{registration.confirmingMember.assocName}" />
+              <h:outputText value="#{messages.panelg_separator}" escape="false" />
+              <h:outputText value="#{registration.cancellingMember.assocName}" />
+            </h:panelGroup>
+          </rich:column>
+        </rich:dataTable>
+
+        <rich:toolBar>
+          <rich:toolBarGroup location="left">
+            <h:panelGroup id="addMemberControls">
+              <h:graphicImage value="/img/icons/add1-16.png" />
+              <h:outputText value=" " />
+              <h:selectOneMenu value="#{clubEventRegistrationHome.instance.member}"
+                rendered="#{s:hasPermission(club,'clb_mgt') and clubEvent.acceptNewRegistration}">
+                <s:convertEntity />
+                <s:selectItems value="#{assocMemberHome.allMembersForEvents}" var="member"
+                  label="#{member.assocName}" />
+              </h:selectOneMenu>
+              <h:commandButton id="submit" action="#{clubEventRegistrationHome.register}"
+                value="#{messages.editClubEvent_btn_regmbr}"
+                rendered="#{s:hasPermission(club,'clb_mgt') and clubEvent.acceptNewRegistration }" />
+              <h:commandButton id="submit2" action="#{clubEventRegistrationHome.register_me}"
+                value="#{messages.editClubEvent_btn_countmein}"
+                rendered="#{(not s:hasPermission(club,'clb_mgt')) and clubEvent.acceptNewRegistration}" />
+              <h:commandButton id="submit3" action="#{clubEventHome.preregisterClubMembers}"
+                value="Preregister Club Members" rendered="#{s:hasRole('admin')}" />
+            </h:panelGroup>
+          </rich:toolBarGroup>
+          <rich:toolBarGroup location="right">
+            <h:panelGroup id="exportExcelControls"
+              rendered="#{s:hasPermission(club,'clb_mgt') or s:hasRole('accounting')}">
+              <h:graphicImage value="/img/icons/page_white_excel.png" />
+              <h:outputText value=" " />
+              <h:commandLink id="export2" value="#{messages.editClubEvent_btn_excel}"
+                rendered="#{s:hasPermission(club,'clb_mgt') or s:hasRole('accounting')}"
+                action="#{excelExporter.export('registrationForm:registrationTable')}" />
+            </h:panelGroup>
+          </rich:toolBarGroup>
+        </rich:toolBar>
+
+      </h:form>
+    </rich:panel>
+
+  </ui:define>
+</ui:composition>

@@ -1,0 +1,100 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a4j="http://richfaces.org/a4j" xmlns:e="http://jboss.com/products/seam/excel"
+  template="layout/template.xhtml">
+
+  <ui:define name="body">
+    <h:form id="classified" enctype="multipart/form-data">
+      <rich:panel styleClass="panelbodyNoBorder">
+        <rich:layout>
+          <rich:layoutPanel position="top" width="100%" style="padding:3px;">
+            <h:outputText rendered="#{(globals.currentPageInt==0)}" styleClass="outputTextBig" escape="false"
+              value="#{messages.Menu_Classified_Sale}" />
+            <h:outputText rendered="#{(globals.currentPageInt==1)}" styleClass="outputTextBig" escape="false"
+              value="#{messages.Menu_Classified_Rent}" />
+            <h:outputText rendered="#{(globals.currentPageInt==2)}" styleClass="outputTextBig" escape="false"
+              value="#{messages.Menu_Classified_Buy}" />
+            <hr />
+            <rich:spacer height="1" width="600" />
+          </rich:layoutPanel>
+          <rich:layoutPanel position="left" width="2%" style="padding:3px;">
+            <h:panelGroup>
+            </h:panelGroup>
+          </rich:layoutPanel>
+          <rich:layoutPanel position="center" width="96%" style="padding:3px;">
+
+
+            <!-- pagination control -->
+            <rich:toolBar id="searchBottomBar" itemSeparator="disc" rendered="#{s:hasRole('member')}">
+              <rich:toolBarGroup>
+                <s:link id="create" view="/includes/classifieds/editClassified.xhtml"
+                  value="Create New Classified">
+                  <f:param name="pageClassifiedId" />
+                  <!-- suppress propagation of assocMember id page parameter -->
+                </s:link>
+              </rich:toolBarGroup>
+            </rich:toolBar>
+            <rich:separator width="100%" height="5" rendered="#{s:hasRole('member')}" />
+            <rich:dataGrid value="#{classifiedOfPage.resultList}" columnClasses="datagridcols" var="classified"
+              rendered="#{!empty classifiedOfPage.resultList}" id="classifiedTable" columns="2" elements="12"
+              width="100%">
+              <rich:panel style="width : 375px"
+                rendered="#{classified.visible or (classified.publisher.id == authenticatedMember.id)}">
+                <f:facet name="header">
+                  <s:link id="edit" view="/includes/classifieds/editClassified.xhtml"
+                    value="#{classified.title}"
+                    disabled="#{not (s:hasRole('webcontentmgr') or (classified.publisher.id == authenticatedMember.id))}">
+                    <f:param name="pagesClassifiedId" value="#{classified.id}" />
+                  </s:link>
+                </f:facet>
+                <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+                  <h:outputText value="#{messages.Classified_Date}:" />
+                  <h:outputText id="address" value="#{classified.date}" />
+
+                  <h:outputText value="#{messages.Classified_HomePhone}:" />
+                  <h:outputText id="homePhone" value="#{classified.homePhone}" />
+
+                  <h:outputText value="#{messages.Classified_CellPhone}:" />
+                  <h:outputText id="cellphone" value="#{classified.cellPhone}" />
+
+                  <h:outputText value="#{messages.Classified_Email}:" />
+                  <h:outputText id="email" value="#{classified.email}" />
+
+                </h:panelGrid>
+                <rich:panel>
+                  <h:outputText escape="false" id="description" value="#{classified.description}" />
+                </rich:panel>
+                <rich:dataGrid style="width : 350px" value="#{classified.images}" var="attachment"
+                  id="imageTable" columns="4" elements="12">
+                  <s:link target="_blank" action="#{downloadAttachment.download}" rel="nofollow">
+                    <f:param name="attachmentId" value="#{attachment.imageId}" />
+                    <s:graphicImage rendered="#{attachment.thumbnailNotEmpty}"
+                      fileName="buildClassifiedPage-#{attachment.imageId}" value="#{attachment.thumbnail}">
+                      <s:transformImageSize width="75" maintainRatio="true" />
+                    </s:graphicImage>
+                  </s:link>
+                </rich:dataGrid>
+              </rich:panel>
+              <f:facet name="footer">
+                <rich:datascroller for="classifiedTable" />
+              </f:facet>
+            </rich:dataGrid>
+
+          </rich:layoutPanel>
+          <rich:layoutPanel position="right" width="2%" style="padding:3px;">
+            <h:panelGroup>
+            </h:panelGroup>
+          </rich:layoutPanel>
+          <rich:layoutPanel position="bottom" width="100%" style="padding:3px;">
+            <h:outputText escape="false" value="" />
+          </rich:layoutPanel>
+        </rich:layout>
+      </rich:panel>
+    </h:form>
+  </ui:define>
+
+</ui:composition>

@@ -1,0 +1,105 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a4j="http://richfaces.org/a4j" xmlns:e="http://jboss.com/products/seam/excel"
+  template="layout/template.xhtml">
+
+  <ui:define name="body">
+    <rich:panel styleClass="panelbodyNoBorder">
+      <rich:layout>
+        <rich:layoutPanel position="top" width="100%" style="padding:3px;">
+          <rich:dataGrid value="#{sponsorHome.premiumSponsors}" var="sponsor"
+            rendered="#{!empty sponsorHome.premiumSponsors}" id="goldList" columns="2" elements="6" width="100%"
+            columnClasses="datagridcols">
+            <rich:panel style="width : 350px">
+              <f:facet name="header">
+                <h:outputText escape="false" value="#{sponsor.sponsorName}" />
+              </f:facet>
+              <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+                <h:outputText value="#{messages.Sponsor_Address}:" />
+                <h:outputText id="address" value="#{sponsor.address}" />
+
+                <h:outputText value="#{messages.Sponsor_City}:" />
+                <h:panelGroup id="cityControls">
+                  <h:outputText id="city" value="#{sponsor.city}, " />
+                  <h:outputText id="state" value="#{sponsor.state} " />
+                  <h:outputText id="zip" value="#{sponsor.zip}" />
+                </h:panelGroup>
+
+                <h:outputText value="#{messages.Sponsor_Phone}:" />
+                <h:outputText id="phone" value="#{sponsor.phone}" />
+
+                <h:outputText value="#{messages.Sponsor_Email}:" />
+                <h:outputText id="email" value="#{sponsor.email}" />
+
+                <h:outputText value="#{messages.Sponsor_WebSite}:" />
+                <h:outputLink value="http://#{sponsor.webSite}" target="_blank">
+                  <h:outputText value="#{sponsor.webSite}"></h:outputText>
+                </h:outputLink>
+              </h:panelGrid>
+              <s:graphicImage fileName="buildSponsorPage-#{sponsor.id}"
+                rendered="#{sponsor.picture.dataNotEmpty}" value="#{sponsor.picture.data}">
+                <s:transformImageSize width="300" maintainRatio="true" />
+              </s:graphicImage>
+            </rich:panel>
+          </rich:dataGrid>
+        </rich:layoutPanel>
+        <rich:layoutPanel position="left" width="0%" style="padding:3px;">
+          <h:panelGroup>
+          </h:panelGroup>
+        </rich:layoutPanel>
+        <rich:layoutPanel position="center" width="100%" style="padding:3px;">
+          <rich:spacer height="10" />
+          <hr />
+          <rich:spacer height="25" />
+        </rich:layoutPanel>
+        <rich:layoutPanel position="right" width="0%" style="padding:3px;">
+          <h:panelGroup>
+          </h:panelGroup>
+        </rich:layoutPanel>
+        <rich:layoutPanel position="bottom" width="100%" style="padding:3px;">
+          <rich:dataGrid value="#{sponsorHome.standardSponsors}" var="sponsor"
+            rendered="#{!empty sponsorHome.standardSponsors}" id="standardList" columns="2" elements="6"
+            width="100%" columnClasses="datagridcols">
+            <rich:panel style="width : 350px">
+              <f:facet name="header">
+                <h:outputText escape="false" value="#{sponsor.sponsorName}" />
+              </f:facet>
+              <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+                <h:outputText value="#{messages.Sponsor_Address}:" />
+                <h:outputText id="address" value="#{sponsor.address}" />
+
+                <h:outputText value="#{messages.Sponsor_City}:" />
+                <h:panelGroup id="cityControls">
+                  <h:outputText id="city" value="#{sponsor.city}, " />
+                  <h:outputText id="state" value="#{sponsor.state} " />
+                  <h:outputText id="zip" value="#{sponsor.zip}" />
+                </h:panelGroup>
+
+                <h:outputText value="#{messages.Sponsor_Phone}:" />
+                <h:outputText id="phone" value="#{sponsor.phone}" />
+
+                <h:outputText value="#{messages.Sponsor_Email}:" />
+                <h:outputText id="email" value="#{sponsor.email}" />
+
+                <h:outputText value="#{messages.Sponsor_WebSite}:" />
+                <h:outputLink value="http://#{sponsor.webSite}" target="_blank">
+                  <h:outputText value="#{sponsor.webSite}"></h:outputText>
+                </h:outputLink>
+              </h:panelGrid>
+              <s:graphicImage fileName="buildSponsorPage-#{sponsor.id}"
+                rendered="#{sponsor.picture.dataNotEmpty}" value="#{sponsor.picture.data}">
+                <s:transformImageSize width="300" maintainRatio="true" />
+              </s:graphicImage>
+            </rich:panel>
+          </rich:dataGrid>
+        </rich:layoutPanel>
+      </rich:layout>
+    </rich:panel>
+  </ui:define>
+
+</ui:composition>

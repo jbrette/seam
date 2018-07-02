@@ -1,0 +1,192 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" template="layout/template.xhtml">
+
+  <ui:define name="body">
+    <script type="text/javascript">
+        function confirmDelete()
+        {
+          return confirm("#{messages.jscript_confirmDelete}");
+        }
+        function confirmPastMember()
+        {
+          return confirm("Transfert member to past member list ?");
+        }
+      </script>
+
+    <h:form id="editForm">
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+
+      <s:validateAll>
+
+        <h:panelGrid id="panel" columns="3" width="100%">
+          <rich:panel bodyClass="panelbody" width="33%">
+            <f:facet name="header">
+              <h:outputText value="Validity"></h:outputText>
+            </f:facet>
+            <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+              <h:outputText value="#{messages.AssocMember_MKind}:" />
+              <s:decorate id="guestMemberDecorate">
+                <h:selectOneMenu value="#{assocMember.MKind}">
+                  <f:selectItem id="item1" itemLabel="Member" itemValue="normal" />
+                  <f:selectItem id="item2" itemLabel="Committee Member" itemValue="committee" />
+                  <f:selectItem id="item3" itemLabel="Guest Member" itemValue="guest" />
+                  <f:selectItem id="item4" itemLabel="Sponsor" itemValue="sponsor" />
+                  <f:selectItem id="item5" itemLabel="Advertiser" itemValue="advertiser" />
+                  <f:selectItem id="item6" itemLabel="Partner Org" itemValue="partnerorg" />
+                  <f:selectItem id="item7" itemLabel="Past Member" itemValue="pastmember" />
+                </h:selectOneMenu>
+              </s:decorate>
+
+              <h:outputText value="#{messages.AssocMember_MembershipValid}:" />
+              <s:decorate id="membershipValidDecorate">
+                <h:selectBooleanCheckbox id="membershipValid" value="#{assocMember.membershipValid}" />
+              </s:decorate>
+
+              <h:outputText value="#{messages.AssocMember_AddressValid}:" />
+              <s:decorate id="addressValidDecorate">
+                <h:selectBooleanCheckbox id="addressValid" value="#{assocMember.addressValid}" />
+              </s:decorate>
+
+              <h:outputText value="#{messages.AssocMember_EMailValid}:" />
+              <s:decorate id="EMailValidDecorate">
+                <h:selectBooleanCheckbox id="EMailValid" value="#{assocMember.EMailValid}" />
+              </s:decorate>
+
+            </h:panelGrid>
+          </rich:panel>
+
+
+          <rich:panel bodyClass="panelbody" width="33%">
+            <f:facet name="header">
+              <h:outputText value="Membership"></h:outputText>
+            </f:facet>
+            <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+              <h:outputText value="#{messages.AssocMember_MembershipDues}:" />
+              <s:decorate id="membershildDuesDecorate">
+                <h:inputText id="membershipDues" value="#{assocMember.membershipDues}" required="true" />
+              </s:decorate>
+
+              <h:outputText value="#{messages.AssocMember_MemberSince}:" />
+              <s:decorate id="memberSinceDecorate">
+                <rich:calendar id="memberSince" datePattern="MM/dd/yyyy" value="#{assocMember.memberSince}"
+                  required="true" />
+              </s:decorate>
+
+              <h:outputText value="#{messages.AssocMember_MemberUntil}:" />
+              <s:decorate id="memberUntilDecorate">
+                <rich:calendar id="memberUntil" datePattern="MM/dd/yyyy" value="#{assocMember.memberUntil}"
+                  required="true" />
+              </s:decorate>
+
+              <h:outputText value="#{messages.AssocMember_LastPaymentDate}:" />
+              <s:decorate id="lastPaymentDateDecorate">
+                <rich:calendar id="lastPaymentDate" datePattern="MM/dd/yyyy"
+                  value="#{assocMember.lastPaymentDate}" />
+              </s:decorate>
+
+              <h:outputText value="#{messages.AssocMember_FreeMembership}:" />
+              <s:decorate id="freeMembershipDecorate">
+                <h:selectBooleanCheckbox id="freeMembership" value="#{assocMember.freeMembership}" />
+              </s:decorate>
+            </h:panelGrid>
+          </rich:panel>
+        </h:panelGrid>
+
+      </s:validateAll>
+
+      <!-- actions -->
+      <rich:toolBar>
+        <rich:toolBarGroup location="left">
+          <h:panelGroup id="updateAssocMemberControls" rendered="#{assocMemberHome.managed}">
+            <h:graphicImage value="/img/icons/save2-16.png" />
+            <h:outputText value=" " />
+            <h:commandLink id="updateAssocMember" action="#{assocMemberHome.update}" value="Update Member"
+              rendered="#{assocMemberHome.managed}" />
+          </h:panelGroup>
+          <h:panelGroup id="cancelManagedControls" rendered="#{assocMemberHome.managed}">
+            <h:graphicImage value="/img/icons/close16.png" />
+            <h:outputText value=" " />
+            <s:link id="cancelManaged" view="/viewAssocMember.xhtml" value="Close"
+              rendered="#{assocMemberHome.managed}" />
+          </h:panelGroup>
+          <h:panelGroup id="createAssocMemberControls" rendered="#{!assocMemberHome.managed}">
+            <h:graphicImage value="/img/icons/save2-16.png" />
+            <h:outputText value=" " />
+            <h:commandLink id="createAssocMember" action="#{assocMemberHome.persist}" value="Create Member"
+              rendered="#{!assocMemberHome.managed}" />
+          </h:panelGroup>
+          <h:panelGroup id="cancelAssocMemberControls" rendered="#{!assocMemberHome.managed}">
+            <h:graphicImage value="/img/icons/cancel16.png" />
+            <h:outputText value=" " />
+            <s:link id="cancel" view="/searchAssocMember.xhtml" value="Cancel"
+              rendered="#{!assocMemberHome.managed}" />
+          </h:panelGroup>
+          <h:panelGroup id="emailMembershipControls">
+            <h:graphicImage value="/img/icons/emailButton.png" />
+            <h:outputText value=" " />
+            <h:commandButton id="emailMembership" action="#{assocMemberHome.emailMembership}"
+              value="EMail Membership">
+            </h:commandButton>
+          </h:panelGroup>
+        </rich:toolBarGroup>
+        <rich:toolBarGroup location="right">
+          <h:panelGroup id="pastMemberControls">
+            <h:graphicImage value="/img/icons/export16.png" />
+            <h:outputText value=" " />
+            <h:commandButton id="toPastMember" action="#{assocMemberHome.toPastMember}"
+              onclick="return confirmPastMember()" value="Move to Past Members">
+            </h:commandButton>
+          </h:panelGroup>
+          <h:panelGroup id="deleteAssocMemberControls"
+            rendered="#{assocMemberHome.managed and s:hasRole('admin')}">
+            <h:graphicImage value="/img/icons/remove-from-database16.png" />
+            <h:outputText value=" " />
+            <s:link id="deleteAssocMember" action="#{assocMemberHome.remove}" onclick="return confirmDelete()"
+              value="Delete Member" rendered="#{assocMemberHome.managed and s:hasRole('admin')}">
+            </s:link>
+          </h:panelGroup>
+
+        </rich:toolBarGroup>
+      </rich:toolBar>
+
+      <rich:panel id="splittedForm" width="100%">
+        <rich:dataTable value="#{assocMemberHome.instance.formulaireParts}" var="fpart" id="fpartTable"
+          rowClasses="datagridrow1, datagridrow2" width="100%">
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Nb" />
+            </f:facet>
+            <h:outputText value="#{fpart.nb}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Name" />
+            </f:facet>
+            <h:outputText value="#{fpart.name}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Value" />
+            </f:facet>
+            <h:outputText value="#{fpart.value}" />
+          </rich:column>
+        </rich:dataTable>
+      </rich:panel>
+    </h:form>
+
+  </ui:define>
+</ui:composition>

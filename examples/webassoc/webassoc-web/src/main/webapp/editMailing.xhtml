@@ -1,0 +1,75 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" template="layout/template.xhtml">
+
+  <ui:define name="body">
+
+    <h:form id="editForm">
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+
+      <s:validateAll>
+
+        <h:panelGrid id="panel" columns="1" width="100%">
+          <rich:panel bodyClass="panelbody">
+            <f:facet name="header">
+              <h:outputText value="MailingList Entry"></h:outputText>
+            </f:facet>
+            <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+              <h:outputText value="#{messages.Mailing_Member}:" />
+              <h:outputText value="#{mailing.member.assocName}" />
+
+              <h:outputText value="#{messages.Mailing_NewsLetter}:" />
+              <h:outputText value="#{mailing.mailingController.title}" />
+
+              <h:outputText value="#{messages.Mailing_Sent}:" />
+              <s:decorate id="activeDecorate">
+                <h:selectOneRadio id="state" value="#{mailing.state}" layout="lineDirection" required="true">
+                  <f:selectItem id="item1" itemLabel="NotSent" itemValue="notSent" />
+                  <f:selectItem id="item2" itemLabel="Annoucement" itemValue="announcement" />
+                  <f:selectItem id="item3" itemLabel="Reminder" itemValue="reminder" />
+                  <f:selectItem id="item4" itemLabel="Sec Reminder" itemValue="secondReminder" />
+                  <f:selectItem id="item5" itemLabel="Don't Forget" itemValue="dontForget" />
+                  <f:selectItem id="item6" itemLabel="Sent" itemValue="sent" />
+                </h:selectOneRadio>
+              </s:decorate>
+
+            </h:panelGrid>
+          </rich:panel>
+
+        </h:panelGrid>
+
+      </s:validateAll>
+
+      <!-- actions -->
+      <rich:toolBar>
+        <rich:toolBarGroup>
+
+          <h:commandLink id="updateMailing" action="#{mailingHome.update}" value="Update MailingList Entry"
+            rendered="#{mailingHome.managed}" />
+          <s:link id="cancelManaged" view="/viewNewsLetter.xhtml" value="Back to NewsLetter View"
+            rendered="#{mailingHome.managed}">
+            <f:param name="pagesNewsLetterId" value="#{mailing.mailingController.id}" />
+          </s:link>
+          <s:link id="deleteMailing" action="#{mailingHome.remove}" value="Delete Entry From MailingList"
+            rendered="#{mailingHome.managed}">
+          </s:link>
+
+        </rich:toolBarGroup>
+      </rich:toolBar>
+
+    </h:form>
+
+  </ui:define>
+</ui:composition>

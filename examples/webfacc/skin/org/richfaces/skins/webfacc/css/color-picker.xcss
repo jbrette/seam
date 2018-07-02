@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+        <u:selector name=".rich-colorPicker-cancel">
+        </u:selector>
+
+        <u:selector name=".rich-colorPicker-color">
+        </u:selector>
+
+        <u:selector name=".rich-colorPicker-colors-input">
+        </u:selector>
+
+        <u:selector name=".rich-colorPicker-current-color">
+        </u:selector>
+
+        <u:selector name=".rich-colorPicker-ext">
+        </u:selector>
+
+        <u:selector name=".rich-colorPicker-focus">
+        </u:selector>
+
+        <u:selector name=".rich-colorPicker-hex-wrapper">
+        </u:selector>
+
+        <u:selector name=".rich-colorPicker-hsb-b">
+        </u:selector>
+
+        <u:selector name=".rich-colorPicker-hsb-h">
+        </u:selector>
+
+        <u:selector name=".rich-colorPicker-hsb-s">
+        </u:selector>
+
+        <u:selector name=".rich-colorPicker-hsb-wrapper">
+        </u:selector>
+
+        <u:selector name=".rich-colorPicker-icon">
+        </u:selector>
+
+        <u:selector name=".rich-colorPicker-new-color">
+        </u:selector>
+
+        <u:selector name=".rich-colorPicker-rainbow">
+        </u:selector>
+
+        <u:selector name=".rich-colorPicker-rgb-b">
+        </u:selector>
+
+        <u:selector name=".rich-colorPicker-rgb-g">
+        </u:selector>
+
+        <u:selector name=".rich-colorPicker-rgb-r">
+        </u:selector>
+
+        <u:selector name=".rich-colorPicker-rgb-wrapper">
+        </u:selector>
+
+        <u:selector name=".rich-colorPicker-span">
+        </u:selector>
+
+        <u:selector name=".rich-colorPicker-submit">
+        </u:selector>
+
+        <u:selector name=".rich-colorPicker-wrapper">
+        </u:selector>
+
+</f:template>

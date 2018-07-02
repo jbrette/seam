@@ -1,0 +1,18 @@
+<m:message xmlns="http://www.w3.org/1999/xhtml" xmlns:m="http://jboss.com/products/seam/mail"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ui="http://java.sun.com/jsf/facelets">
+  <m:from name="FACCDallas" address="do-not-reply@faccdallas.com" />
+  <m:to name="#{inactiveNewUser.email}">#{inactiveNewUser.email}</m:to>
+  <m:subject>FACCDallas Account Activation</m:subject>
+  <m:body>
+    <html>
+<body>
+  <p>Dear #{inactiveNewUser.displayName},</p>
+  <p>Please click on the following link to activate your account:</p>
+  <p>
+    <a href="#{inactiveNewUser.activationLink}">#{inactiveNewUser.activationLink}</a>
+  </p>
+</body>
+    </html>
+  </m:body>
+</m:message>

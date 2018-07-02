@@ -1,0 +1,10 @@
+<projectDescription>
+  <name>webfacc-ear</name>
+  <comment>Examples for Seam 2 Framework. NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
+  <projects>
+    <project>webfacc-ejb</project>
+    <project>webfacc-web</project>
+  </projects>
+  <buildSpec/>
+  <natures/>
+</projectDescription>

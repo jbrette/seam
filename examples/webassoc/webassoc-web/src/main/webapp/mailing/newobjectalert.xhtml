@@ -1,0 +1,17 @@
+<m:message xmlns="http://www.w3.org/1999/xhtml" xmlns:m="http://jboss.com/products/seam/mail"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:s="http://jboss.com/products/seam/taglib" xmlns:f="http://java.sun.com/jsf/core">
+
+  <m:from name="#{doNotReplyName}" address="#{doNotReplyAddr}" />
+  <m:to name="#{objectcreatoremail}">#{objectcreatoremail}</m:to>
+  <m:bcc name="bccSecretary" address="#{bccSecretary}" />
+  <m:subject>#{msgtitle}</m:subject>
+  <m:body>
+    <p>Dallas Accueil a bien recu votre demande. Veuillez nous laisser quelques heures pour la traiter</p>
+    <p>
+      <br /> Dallas Accueil.
+    </p>
+    <p />
+    <p />
+  </m:body>
+</m:message>

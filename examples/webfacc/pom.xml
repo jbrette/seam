@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+	<groupId>org.jboss.seam</groupId>
+	<artifactId>examples</artifactId>
+	<version>2.3.0.ALPHA</version>
+        <relativePath>pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.jboss.seam.examples</groupId>
+    <artifactId>webfacc</artifactId>
+    <packaging>pom</packaging>
+    <name>WEBFacc Example</name>
+
+    <modules>
+    	<module>webfacc-ear</module>
+    	<module>webfacc-ejb</module>
+    	<module>webfacc-web</module>
+    	<!-- <module>webfacc-tests</module> -->
+    </modules>
+    
+    <properties>
+        <example.name>webfacc</example.name>
+        <jms.provider.file>seam-webfaccjms-service.xml</jms.provider.file>
+    </properties>
+    
+    
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.seam.examples</groupId>
+                <artifactId>webfacc-ejb</artifactId>
+                <version>${project.version}</version>
+                <type>ejb</type>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.seam.examples</groupId>
+                <artifactId>webfacc-web</artifactId>
+                <version>${project.version}</version>
+                <type>war</type>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.seam.examples</groupId>
+                <artifactId>webfacc-ear</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <profiles>
+        <profile>
+            <id>hornetq</id>
+            <properties>
+                <jms.provider.file>seam-webfaccjms-hornetq.xml</jms.provider.file>
+            </properties>
+        </profile>
+    </profiles>
+</project>

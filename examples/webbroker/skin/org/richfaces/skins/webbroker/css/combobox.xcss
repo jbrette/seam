@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+        <u:selector name=".rich-combobox">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-button">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-button-background">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-button-background-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-button-background-inactive">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-button-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-button-hovered">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-button-icon">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-button-icon-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-button-icon-inactive">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-button-inactive">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-button-pressed-background">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-font">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-font-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-font-inactive">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-input">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-input-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-input-inactive">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-item">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-item-normal">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-item-selected">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-list-cord">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-list-decoration">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-list-position">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-list-scroll">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-list-width">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-shadow">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-shadow-bl">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-shadow-br">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-shadow-tl">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-shadow-tr">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-shell">
+        </u:selector>
+
+        <u:selector name=".rich-combobox-strut">
+        </u:selector>
+
+</f:template>

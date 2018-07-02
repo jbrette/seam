@@ -1,0 +1,29 @@
+<m:message xmlns="http://www.w3.org/1999/xhtml" xmlns:m="http://jboss.com/products/seam/mail"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:s="http://jboss.com/products/seam/taglib" xmlns:f="http://java.sun.com/jsf/core">
+
+  <m:from name="ALEMAX Design" address="do-not-reply@alemaxdesign.com" />
+  <m:to name="#{aballot.member.assocName}">#{aballot.member.email}</m:to>
+  <m:subject>Vote pour #{aballot.vote.title}</m:subject>
+  <m:attachment value="/img/sponsors/assoc_logo.png" contentType="image/png" status="attachedJPG"
+    disposition="inline" />
+  <m:body>
+    <p>
+      <h:outputText value="Cher(e) Adherent(e) #{aballot.member.assocName}" />
+      ,
+    </p>
+    <center>
+      <img src="cid:#{attachedJPG.contentId}" />
+    </center>
+    <h:outputText escape="false" value="#{aballot.vote.ARefCheckedContent}" />
+    <p />
+    <p>
+      Nous vous invitons a voter ici : <a href="#{aballot.ballotCastingLink}">Cliquez ici</a>
+    </p>
+    <p />
+    <p>
+      Tres cordialement,<br /> Le bureau de Dallas Accueil.
+    </p>
+    <p />
+  </m:body>
+</m:message>

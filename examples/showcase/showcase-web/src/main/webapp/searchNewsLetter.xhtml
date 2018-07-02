@@ -1,0 +1,84 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a4j="http://richfaces.org/a4j" xmlns:e="http://jboss.com/products/seam/excel"
+  template="layout/template.xhtml">
+
+  <ui:define name="body">
+
+    <h:form id="searchForm">
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+      <!-- search results -->
+      <a4j:outputPanel id="searchResult">
+        <rich:dataTable value="#{newsLetters.resultList}" var="newsLetter"
+          rendered="#{!empty newsLetters.resultList}" id="newsLetterTable"
+          rowClasses="datagridrow1, datagridrow2" width="100%" rows="50">
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.NewsLetter_Title}" />
+            </f:facet>
+            <s:link id="link" view="/viewNewsLetter.xhtml" value="#{newsLetter.title}">
+              <f:param name="pagesNewsLetterId" value="#{newsLetter.id}" />
+            </s:link>
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.NewsLetter_Date}" />
+            </f:facet>
+            <h:outputText value="#{newsLetter.date}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.NewsLetter_NKind}" />
+            </f:facet>
+            <h:outputText value="#{newsLetter.NKind}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.NewsLetter_TemplateFile}" />
+            </f:facet>
+            <h:outputText value="#{newsLetter.templateFile}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.NewsLetter_MailingListBuildRequest}" />
+            </f:facet>
+            <h:outputText value="#{newsLetter.mailingListBuildRequest}" />
+          </rich:column>
+          <f:facet name="footer">
+            <rich:datascroller for="newsLetterTable" maxPages="5" />
+          </f:facet>
+        </rich:dataTable>
+      </a4j:outputPanel>
+
+
+      <!-- pagination control -->
+      <rich:toolBar id="searchBottomBar" itemSeparator="disc">
+        <rich:toolBarGroup>
+          <h:panelGroup id="addNewsLetterControls" rendered="#{s:hasRole('newsmgr')}">
+            <h:graphicImage value="/img/icons/add1-16.png" />
+            <h:outputText value=" " />
+            <s:link id="create" view="/editNewsLetter.xhtml" value="Create New NewsLetter"
+              rendered="#{s:hasRole('newsmgr')}">
+              <f:param name="pagesNewsLetterId" />
+            </s:link>
+          </h:panelGroup>
+
+
+        </rich:toolBarGroup>
+      </rich:toolBar>
+    </h:form>
+
+  </ui:define>
+</ui:composition>

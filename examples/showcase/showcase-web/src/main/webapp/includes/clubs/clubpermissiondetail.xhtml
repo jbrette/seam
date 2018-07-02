@@ -1,0 +1,54 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  template="/layout/template.xhtml">
+
+  <ui:define name="body">
+
+    <h:form id="editForm">
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+
+      <rich:panel bodyClass="panelbody">
+        <f:facet name="header">
+          <h:outputText value="#{permissionSearch.target.name}"></h:outputText>
+        </f:facet>
+        <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+          <h:outputLabel for="clubMembers" value="ClubMembers" styleClass="formLabel" />
+          <h:selectManyListbox id="clubMembers" value="#{clubPermissionMgr.selectedClubMembers}" size="6">
+            <s:selectItems value="#{clubPermissionMgr.availableClubMembers}" var="clubMember"
+              label="#{clubMember.assocName}" />
+            <s:convertEntity />
+          </h:selectManyListbox>
+
+          <h:outputLabel for="actions" value="Actions allowed" />
+          <h:selectManyCheckbox id="actions" value="#{clubPermissionMgr.selectedActions}" layout="pageDirection"
+            styleClass="roles">
+            <s:selectItems value="#{permissionManager.listAvailableActions(clubPermissionMgr.target)}"
+              var="action" label="#{action}" />
+          </h:selectManyCheckbox>
+        </h:panelGrid>
+
+      </rich:panel>
+
+      <rich:toolBar>
+        <rich:toolBarGroup>
+          <h:commandButton value="Save" action="#{clubPermissionMgr.applyPermissions}" />
+          <s:button view="/includes/clubs/clubpermissions.xhtml" value="Close" propagation="end" />
+        </rich:toolBarGroup>
+      </rich:toolBar>
+
+    </h:form>
+  </ui:define>
+
+</ui:composition>

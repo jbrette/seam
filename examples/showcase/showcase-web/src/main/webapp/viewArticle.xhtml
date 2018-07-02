@@ -1,0 +1,88 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a4j="http://richfaces.org/a4j" template="/layout/template.xhtml">
+
+  <ui:define name="body">
+    <rich:panel styleClass="panelbodyNoBorder">
+      <h:form id="clubForm">
+        <rich:layout>
+          <rich:layoutPanel position="top" width="100%" style="padding:3px;">
+            <h:outputText styleClass="outputTextBig" value="#{article.subject}" />
+            <hr />
+            <rich:spacer width="200" height="50" />
+          </rich:layoutPanel>
+          <rich:layoutPanel position="left" width="15%" style="padding:3px;">
+            <h:panelGroup>
+            </h:panelGroup>
+          </rich:layoutPanel>
+          <rich:layoutPanel position="center" width="85%" style="padding:3px;">
+            <h:panelGrid columns="1" rendered="#{article.layout==0}">
+              <h:outputText escape="false" value="#{article.description}" />
+            </h:panelGrid>
+            <h:panelGrid columns="2" rendered="#{article.layout==1}">
+              <s:graphicImage fileName="viewArticle-#{article.id}" value="#{article.ilst.data}">
+                <s:transformImageSize width="#{article.ilstWidth}" maintainRatio="true" />
+              </s:graphicImage>
+              <h:outputText escape="false" value="#{article.description}" />
+            </h:panelGrid>
+            <h:panelGrid columns="2" rendered="#{article.layout==2}">
+              <h:outputText escape="false" value="#{article.description}" />
+              <s:graphicImage fileName="viewArticle-#{article.id}" value="#{article.ilst.data}">
+                <s:transformImageSize width="#{article.ilstWidth}" maintainRatio="true" />
+              </s:graphicImage>
+            </h:panelGrid>
+            <h:panelGrid columns="1" rendered="#{article.layout==3}">
+              <s:graphicImage fileName="viewArticle-#{article.id}" value="#{article.ilst.data}">
+                <s:transformImageSize width="#{article.ilstWidth}" maintainRatio="true" />
+              </s:graphicImage>
+            </h:panelGrid>
+            <h:panelGrid columns="1" rendered="#{article.layout==4}">
+              <h:outputText escape="false" value="#{article.description}" />
+              <s:graphicImage fileName="viewArticle-#{article.id}" value="#{article.ilst.data}">
+                <s:transformImageSize width="#{article.ilstWidth}" maintainRatio="true" />
+              </s:graphicImage>
+            </h:panelGrid>
+            <h:panelGrid columns="1" rendered="#{article.layout==5}">
+              <s:graphicImage fileName="viewArticle-#{article.id}" value="#{article.ilst.data}">
+                <s:transformImageSize width="#{article.ilstWidth}" maintainRatio="true" />
+              </s:graphicImage>
+              <h:outputText escape="false" value="#{article.description}" />
+            </h:panelGrid>
+          </rich:layoutPanel>
+          <rich:layoutPanel position="right" width="15%" style="padding:3px;">
+
+          </rich:layoutPanel>
+          <rich:layoutPanel position="bottom" width="100%" style="padding:3px;">
+            <hr />
+            <rich:dataGrid value="#{article.attachments}" var="attachment" columns="5" elements="10"
+              width="100%">
+              <rich:panel styleClass="panelbodyNoBorder">
+                <h:panelGrid columns="1">
+                  <s:link target="_blank" action="#{downloadAttachment.download}">
+                    <f:param name="attachmentId" value="#{attachment.imageId}" />
+                    <s:graphicImage fileName="viewArticle-#{attachment.imageId}" value="#{attachment.thumbnail}">
+                      <s:transformImageSize width="75" maintainRatio="true" />
+                    </s:graphicImage>
+                  </s:link>
+                  <h:outputText value="#{attachment.fileName}" />
+                </h:panelGrid>
+              </rich:panel>
+            </rich:dataGrid>
+            <rich:toolBar>
+              <rich:toolBarGroup location="right">
+                <h:panelGroup id="closeEventControls">
+                  <h:graphicImage value="/img/icons/close16.png" />
+                  <h:outputText value=" " />
+                  <s:link id="closeArticle" view="/home.xhtml" value="Close Article" />
+                </h:panelGroup>
+              </rich:toolBarGroup>
+            </rich:toolBar>
+          </rich:layoutPanel>
+        </rich:layout>
+      </h:form>
+    </rich:panel>
+  </ui:define>
+</ui:composition>

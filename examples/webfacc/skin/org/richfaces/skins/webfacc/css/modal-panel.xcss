@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+        <u:selector name=".rich-modalpanel">
+        </u:selector>
+
+        <u:selector name=".rich-mp-container">
+        </u:selector>
+
+        <u:selector name=".rich-mp-content">
+        </u:selector>
+
+        <u:selector name=".rich-mp-content-table">
+        </u:selector>
+
+        <u:selector name=".rich-mpnl-body">
+        </u:selector>
+
+        <u:selector name=".rich-mpnl-controls">
+        </u:selector>
+
+        <u:selector name=".rich-mpnl-header">
+        </u:selector>
+
+        <u:selector name=".rich-mpnl-header-cell">
+        </u:selector>
+
+        <u:selector name=".rich-mpnl-mask-div">
+        </u:selector>
+
+        <u:selector name=".rich-mpnl-resizer">
+        </u:selector>
+
+        <u:selector name=".rich-mpnl-shadow">
+        </u:selector>
+
+        <u:selector name=".rich-mpnl-text">
+        </u:selector>
+
+        <u:selector name=".rich-mpnl_panel">
+        </u:selector>
+
+</f:template>

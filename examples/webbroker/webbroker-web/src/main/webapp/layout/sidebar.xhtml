@@ -1,0 +1,39 @@
+<h:panelGrid columns="1" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:a="http://richfaces.org/a4j" width="100%">
+    <h:messages globalOnly="true" id="messages" errorStyle="color: red"
+				infoStyle="color: green" layout="table" />
+    <rich:panel width="100%">
+        <f:facet name="header">
+            <h:outputText value="#{messages.Sidebar_UpcomingEvents}"></h:outputText>
+        </f:facet>
+        <h:form id="upcomingEventsForm">
+            <rich:dataGrid value="#{clubEventHome.upcomingEvents}" var="cevent"
+                columns="1" elements="15">
+                <rich:panel bodyClass="panelbody">
+                    <f:facet name="header">
+                        <s:link id="link" view="/editClubEvent.xhtml"
+                            value="#{cevent.title}" rel="nofollow">
+                            <f:param name="pagesClubId" value="#{cevent.club.id}" />
+                            <f:param name="pagesClubEventId" value="#{cevent.id}" />
+                        </s:link>
+                    </f:facet>
+                    <h:panelGrid columns="2"
+                        columnClasses="panelgridcol1, panelgridcol2">
+                        <h:outputText value="Where:"></h:outputText>
+                        <h:outputText value="#{cevent.hostName}" />
+                        <h:outputText value="When:"></h:outputText>
+                        <h:outputText value="#{cevent.startTime}">
+                            <f:convertDateTime type="date" dateStyle="full" timeZone="CST" />
+                        </h:outputText>
+                    </h:panelGrid>
+                </rich:panel>
+            </rich:dataGrid>
+        </h:form>
+    </rich:panel>
+
+</h:panelGrid>

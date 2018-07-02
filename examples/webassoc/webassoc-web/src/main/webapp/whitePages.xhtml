@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:e="http://jboss.com/products/seam/excel" xmlns:f="http://java.sun.com/jsf/core">
+
+<e:workbook type="jxl" filename="WhitePages.xls">
+  <e:worksheet name="Directory" value="#{assocMemberHome.directory}" var="amember">
+    <e:header>
+      <f:facet name="left">
+                The date is #date# and the time is #time#
+            </f:facet>
+    </e:header>
+    <e:column style="xls-column-autosize: true">
+      <f:facet name="header">
+        <e:cell value="#{messages.AssocMember_AssocName}" style="xls-font: red bold 10 Verdana" />
+      </f:facet>
+      <e:cell value="#{amember.assocName} #{amember.spouseFirstNames}" forceType="text" />
+    </e:column>
+    <e:column style="xls-column-autosize: true">
+      <f:facet name="header">
+        <e:cell value="KidFirstNames" style="xls-font: red bold 10 Verdana" />
+      </f:facet>
+      <e:cell value="#{amember.kidFirstNames}" forceType="text" />
+    </e:column>
+    <e:column style="xls-column-autosize: true">
+      <f:facet name="header">
+        <e:cell value="#{messages.AssocMember_Address}" style="xls-font: red bold 10 Verdana" />
+      </f:facet>
+      <e:cell value="#{amember.fullAddress}" />
+    </e:column>
+    <e:column style="xls-column-autosize: true">
+      <f:facet name="header">
+        <e:cell value="#{messages.AssocMember_City}" style="xls-font: red bold 10 Verdana" />
+      </f:facet>
+      <e:cell value="#{amember.city}, #{amember.state} #{amember.zip}" />
+    </e:column>
+    <e:column style="xls-column-autosize: true">
+      <f:facet name="header">
+        <e:cell value="#{messages.AssocMember_Email}" style="xls-font: red bold 10 Verdana" />
+      </f:facet>
+      <e:cell value="#{amember.email}" />
+    </e:column>
+    <e:column style="xls-column-autosize: true">
+      <f:facet name="header">
+        <e:cell value="#{messages.AssocMember_HomePhone}" style="xls-font: red bold 10 Verdana" />
+      </f:facet>
+      <e:cell value="#{amember.homePhone}" />
+    </e:column>
+  </e:worksheet>
+</e:workbook>
+</html>
+

@@ -1,0 +1,75 @@
+<h:form xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:s="http://jboss.com/products/seam/taglib" xmlns:rich="http://richfaces.org/rich" itemSeparator="line"
+  style="height: 200px">
+
+  <style type="text/css">
+.pic-normal {
+	width: 120px;
+	border: 2px solid #ACBECE;
+}
+
+.wrap1 {
+	width: 190px;
+	height: 130px;
+	float: left;
+}
+</style>
+
+
+  <h:panelGrid id="changelanguage2" columns="2" style="width : 100%"
+    columnClasses="leftHeaderColumn,rightHeaderColumn">
+
+    <h:panelGrid id="changelanguage3" columns="1">
+      <rich:spacer height="160" width="100" />
+      <h:panelGroup>
+        <rich:spacer height="10" width="125" />
+        <h:commandButton id="toFrench" image="/img/icons/fr.gif" action="#{globals.selectLanguage('fr')}"
+          value="French" />
+        <h:outputText value="#{messages.panelg_separator}" escape="false" />
+        <h:commandButton id="toEnglish" image="/img/icons/en.gif" action="#{globals.selectLanguage('en')}"
+          value="English" />
+      </h:panelGroup>
+    </h:panelGrid>
+
+    <h:panelGroup style="text-align: center">
+      <marquee
+        style="margin-top: 10px; width: 200px; float: left; height: 185px; margin-left: 0px; text-align: center"
+        direction="up" scrollamount="2" onmouseover="this.stop();" onmouseout="this.start();">
+      <h:panelGrid id="gallery" columns="1"
+        style="margin-top: 25px; cellspacing : 0; cellpadding : 0; width : 200px">
+        <ui:repeat value="#{sponsorHome.FPSponsors}" var="sponsor" id="fpList">
+          <h:panelGrid columns="1" style="text-align: center">
+            <h:panelGroup id="imageWithLink" style="text-align: center" rendered="#{sponsor.withFPLink}">
+              <h:outputLink value="http://#{sponsor.webSite}" target="_blank">
+                <s:graphicImage fileName="header-#{sponsor.id}" rendered="#{sponsor.picture.dataNotEmpty}"
+                  value="#{sponsor.picture.data}">
+                  <s:transformImageSize width="190" maintainRatio="true" />
+                </s:graphicImage>
+              </h:outputLink>
+            </h:panelGroup>
+
+            <h:panelGroup id="imageWithoutLink" style="text-align: center" rendered="#{not(sponsor.withFPLink)}">
+              <s:graphicImage fileName="header-#{sponsor.id}" rendered="#{sponsor.picture.dataNotEmpty}"
+                value="#{sponsor.picture.data}">
+                <s:transformImageSize width="190" maintainRatio="true" />
+              </s:graphicImage>
+            </h:panelGroup>
+
+            <h:outputText style="font-size : 12px;font-weight: bold" value="#{sponsor.sponsorName}" />
+            <h:outputText style="font-size : 12px;font-weight: bold" value="#{sponsor.phone}" />
+            <rich:spacer height="25" width="100" />
+          </h:panelGrid>
+        </ui:repeat>
+      </h:panelGrid> </marquee>
+    </h:panelGroup>
+
+  </h:panelGrid>
+
+
+  <rich:jQuery selector="#gallery img" query="mouseover(function(){enlargePic(this)})" />
+  <rich:jQuery selector="#gallery img" query="mouseout(function(){normalPic(this)})" />
+  <rich:jQuery name="enlargePic" timing="onJScall" query="stop().animate({width:'220px'})" />
+  <rich:jQuery name="normalPic" timing="onJScall" query="stop().animate({width:'190px'})" />
+
+</h:form>

@@ -1,0 +1,112 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a4j="http://richfaces.org/a4j" xmlns:e="http://jboss.com/products/seam/excel"
+  template="/layout/template.xhtml">
+
+  <ui:define name="body">
+
+    <h:form id="searchForm">
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+
+      <span class="prop"> <span class="name">Member Name :</span> <span class="value"><h:inputText
+            id="sponsorName" value="#{globals.searchedString}" />
+      </span> </span>
+
+      <h:commandButton id="submit" value="Search" action="newsearch" />
+
+      <!-- search results -->
+      <a4j:outputPanel id="searchResult">
+        <rich:dataTable value="#{sponsors.resultList}" var="sponsor" rendered="#{!empty sponsors.resultList}"
+          id="memberTable" rowClasses="datagridrow1, datagridrow2" width="100%">
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.Sponsor_SponsorName}" />
+            </f:facet>
+            <s:link id="link" disabled="#{not (s:hasRole('webcontentmgr'))}"
+              view="/includes/sponsors/editSponsor.xhtml" value="#{sponsor.sponsorName}">
+              <f:param name="pagesSponsorId" value="#{sponsor.id}" />
+            </s:link>
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.Sponsor_SponsorshipValid}" />
+            </f:facet>
+            <h:outputText value="#{sponsor.sponsorshipValid}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.Sponsor_Email}" />
+            </f:facet>
+            <h:outputText value="#{sponsor.email}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.Sponsor_City}" />
+            </f:facet>
+            <h:outputText value="#{sponsor.city}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.Sponsor_SKind}" />
+            </f:facet>
+            <h:outputText value="#{sponsor.SKind}" />
+          </rich:column>
+
+        </rich:dataTable>
+      </a4j:outputPanel>
+
+
+
+      <rich:toolBar id="searchBottomBar" itemSeparator="disc">
+        <rich:toolBarGroup>
+          <h:panelGroup id="addSponsorControls" rendered="#{s:hasRole('webcontentmgr')}">
+            <h:graphicImage value="/img/icons/add1-16.png" />
+            <h:outputText value=" " />
+            <s:link id="create" view="/includes/sponsors/editSponsor.xhtml" value="Create New Sponsor"
+              rendered="#{s:hasRole('webcontentmgr')}">
+              <f:param name="sponsorId" />
+              <!-- suppress propagation of sponsor id page parameter -->
+            </s:link>
+          </h:panelGroup>
+        </rich:toolBarGroup>
+
+        <rich:toolBarGroup location="right">
+
+          <s:link view="/includes/sponsors/searchSponsor.xhtml" rendered="#{sponsors.previousExists}"
+            value="&lt;&lt; First Page">
+            <f:param name="pagesFirstResult" value="0" />
+          </s:link>
+
+          <s:link view="/includes/sponsors/searchSponsor.xhtml" rendered="#{sponsors.previousExists}"
+            value="&lt; Previous Page">
+            <f:param name="pagesFirstResult" value="#{sponsors.previousFirstResult}" />
+          </s:link>
+
+          <s:link view="/includes/sponsors/searchSponsor.xhtml" rendered="#{sponsors.nextExists}"
+            value="Next Page &gt;">
+            <f:param name="pagesFirstResult" value="#{sponsors.nextFirstResult}" />
+          </s:link>
+
+          <s:link view="/includes/sponsors/searchSponsor.xhtml" rendered="#{sponsors.nextExists}"
+            value="Last Page &gt;&gt;">
+            <f:param name="pagesFirstResult" value="#{sponsors.lastFirstResult}" />
+          </s:link>
+
+        </rich:toolBarGroup>
+      </rich:toolBar>
+    </h:form>
+
+  </ui:define>
+</ui:composition>

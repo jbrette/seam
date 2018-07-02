@@ -1,0 +1,71 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a4j="http://richfaces.org/a4j" xmlns:e="http://jboss.com/products/seam/excel"
+  template="layout/template.xhtml">
+
+  <ui:define name="body">
+
+    <h:form id="searchForm">
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+
+      <!-- search results -->
+
+      <rich:dataTable value="#{discontinuedClubs.resultList}" var="club"
+        rendered="#{!empty discontinuedClubs.resultList}" id="clubTable" rowClasses="datagridrow1, datagridrow2"
+        width="100%" rows="25">
+        <rich:column>
+          <f:facet name="header">
+            <h:outputText value="Name" />
+          </f:facet>
+          <s:link id="link" view="/viewClub.xhtml" value="#{club.name}">
+            <f:param name="pagesClubId" value="#{club.id}" />
+          </s:link>
+        </rich:column>
+        <rich:column>
+          <f:facet name="header">
+            <s:formattedText value="Image" />
+          </f:facet>
+          <s:graphicImage fileName="searchClub-#{club.id}" rendered="#{club.picture.dataNotEmpty}"
+            value="#{club.picture.data}">
+            <s:transformImageSize width="100" maintainRatio="true" />
+          </s:graphicImage>
+        </rich:column>
+        <rich:column>
+          <f:facet name="header">
+            <s:formattedText value="Description" />
+          </f:facet>
+          <h:outputText escape="false" value="#{club.description}" />
+        </rich:column>
+        <f:facet name="footer">
+          <rich:datascroller for="clubTable" maxPages="5" />
+        </f:facet>
+      </rich:dataTable>
+
+
+
+      <!-- pagination control -->
+      <rich:toolBar id="searchBottomBar" itemSeparator="disc">
+        <rich:toolBarGroup>
+
+          <s:link id="create" view="/editClub.xhtml" value="Create New Club" rendered="#{s:hasRole('clubmgr')}">
+            <f:param name="pagesClubId" />
+          </s:link>
+
+        </rich:toolBarGroup>
+      </rich:toolBar>
+    </h:form>
+
+  </ui:define>
+</ui:composition>

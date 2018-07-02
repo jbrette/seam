@@ -1,0 +1,153 @@
+<rich:page xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:s="http://jboss.com/products/seam/taglib" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a="http://richfaces.org/a4j" pageTitle="WebAssocLogin" sidebarPosition="right" sidebarWidth="300"
+  markupType="xhtml" contentType="text/html" theme="simple">
+
+  <rich:modalPanel id="loginPanel2" width="320" height="240" showWhenRendered="true"
+    rendered="#{not identity.loggedIn}">
+    <f:facet name="header">
+      <h:panelGroup>
+        <h:outputText value="#{messages.login}" />
+      </h:panelGroup>
+    </f:facet>
+    <f:facet name="controls">
+      <h:panelGroup>
+        <h:graphicImage value="/img/icons/close.gif" styleClass="hidelink" id="hideLoginLink" />
+        <rich:componentControl for="loginPanel2" attachTo="hideLoginLink" operation="hide" event="onclick" />
+      </h:panelGroup>
+    </f:facet>
+    <h:form id="loginForm">
+      <h:panelGrid columns="2" columnClasses="col0,col1" cellpadding="5" footerClass="authFooter">
+        <h:outputText value="#{messages.login_username}" />
+        <h:inputText id="username" value="#{credentials.username}" />
+        <h:outputText value="#{messages.login_password}" />
+        <h:inputSecret id="password" value="#{credentials.password}" />
+        <h:outputText value=" " />
+        <h:panelGroup>
+          <h:selectBooleanCheckbox id="rememberMe" value="#{rememberMe.enabled}" />
+          <h:outputText value="#{messages.remember_me}" />
+        </h:panelGroup>
+        <f:facet name="footer">
+          <h:panelGroup>
+            <h:commandButton type="submit" id="loginBtn" action="#{identity.login}" value="#{messages.login}" />
+            <rich:message for="loginBtn">
+              <f:facet name="errorMarker">
+                <h:graphicImage value="/img/icons/forbidden.gif" />
+              </f:facet>
+            </rich:message>
+          </h:panelGroup>
+        </f:facet>
+      </h:panelGrid>
+      <br />
+      <br />
+      <h:outputLink value="#" id="forgotLink" rel="nofollow">
+        <h:outputText value="#{messages.login_forgot_password}" />
+        <rich:componentControl for="forgotPanel2" attachTo="forgotLink" operation="show" event="onclick" />
+      </h:outputLink>
+    </h:form>
+  </rich:modalPanel>
+
+  <rich:modalPanel id="forgotPanel2" width="360" height="240"
+    showWhenRendered="#{registerAction.forgotPasswordError}" rendered="#{not identity.loggedIn}">
+    <f:facet name="header">
+      <h:panelGroup>
+        <h:outputText value="#{messages.login_forgot_password}" />
+      </h:panelGroup>
+    </f:facet>
+    <f:facet name="controls">
+      <h:panelGroup>
+        <h:graphicImage value="/img/icons/close.gif" styleClass="hidelink" id="hideForgotLink" />
+        <rich:componentControl for="forgotPanel2" attachTo="hideForgotLink" operation="hide" event="onclick" />
+      </h:panelGroup>
+    </f:facet>
+    <a:form id="forgotForm" prependId="false" ajaxSubmit="true" reRender="pswdRecovered2,forgotPanel2"
+      oncomplete="if (document.getElementById('jsfMsgMaxSev').value != '2') #{rich:component('forgotPanel2')}.hide()">
+      <h:panelGrid columns="2" columnClasses="col0,col1" cellpadding="5" headerClass="authHeader"
+        footerClass="authFooter">
+        <f:facet name="header">
+          <h:outputText value="#{messages.forgot_form_desc}" />
+        </f:facet>
+        <h:outputText value="#{messages.login_username}" />
+        <h:inputText id="lostPasswordUserId" required="true" value="#{registerAction.lostPasswordUserId}" />
+        <h:outputText value="#{messages.login_email}" />
+        <h:inputText id="lostPasswordEmail" required="true" value="#{registerAction.lostPasswordEmail}" />
+        <f:facet name="footer">
+          <a:commandButton type="submit" id="resetLostPassword" reRender="loginPanel2,pswdRecovered2"
+            action="#{registerAction.doRecoverLostPassword}" value="#{messages.reset_password}" />
+        </f:facet>
+      </h:panelGrid>
+      <rich:message for="resetLostPassword">
+        <f:facet name="errorMarker">
+          <h:graphicImage value="/img/icons/error.gif" />
+        </f:facet>
+      </rich:message>
+    </a:form>
+  </rich:modalPanel>
+
+  <rich:modalPanel id="pswdRecovered2" width="360" height="260" rendered="#{not identity.loggedIn}"
+    showWhenRendered="#{registerAction.recoveredPasswordEmail != null}">
+    <f:facet name="header">
+      <h:panelGroup>
+        <h:outputText value="#{messages.password_recovered}" />
+      </h:panelGroup>
+    </f:facet>
+    <f:facet name="controls">
+      <h:panelGroup>
+        <h:graphicImage value="/img/icons/close.gif" styleClass="hidelink" id="hideRecoveredLink" />
+        <rich:componentControl for="pswdRecovered2" attachTo="hideRecoveredLink" operation="hide"
+          event="onclick" />
+      </h:panelGroup>
+    </f:facet>
+    <h:outputFormat value="#{messages.password_recovered_sent}" escape="false">
+      <f:param value="#{registerAction.recoveredPasswordEmail}" />
+    </h:outputFormat>
+    <h:panelGroup style="width: 320px; text-align: center;">
+      <a:form>
+        <rich:spacer height="40" />
+        <a:commandButton value="#{messages.ok}" onclick="#{rich:component('pswdRecovered2')}.hide()" />
+      </a:form>
+    </h:panelGroup>
+  </rich:modalPanel>
+
+  <rich:modalPanel id="chngPswdPanel2" width="400" height="240" rendered="#{identity.loggedIn}"
+    showWhenRendered="#{currentUser.temporaryPassword}">
+    <f:facet name="header">
+      <h:outputText value="#{messages.chngpswd}" />
+    </f:facet>
+    <f:facet name="controls">
+      <h:panelGroup>
+        <h:graphicImage value="/img/icons/close.gif" styleClass="hidelink" id="hideChngPswdLink" />
+        <rich:componentControl for="chngPswdPanel2" attachTo="hideChngPswdLink" operation="hide" event="onclick" />
+      </h:panelGroup>
+    </f:facet>
+    <a:form id="chngPswdForm" ajaxSubmit="true" reRender="chngPswdPanel2"
+      oncomplete="if (document.getElementById('jsfMsgMaxSev').value != '2') #{rich:component('chngPswdPanel2')}.hide()">
+      <h:panelGrid columns="1" columnClasses="col0" cellpadding="5" headerClass="chngPswdHeader"
+        footerClass="authFooter">
+        <f:facet name="header">
+          <h:outputText value="#{messages.chngpswd_directive}" />
+        </f:facet>
+        <s:decorate id="passwordField" template="/includes/decoratedFormField1.xhtml">
+          <ui:define name="label">#{messages.login_password}</ui:define>
+          <h:inputSecret id="password" required="true" value="#{passwordHashing.password}" size="12"
+            maxlength="12" />
+        </s:decorate>
+        <s:decorate id="passwordConfirmField" template="/includes/decoratedFormField1.xhtml">
+          <ui:define name="label">#{messages.login_password_confirm}</ui:define>
+          <h:inputSecret id="passwordConfirm" value="#{passwordHashing.passwordConfirm}" required="true"
+            size="12" maxlength="12" />
+        </s:decorate>
+        <f:facet name="footer">
+          <a:commandButton id="chngPswd" action="#{registerAction.doChangePassword(currentUser.accountId)}"
+            value="#{messages.ok}" />
+        </f:facet>
+      </h:panelGrid>
+      <rich:message for="chngPswd">
+        <f:facet name="errorMarker">
+          <h:graphicImage value="/img/icons/error.gif" />
+        </f:facet>
+      </rich:message>
+    </a:form>
+  </rich:modalPanel>
+</rich:page>

@@ -1,0 +1,27 @@
+<m:message xmlns="http://www.w3.org/1999/xhtml" xmlns:m="http://jboss.com/products/seam/mail"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ui="http://java.sun.com/jsf/facelets">
+  <m:from name="FACCDallas" address="do-not-reply@faccdallas.com" />
+  <m:to name="#{registerAction.recoveredPasswordEmail}">#{registerAction.recoveredPasswordEmail}</m:to>
+  <m:subject>Pour acceder a FACCDallas Beta</m:subject>
+  <m:body>
+    <html>
+<body>
+  <p>
+    <h:outputText value="Cher(e) Adherent(e)" />
+    ,
+  </p>
+  <p>Cet e-mail a ete genere automatiquement par la version beta du nouveau site de Dallas Accueil.</p>
+  <p>Votre mot de passe a temporairement ete initialise a: #{registerAction.resetPassword}</p>
+  <p>
+    Veuillez utiliser le nom d'utilisateur suivant #{registerAction.lostPasswordUserId} quand vous accederez au
+    site: <a href="http://76.183.10.52:8080/seam-webassoc/home.seam">FACCDallas Beta</a>.
+  </p>
+  <p />
+  <p>
+    Cordialement,<br /> Dallas Accueil.
+  </p>
+</body>
+    </html>
+  </m:body>
+</m:message>

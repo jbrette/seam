@@ -1,0 +1,121 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  template="/layout/template.xhtml">
+
+  <ui:define name="body">
+
+    <rich:panel>
+      <f:facet name="header">
+        <h:outputText value="#{bug.title}"></h:outputText>
+      </f:facet>
+
+      <h:form id="editForm">
+        <f:facet name="beforeInvalidField">
+          <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+        </f:facet>
+        <f:facet name="aroundInvalidField">
+          <s:span styleClass="errors" />
+        </f:facet>
+        <f:facet name="afterInvalidField">
+          <s:span>&#160;<s:message styleClass="errors" />
+          </s:span>
+        </f:facet>
+
+        <s:validateAll>
+
+          <h:panelGrid id="panel" columns="2" width="100%">
+            <rich:panel bodyClass="panelbody" width="50%">
+              <f:facet name="header">
+                <h:outputText value="General"></h:outputText>
+              </f:facet>
+              <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+                <h:outputText value="State:" />
+                <s:decorate id="stateDecorate">
+                  <h:selectOneRadio id="bstate" value="#{bug.BState}" layout="lineDirection" required="true">
+                    <f:selectItem id="item1" itemLabel="Created" itemValue="created" />
+                    <f:selectItem id="item2" itemLabel="Working On It" itemValue="open" />
+                    <f:selectItem id="item3" itemLabel="Fixed" itemValue="fixed" />
+                    <f:selectItem id="item4" itemLabel="Rejected" itemValue="rejected" />
+                  </h:selectOneRadio>
+                </s:decorate>
+
+
+                <h:outputText value="Title:" />
+                <s:decorate id="titleDecorate">
+                  <h:inputText id="title" value="#{bug.title}" required="true"
+                    disabled="#{not s:hasRole('clubmgr')}" />
+                </s:decorate>
+
+                <h:outputText value="Created By:" />
+                <s:decorate id="createdByDecorate">
+                  <h:inputText id="createdBy" value="#{bug.createdBy}" disabled="#{not s:hasRole('clubmgr')}" />
+                </s:decorate>
+
+                <h:outputText value="Creation Date:" />
+                <s:decorate id="commentDateDecorate">
+                  <rich:calendar value="#{bug.commentDate}" id="date" disabled="#{not s:hasRole('clubmgr')}"
+                    datePattern="MM/dd/yyyy" style="width:200px" />
+                </s:decorate>
+
+                <h:outputText value="Resolution Date:" />
+                <s:decorate id="resolutionDateDecorate">
+                  <rich:calendar value="#{bug.resolutionDate}" id="date2" disabled="#{not s:hasRole('clubmgr')}"
+                    datePattern="MM/dd/yyyy" style="width:200px" />
+                </s:decorate>
+
+
+              </h:panelGrid>
+            </rich:panel>
+
+            <rich:panel bodyClass="panelbody" width="50%">
+              <f:facet name="header">
+                <h:outputText value="General"></h:outputText>
+              </f:facet>
+
+              <s:decorate id="descriptionDecorate">
+                <h:inputTextarea id="notes" value="#{bug.comment}" rows="5" cols="50"
+                  disabled="#{not s:hasRole('clubmgr')}" />
+              </s:decorate>
+
+              <s:decorate id="resolutionDecorate">
+                <h:inputTextarea id="notes" value="#{bug.resolution}" rows="5" cols="50"
+                  disabled="#{not s:hasRole('clubmgr')}" />
+              </s:decorate>
+
+            </rich:panel>
+
+          </h:panelGrid>
+
+          <!--  -->
+
+        </s:validateAll>
+
+        <!-- actions -->
+        <rich:toolBar>
+          <rich:toolBarGroup location="left">
+
+            <h:commandLink id="updateBug" action="#{bugHome.update}" value="Update Bug"
+              rendered="#{bugHome.managed and s:hasRole('clubmgr')}">
+              <f:param name="pagesBugId" value="#{bug.id}" />
+            </h:commandLink>
+            <s:link id="cancelManaged" view="/includes/tests/searchBug.xhtml" value="Close"
+              rendered="#{bugHome.managed}">
+              <f:param name="pagesBugId" value="#{bug.id}" />
+            </s:link>
+
+            <h:commandLink id="createBug" action="#{bugHome.persist}" value="Create Bug"
+              rendered="#{!bugHome.managed  and s:hasRole('clubmgr')}" />
+            <s:link id="cancel" view="/includes/tests/searchBug.xhtml" value="Cancel"
+              rendered="#{!bugHome.managed}" />
+          </rich:toolBarGroup>
+        </rich:toolBar>
+
+      </h:form>
+    </rich:panel>
+
+  </ui:define>
+</ui:composition>

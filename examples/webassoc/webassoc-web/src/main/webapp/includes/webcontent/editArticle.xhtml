@@ -1,0 +1,217 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  template="/layout/template.xhtml">
+
+  <ui:define name="body">
+
+    <rich:panel>
+      <f:facet name="header">
+        <h:outputText value="#{article.title}"></h:outputText>
+      </f:facet>
+
+      <h:form id="editForm" enctype="multipart/form-data">
+        <f:facet name="beforeInvalidField">
+          <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+        </f:facet>
+        <f:facet name="aroundInvalidField">
+          <s:span styleClass="errors" />
+        </f:facet>
+        <f:facet name="afterInvalidField">
+          <s:span>&#160;<s:message styleClass="errors" />
+          </s:span>
+        </f:facet>
+
+        <s:validateAll>
+
+          <h:panelGrid id="panel" columns="1" width="100%">
+            <rich:panel bodyClass="panelbody" width="100%">
+              <f:facet name="header">
+                <h:outputText value="General"></h:outputText>
+              </f:facet>
+              <h:panelGrid columnClasses="panelgridcol1, panelgridcol2,panelgridcol1, panelgridcol2" columns="4">
+
+                <h:outputText value="Title:" />
+                <s:decorate id="titleDecorate">
+                  <h:inputText id="title" value="#{article.title}" required="true"
+                    disabled="#{not s:hasRole('webcontentmgr')}" />
+                </s:decorate>
+
+                <h:outputText value="Subject" />
+                <s:decorate id="subjectDecorate">
+                  <h:inputText value="#{article.subject}" />
+                </s:decorate>
+
+                <h:outputText value="ColumnInPage" />
+                <s:decorate id="ColumnInPageDecorate">
+                  <h:inputText value="#{article.columnInPage}" />
+                </s:decorate>
+
+                <h:outputText value="OrderInColumn" />
+                <s:decorate id="orderInPageDecorate">
+                  <h:inputText value="#{article.orderInPage}" />
+                </s:decorate>
+
+                <h:outputText value="Approved" />
+                <s:decorate id="approvedDecorate">
+                  <h:selectBooleanCheckbox id="visible" value="#{article.visible}" />
+                </s:decorate>
+
+                <h:outputText value="Archived" />
+                <s:decorate id="archivedDecorate">
+                  <h:selectBooleanCheckbox id="visible" value="#{article.archived}" />
+                </s:decorate>
+
+                <h:outputText value="Language" />
+                <s:decorate id="languageDecorate">
+                  <h:inputText value="#{article.language}" />
+                </s:decorate>
+
+                <h:outputText value="Layout" />
+                <s:decorate id="layoutDecorate">
+                  <h:selectOneRadio id="layout" value="#{article.layout}" layout="lineDirection" required="true">
+                    <f:selectItem id="item1" itemLabel="Pas d'illustration" itemValue="0" />
+                    <f:selectItem id="item2" itemLabel="illustration - texte" itemValue="1" />
+                    <f:selectItem id="item3" itemLabel="texte - illustration" itemValue="2" />
+                    <f:selectItem id="item4" itemLabel="Pas de texte" itemValue="3" />
+                    <f:selectItem id="item5" itemLabel="texte / illustration" itemValue="4" />
+                    <f:selectItem id="item6" itemLabel="illustration / texte" itemValue="5" />
+                  </h:selectOneRadio>
+                </s:decorate>
+
+              </h:panelGrid>
+            </rich:panel>
+
+            <rich:panel bodyClass="panelbody" width="100%">
+              <f:facet name="header">
+                <h:outputText value="Main Illustration"></h:outputText>
+              </f:facet>
+              <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="4">
+
+
+                <s:graphicImage rendered="#{article.ilst.thumbnailNotEmpty}"
+                  fileName="editArticleIllustration-#{article.ilst.imageId}" value="#{article.ilst.thumbnail}">
+                  <s:transformImageSize width="75" maintainRatio="true" />
+                </s:graphicImage>
+
+
+                <s:fileUpload id="picture2" data="#{articleHome.uploadedData}" accept="images/*"
+                  fileName="#{articleHome.uploadedFileName}" contentType="#{articleHome.uploadedContentType}" />
+
+                <h:panelGroup id="uploadIllustrationControls">
+                  <h:graphicImage value="/img/icons/icon-download.png" />
+                  <h:outputText value=" " />
+                  <h:commandButton id="uploadIllustration" action="#{articleHome.uploadIllustration}"
+                    value="Upload Illustration">
+                  </h:commandButton>
+                </h:panelGroup>
+
+                <s:link value="Delete" action="#{articleHome.deleteIllustration}"
+                  rendered="#{article.ilst != null}" onclick="return confirmDelete()" />
+
+                <h:outputText value="Width" />
+                <s:decorate id="widthDecorate">
+                  <h:inputText value="#{article.ilstWidth}" />
+                </s:decorate>
+
+                <h:outputText value="Link" />
+                <s:decorate id="hrefDecorate">
+                  <h:inputText value="#{article.ilstHref}" />
+                </s:decorate>
+
+
+              </h:panelGrid>
+            </rich:panel>
+            <rich:panel bodyClass="panelbody" width="100%">
+              <f:facet name="header">
+                <h:outputText value="Texte"></h:outputText>
+              </f:facet>
+              <s:decorate id="descDecorate">
+                <rich:editor id="content" configuration="editorconfig" width="800" height="400"
+                  value="#{article.description}" />
+              </s:decorate>
+            </rich:panel>
+          </h:panelGrid>
+
+          <!--  -->
+
+        </s:validateAll>
+
+        <!-- actions -->
+        <rich:toolBar>
+          <rich:toolBarGroup location="left">
+
+            <h:panelGroup id="updateArticleControls">
+              <h:graphicImage value="/img/icons/save2-16.png" />
+              <h:outputText value=" " />
+              <h:commandLink id="updateArticle" action="#{articleHome.update}" value="Update Article"
+                rendered="#{articleHome.managed and s:hasRole('webcontentmgr')}">
+                <f:param name="pagesArticleId" value="#{article.id}" />
+              </h:commandLink>
+            </h:panelGroup>
+            <h:panelGroup id="closeArticleControls">
+              <h:graphicImage value="/img/icons/close16.png" />
+              <h:outputText value=" " />
+              <s:link id="cancelManaged" view="/includes/webcontent/viewWebPage.xhtml" value="Close"
+                rendered="#{articleHome.managed}">
+                <f:param name="pagesWebPageId" value="#{article.webPage.id}" />
+              </s:link>
+            </h:panelGroup>
+
+            <h:commandLink id="createArticle" action="#{articleHome.persist}" value="Create Article"
+              rendered="#{!articleHome.managed  and s:hasRole('webcontentmgr')}" />
+            <s:link id="cancel" view="/includes/webcontent/viewWebPage.xhtml" value="Cancel"
+              rendered="#{!articleHome.managed}">
+              <f:param name="pagesWebPageId" value="#{article.webPage.id}" />
+            </s:link>
+          </rich:toolBarGroup>
+        </rich:toolBar>
+
+      </h:form>
+    </rich:panel>
+    <rich:panel bodyClass="panelbody" width="100%">
+      <f:facet name="header">
+        <h:outputText value="Attachments:"></h:outputText>
+      </f:facet>
+      <h:form id="editForm2" enctype="multipart/form-data">
+        <rich:dataGrid value="#{article.attachments}" var="attachment"
+          rendered="#{not empty article.attachments}" columns="5" elements="10" width="100%">
+          <rich:panel bodyClass="panelbody" width="20%">
+            <f:facet name="header">
+              <h:outputText value="#{attachment.fileName}" />
+            </f:facet>
+            <h:panelGrid columns="1">
+              <h:outputText value="#{attachment.contentType}" />
+              <h:outputText value="#{attachment.caption}" />
+              <s:link target="_blank" action="#{downloadAttachment.download}">
+                <f:param name="attachmentId" value="#{attachment.imageId}" />
+                <s:graphicImage fileName="editArticle-#{attachment.imageId}"
+                  rendered="#{attachment.thumbnailNotEmpty}" value="#{attachment.thumbnail}">
+                  <s:transformImageSize width="75" maintainRatio="true" />
+                </s:graphicImage>
+              </s:link>
+              <s:link value="Delete" action="#{articleHome.deleteAttachment}" onclick="return confirmDelete()">
+                <f:param name="attachmentId" value="#{attachment.imageId}" rendered="#{s:hasRole('clubmgr')}" />
+              </s:link>
+            </h:panelGrid>
+          </rich:panel>
+          <f:facet name="footer">
+            <rich:datascroller></rich:datascroller>
+          </f:facet>
+        </rich:dataGrid>
+        <h:outputLabel for="picture">Select an attachment to upload</h:outputLabel>
+        <s:fileUpload id="picture" data="#{articleHome.uploadedData}" accept="images/*,application/pdf"
+          fileName="#{articleHome.uploadedFileName}" contentType="#{articleHome.uploadedContentType}" />
+        <h:panelGroup id="uploadAttachmentControls">
+          <h:graphicImage value="/img/icons/icon-download.png" />
+          <h:outputText value=" " />
+          <h:commandButton id="uploadAttachment" action="#{articleHome.uploadAttachment}"
+            value="Upload Attachment">
+          </h:commandButton>
+        </h:panelGroup>
+      </h:form>
+    </rich:panel>
+  </ui:define>
+</ui:composition>

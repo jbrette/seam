@@ -1,0 +1,42 @@
+<rich:page xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:s="http://jboss.com/products/seam/taglib" xmlns:rich="http://richfaces.org/rich"
+  pageTitle="ALEMAX Design" sidebarPosition="right" sidebarWidth="251" markupType="xhtml"
+  contentType="text/html" theme="#{globals.theme}">
+  <f:facet name="pageHeader">
+    <link href="#{facesContext.externalContext.requestContextPath}/stylesheet/showcase.css" rel="stylesheet"
+      type="text/css" />
+    <meta name="KEYWORDS" content="ALEMAX,Design,JBOSS,Seam,JSF,RichFaces,Java,staying sharp" />
+    <meta name="DESCRIPTION" content="ALEMAX Design" />
+    <meta name="ROBOTS" content="INDEX, FOLLOW" />
+  </f:facet>
+
+  <f:facet name="header">
+    <ui:include src="header.xhtml">
+      <ui:param name="projectName" value="ALEMAX Design" />
+    </ui:include>
+  </f:facet>
+
+  <f:facet name="sidebar">
+    <ui:include src="sidebar.xhtml">
+      <ui:param name="projectName" value="ALEMAX Design" />
+    </ui:include>
+  </f:facet>
+
+  <f:facet name="subheader">
+    <ui:include src="menu.xhtml">
+      <ui:param name="projectName" value="ALEMAX Design" />
+    </ui:include>
+  </f:facet>
+
+  <ui:insert name="body">
+    <ui:param name="projectName" value="ALEMAX Design" />
+  </ui:insert>
+
+
+  <f:facet name="footer">
+    <ui:include src="footer.xhtml">
+      <ui:param name="projectName" value="ALEMAX Design" />
+    </ui:include>
+  </f:facet>
+</rich:page>

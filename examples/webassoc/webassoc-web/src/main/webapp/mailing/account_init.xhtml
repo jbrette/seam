@@ -1,0 +1,27 @@
+<m:message xmlns="http://www.w3.org/1999/xhtml" xmlns:m="http://jboss.com/products/seam/mail"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ui="http://java.sun.com/jsf/facelets">
+  <m:from name="#{doNotReplyName}" address="#{doNotReplyAddr}" />
+  <m:to name="#{regUserEmail}">#{regUserEmail}</m:to>
+  <m:subject>Pour acceder au site de #{doNotReplyName}</m:subject>
+  <m:body>
+    <html>
+<body>
+  <p>
+    <h:outputText value="Cher(e) Adherent(e)" />
+    ,
+  </p>
+  <p>Cet e-mail a ete genere automatiquement par WebAssoc, le site de Dallas Accueil.</p>
+  <p>Votre mot de passe a temporairement ete initialise a: #{regUserPasssword}</p>
+  <p>
+    Veuillez utiliser le nom d'utilisateur suivant #{regUserName} quand vous accederez au
+    site: <a href="http://www.dallasaccueil.org/seam-webassoc/home.seam">DallasAccueil</a>.
+  </p>
+  <p />
+  <p>
+    Cordialement,<br /> Dallas Accueil.
+  </p>
+</body>
+    </html>
+  </m:body>
+</m:message>

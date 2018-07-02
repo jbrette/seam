@@ -1,0 +1,84 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  template="/layout/template.xhtml">
+
+  <ui:define name="body">
+
+    <h:form id="editForm">
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+
+      <s:validateAll>
+
+        <h:panelGrid id="panel" columns="1" width="100%">
+          <rich:panel bodyClass="panelbody">
+            <f:facet name="header">
+              <h:outputText value="Club Membership Attributes"></h:outputText>
+            </f:facet>
+            <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+              <h:outputText value="#{messages.ClubMembership_Member}:" />
+              <h:outputText value="#{clubMembership.member.lastName} #{clubMembership.member.firstName}" />
+
+              <h:outputText value="#{messages.ClubMembership_Club}:" />
+              <h:outputText value="#{clubMembership.club.name}" />
+
+              <h:outputText value="#{messages.ClubMembership_Role}:" />
+              <s:decorate id="roleDecorate">
+                <h:selectOneRadio id="role" value="#{clubMembership.FKind}" layout="lineDirection"
+                  required="true" disabled="#{not (s:hasRole('memberviewer') or s:hasRole('clubmgr'))}">
+                  <f:selectItem id="item1" itemLabel="Member" itemValue="member" />
+                  <f:selectItem id="item2" itemLabel="Responsable De Club" itemValue="clubcontact" />
+                  <f:selectItem id="item3" itemLabel="Administrator" itemValue="administrator" />
+                </h:selectOneRadio>
+              </s:decorate>
+
+              <h:outputText value="#{messages.ClubMembership_Active}:" />
+              <s:decorate id="activeDecorate">
+                <h:selectBooleanCheckbox id="active" value="#{clubMembership.active}" />
+              </s:decorate>
+
+            </h:panelGrid>
+          </rich:panel>
+
+        </h:panelGrid>
+
+      </s:validateAll>
+
+      <!-- actions -->
+      <rich:toolBar>
+        <rich:toolBarGroup>
+
+          <h:commandLink id="updateClubMembership" action="#{clubMembershipHome.update}"
+            value="Update ClubMembership" rendered="#{clubMembershipHome.managed}" />
+          <s:link id="cancelManaged" view="/viewClub.xhtml" value="Back to Club View"
+            rendered="#{clubMembershipHome.managed}">
+            <f:param name="pagesClubId" value="#{club.id}" />
+          </s:link>
+          <s:link id="cancelManaged2" view="/editFamilyMember.xhtml" value="Back to FamilyMember View"
+            rendered="#{clubMembershipHome.managed}">
+            <f:param name="pagesAssocMemberId" value="#{clubMembership.member.assocMember.id}" />
+            <f:param name="pagesFamilyMemberId" value="#{clubMembership.member.id}" />
+          </s:link>
+          <s:link id="deleteClubMembership" action="#{clubMembershipHome.remove}" value="Delete ClubMembership"
+            rendered="#{clubMembershipHome.managed}">
+          </s:link>
+
+        </rich:toolBarGroup>
+      </rich:toolBar>
+
+    </h:form>
+
+  </ui:define>
+</ui:composition>

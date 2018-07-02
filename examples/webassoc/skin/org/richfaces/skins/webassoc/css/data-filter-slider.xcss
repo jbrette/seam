@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+        <u:selector name=".rich-dataFilterSlider-container">
+        </u:selector>
+
+        <u:selector name=".rich-dataFilterSlider-handle">
+        </u:selector>
+
+        <u:selector name=".rich-dataFilterSlider-input-field">
+        </u:selector>
+
+        <u:selector name=".rich-dataFilterSlider-range">
+        </u:selector>
+
+        <u:selector name=".rich-dataFilterSlider-range-decor">
+        </u:selector>
+
+        <u:selector name=".rich-dataFilterSlider-track">
+        </u:selector>
+
+        <u:selector name=".rich-dataFilterSlider-trailer">
+        </u:selector>
+
+</f:template>

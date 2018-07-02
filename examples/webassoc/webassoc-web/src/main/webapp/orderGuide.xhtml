@@ -1,0 +1,211 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" template="layout/template.xhtml">
+
+  <ui:define name="body">
+    <rich:panel styleClass="panelbodyNoBorder">
+      <rich:layout>
+        <rich:layoutPanel position="top" width="100%" style="padding:3px;">
+          <h:outputText styleClass="outputTextBig" value="#{messages.Menu_Assoc_ReceiveGuide}" />
+          <hr />
+          <rich:spacer height="20" width="600" />
+        </rich:layoutPanel>
+        <rich:layoutPanel position="left" width="5%" style="padding:3px;">
+          <h:panelGroup>
+
+          </h:panelGroup>
+        </rich:layoutPanel>
+        <rich:layoutPanel position="center" width="90%" style="padding:3px;">
+          <rich:panel>
+            <h:panelGrid columns="2">
+              <!--                                'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,2,0',-->
+              <!--        'width', '714',-->
+              <!--        'height', '618',-->
+              <!--        'src', 'Guide flipping pages2',-->
+              <!--        'quality', 'high',-->
+              <!--        'pluginspage', 'http://www.adobe.com/go/getflashplayer',-->
+              <!--        'align', 'middle',-->
+              <!--        'play', 'false',-->
+              <!--        'loop', 'false',-->
+              <!--        'scale', 'noscale',-->
+              <!--        'wmode', 'window',-->
+              <!--        'devicefont', 'false',-->
+              <!--        'id', 'Guide flipping pages2',-->
+              <!--        'bgcolor', '#999999',-->
+              <!--        'name', 'Guide flipping pages2',-->
+              <!--        'menu', 'true',-->
+              <!--        'allowFullScreen', 'true',-->
+              <!--        'allowScriptAccess','sameDomain',-->
+              <!--        'movie', 'Guide flipping pages2',-->
+              <!--        'salign', ''-->
+              <object width="714" height="618" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
+                <param name="movie"
+                  value="#{facesContext.externalContext.requestContextPath}/img/pubs/GuideDA.swf" />
+                <param name="quality" value="high" />
+                <param name="scale" value="noscale" />
+                <embed width="714" height="618"
+                  src="#{facesContext.externalContext.requestContextPath}/img/pubs/GuideDA.swf" quality="high"
+                  type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+              </object>
+            </h:panelGrid>
+          </rich:panel>
+          <h:form id="editForm" enctype="multipart/form-data">
+            <f:facet name="beforeInvalidField">
+              <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+            </f:facet>
+            <f:facet name="aroundInvalidField">
+              <s:span styleClass="errors" />
+            </f:facet>
+            <f:facet name="afterInvalidField">
+              <s:span>&#160;<s:message styleClass="errors" />
+              </s:span>
+            </f:facet>
+
+            <s:validateAll>
+              <rich:panel bodyClass="panelbody" width="100%">
+                <f:facet name="header">
+                  <h:outputText value="#{messages.GuideOrder_shippingInformation}"></h:outputText>
+                </f:facet>
+                <h:panelGrid columnClasses="panelgridcol1, panelgridcol3" columns="2">
+
+                  <h:outputText value="#{messages.GuideOrder_price}:" />
+                  <h:outputText id="Tarif" value="#{guideOrder.price}" />
+
+                  <h:outputText value="#{messages.GuideOrder_BuyerName}:" />
+                  <s:decorate id="buyerNameDecorate">
+                    <h:inputText id="buyerName" value="#{guideOrder.buyerName}" required="true" size="80" />
+                  </s:decorate>
+
+                  <h:outputText value="#{messages.GuideOrder_Address}:" />
+                  <s:decorate id="addressDecorate">
+                    <h:inputText id="address" value="#{guideOrder.address}" size="80" />
+                  </s:decorate>
+
+                  <h:outputText value="#{messages.GuideOrder_AptOrSuite}:" />
+                  <s:decorate id="aptOrSuiteDecorate">
+                    <h:inputText id="aptOrSuite" value="#{guideOrder.aptOrSuite}" size="30" />
+                  </s:decorate>
+
+                  <h:outputText value="#{messages.GuideOrder_City}:" />
+                  <s:decorate id="cityDecorate">
+                    <h:inputText id="city" value="#{guideOrder.city}" size="30" />
+                  </s:decorate>
+
+                  <h:outputText value="#{messages.GuideOrder_Zip}:" />
+                  <s:decorate id="zipDecorate">
+                    <h:inputText id="zip" value="#{guideOrder.zip}" />
+                  </s:decorate>
+
+                  <h:outputText value="#{messages.GuideOrder_State}:" />
+                  <h:selectOneMenu id="stateMenu" value="#{guideOrder.state}" required="true">
+                    <s:selectItems value="#{codeList.USStateCodesAsStrings}" var="uscode" label="#{uscode}"
+                      noSelectionLabel="Select a State..." />
+                  </h:selectOneMenu>
+
+                  <h:outputText value="#{messages.GuideOrder_Country}:" />
+                  <s:decorate id="countryDecorate">
+                    <h:inputText id="country" value="#{guideOrder.country}" size="80" />
+                  </s:decorate>
+
+                  <h:outputText value="#{messages.GuideOrder_HomePhone}:" />
+                  <s:decorate id="homePhoneDecorate">
+                    <h:inputText id="homePhone" value="#{guideOrder.homePhone}" />
+                  </s:decorate>
+
+                  <h:outputText value="#{messages.GuideOrder_Email}:" />
+                  <s:decorate id="emailDecorate">
+                    <h:inputText id="email" value="#{guideOrder.email}" size="80" />
+                  </s:decorate>
+
+
+                </h:panelGrid>
+
+              </rich:panel>
+              <rich:panel id="captchaGuide" styleClass="tooltip-text" bodyClass="col0"
+                rendered="#{!guideOrderHome.managed}">
+                <h:outputText value="#{messages.orderGuide_captcha_label}" />
+                <rich:spacer width="10" height="16" />
+                <h:graphicImage id="captchaGuideTipHelp" value="/img/icons/help.gif" />
+                <br />
+                <s:decorate id="verifyCaptchaGuideField" template="/includes/decoratedFormField2.xhtml">
+                  <h:graphicImage id="captchaGuideChallenge" value="/seam/resource/captcha"
+                    styleClass="captchaChallenge" />
+                  <h:inputText id="verifyCaptchaGuide" value="#{captcha.response}" required="true" size="3" />
+                </s:decorate>
+              </rich:panel>
+              <rich:panel bodyClass="panelbody" width="100%" rendered="#{s:hasRole('accounting')}">
+                <f:facet name="header">
+                  <h:outputText value="Processing Information"></h:outputText>
+                </f:facet>
+                <h:panelGrid columnClasses="panelgridcol1, panelgridcol3" columns="2">
+
+                  <h:outputText value="#{messages.GuideOrder_PaymentInfo}:" />
+                  <s:decorate id="paymentInfoDecorate">
+                    <h:inputText id="paymentInfo" size="100" value="#{guideOrder.paymentInfo}" />
+                  </s:decorate>
+                </h:panelGrid>
+              </rich:panel>
+            </s:validateAll>
+
+            <!-- actions -->
+            <rich:toolBar>
+              <rich:toolBarGroup>
+                <h:panelGroup id="updateGuideOrderControls" rendered="#{guideOrderHome.managed}">
+                  <h:graphicImage value="/img/icons/save2-16.png" />
+                  <h:outputText value=" " />
+                  <h:commandLink id="updateGuideOrder" action="#{guideOrderHome.update}" value="Update Order"
+                    rendered="#{guideOrderHome.managed}" />
+                </h:panelGroup>
+                <h:panelGroup id="cancelManagedControls" rendered="#{guideOrderHome.managed}">
+                  <h:graphicImage value="/img/icons/close16.png" />
+                  <h:outputText value=" " />
+                  <s:link id="cancelManaged" view="/searchGuideOrder.xhtml" value="Close"
+                    rendered="#{guideOrderHome.managed}" />
+                </h:panelGroup>
+                <h:panelGroup id="createGuideOrderControls" rendered="#{!guideOrderHome.managed}">
+                  <h:graphicImage value="/img/icons/save2-16.png" />
+                  <h:outputText value=" " />
+                  <h:commandLink id="createGuideOrder" action="#{guideOrderHome.persist}" value="Order Guide"
+                    rendered="#{!guideOrderHome.managed}" />
+                </h:panelGroup>
+                <h:panelGroup id="cancel2ManagedControls" rendered="#{!guideOrderHome.managed}">
+                  <h:graphicImage value="/img/icons/cancel16.png" />
+                  <h:outputText value=" " />
+                  <s:link id="cancel" view="/home.xhtml" value="Cancel" rendered="#{!guideOrderHome.managed}" />
+                </h:panelGroup>
+              </rich:toolBarGroup>
+              <rich:toolBarGroup location="right">
+                <h:panelGroup id="deleteOrderControls"
+                  rendered="#{guideOrderHome.managed and s:hasRole('admin')}">
+                  <h:graphicImage value="/img/icons/remove-from-database16.png" />
+                  <h:outputText value=" " />
+                  <s:link id="deleteOrder" onclick="return confirmDelete()" action="#{guideOrderHome.remove}"
+                    value="Delete Order" rendered="#{guideOrderHome.managed and s:hasRole('admin')}">
+                  </s:link>
+                </h:panelGroup>
+              </rich:toolBarGroup>
+            </rich:toolBar>
+            <h:outputText value="#{messages.orderGuide_info1}"></h:outputText>
+            <h:outputLink value="mailto:secretaire@dallasaccueil.org">
+              <h:outputText value="#{messages.orderGuide_contactus}"></h:outputText>
+            </h:outputLink>
+          </h:form>
+        </rich:layoutPanel>
+        <rich:layoutPanel position="right" width="5%" style="padding:3px;">
+          <h:panelGroup>
+
+          </h:panelGroup>
+        </rich:layoutPanel>
+        <rich:layoutPanel position="bottom" width="100%" style="padding:3px;">
+
+
+        </rich:layoutPanel>
+      </rich:layout>
+    </rich:panel>
+
+
+
+  </ui:define>
+</ui:composition>

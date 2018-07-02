@@ -1,0 +1,160 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" template="layout/template.xhtml">
+
+  <ui:define name="body">
+    <script type="text/javascript">
+        function confirmDelete()
+        {
+          return confirm("#{messages.jscript_confirmDelete}");
+        }
+      </script>
+
+    <h:form id="editForm" enctype="multipart/form-data">
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+
+      <s:validateAll>
+
+        <h:panelGrid id="panel" columns="1" width="100%">
+          <rich:panel bodyClass="panelbody" width="100%">
+            <f:facet name="header">
+              <h:outputText value="Description"></h:outputText>
+            </f:facet>
+            <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+              <h:outputText value="#{messages.NewsLetter_Title}:" />
+              <s:decorate id="nameDecorate">
+                <h:inputText id="newsLetterTitle" value="#{newsLetter.title}" required="true" />
+              </s:decorate>
+
+              <h:outputText value="#{messages.NewsLetter_Date}:" />
+              <s:decorate id="dateDecorate">
+                <h:inputText id="newsLetterDate" value="#{newsLetter.date}" required="true" />
+              </s:decorate>
+
+              <h:outputText value="#{messages.NewsLetter_NKind}:" />
+              <s:decorate id="nkindDecorate">
+                <h:selectOneMenu id="nkind" value="#{newsLetter.NKind}" layout="lineDirection" required="true">
+                  <f:selectItem id="item1" itemLabel="Normal NewsLetter" itemValue="newsLetter" />
+                  <f:selectItem id="item2" itemLabel="Internal Mail" itemValue="internal" />
+                  <f:selectItem id="item3" itemLabel="Event Related Mailing" itemValue="eventAnnoncement" />
+                </h:selectOneMenu>
+              </s:decorate>
+
+              <h:outputText value="#{messages.NewsLetter_TemplateFile}:" />
+              <s:decorate id="mailTemplateDecorate">
+                <h:selectOneMenu value="#{newsLetter.templateFile}">
+                  <f:selectItem id="item01" itemLabel="Simple" itemValue="/mailing/simplemail.xhtml" />
+                  <f:selectItem id="item02" itemLabel="With Attachment"
+                    itemValue="/mailing/withattachment.xhtml" />
+                  <f:selectItem id="item03" itemLabel="To Sponsors" itemValue="/mailing/bulletinsponsors.xhtml" />
+                  <f:selectItem id="item04" itemLabel="To Comity members" itemValue="/mailing/comity.xhtml" />
+                  <f:selectItem id="item05" itemLabel="With Image" itemValue="/mailing/withimage.xhtml" />
+                  <f:selectItem id="item06" itemLabel="Event Announcement"
+                    itemValue="/mailing/eventannouncement.xhtml" />
+                  <f:selectItem id="item07" itemLabel="Event Cancellation"
+                    itemValue="/mailing/eventcancellation.xhtml" />
+                </h:selectOneMenu>
+              </s:decorate>
+
+              <h:outputText value="#{messages.NewsLetter_Content}:" />
+              <s:decorate id="descDecorate">
+                <rich:editor id="content" configuration="editorconfig" width="750" height="400"
+                  value="#{newsLetter.content}" />
+              </s:decorate>
+
+            </h:panelGrid>
+          </rich:panel>
+
+        </h:panelGrid>
+        <rich:panel bodyClass="panelbody" width="100%" rendered="#{newsLetterHome.managed}">
+          <f:facet name="header">
+            <h:outputText value="Attachments:"></h:outputText>
+          </f:facet>
+          <rich:dataGrid value="#{newsLetter.attachments}" var="attachment"
+            rendered="#{not empty newsLetter.attachments}" columns="5" elements="10" width="100%">
+            <rich:panel bodyClass="panelbody" width="20%">
+              <f:facet name="header">
+                <h:outputText value="#{attachment.fileName}" />
+              </f:facet>
+              <h:panelGrid columns="1">
+                <h:outputText value="#{attachment.contentType}" />
+                <h:outputText value="#{attachment.caption}" />
+                <s:link target="_blank" action="#{downloadAttachment.download}">
+                  <f:param name="attachmentId" value="#{attachment.imageId}" />
+                  <s:graphicImage fileName="editNewsLetter-#{attachment.imageId}"
+                    rendered="#{attachment.thumbnailNotEmpty}" value="#{attachment.thumbnail}">
+                    <s:transformImageSize width="75" maintainRatio="true" />
+                  </s:graphicImage>
+                </s:link>
+                <s:link value="Delete" action="#{newsLetterHome.deleteAttachment}">
+                  <f:param name="attachmentId" value="#{attachment.imageId}" />
+                </s:link>
+              </h:panelGrid>
+            </rich:panel>
+            <f:facet name="footer">
+              <rich:datascroller></rich:datascroller>
+            </f:facet>
+          </rich:dataGrid>
+          <h:outputLabel for="picture">Select an attachment to upload</h:outputLabel>
+          <s:fileUpload id="picture" data="#{newsLetterHome.uploadedData}" accept="images/*,application/pdf"
+            fileName="#{newsLetterHome.uploadedFileName}" contentType="#{newsLetterHome.uploadedContentType}" />
+          <h:commandButton value="Upload Image" action="#{newsLetterHome.uploadAttachment}" />
+        </rich:panel>
+
+      </s:validateAll>
+
+      <!-- actions -->
+      <rich:toolBar>
+        <rich:toolBarGroup location="left">
+          <h:panelGroup id="editNewsLetterControls" rendered="#{newsLetterHome.managed}">
+            <h:graphicImage value="/img/icons/save2-16.png" />
+            <h:outputText value=" " />
+            <h:commandLink id="updateNewsLetter" action="#{newsLetterHome.update}" value="Save NewsLetter"
+              rendered="#{newsLetterHome.managed}" />
+          </h:panelGroup>
+          <h:panelGroup id="cancelManagedNewsLetterControls" rendered="#{newsLetterHome.managed}">
+            <h:graphicImage value="/img/icons/close16.png" />
+            <h:outputText value=" " />
+            <s:link id="cancelManaged" view="/viewNewsLetter.xhtml" value="Cancel"
+              rendered="#{newsLetterHome.managed}" />
+          </h:panelGroup>
+          <h:panelGroup id="createNewsLetterControls" rendered="#{!newsLetterHome.managed}">
+            <h:graphicImage value="/img/icons/save2-16.png" />
+            <h:outputText value=" " />
+            <h:commandLink id="createNewsLetter" action="#{newsLetterHome.persist}" value="Save NewsLetter"
+              rendered="#{!newsLetterHome.managed}" />
+          </h:panelGroup>
+          <h:panelGroup id="cancelNewsLetterControls" rendered="#{!newsLetterHome.managed}">
+            <h:graphicImage value="/img/icons/cancel16.png" />
+            <h:outputText value=" " />
+            <s:link id="cancel" view="/searchNewsLetter.xhtml" value="Cancel"
+              rendered="#{!newsLetterHome.managed}" />
+          </h:panelGroup>
+        </rich:toolBarGroup>
+        <rich:toolBarGroup location="right">
+          <h:panelGroup id="deleteEventControls" rendered="#{newsLetterHome.managed}">
+            <h:graphicImage value="/img/icons/remove-from-database16.png" />
+            <h:outputText value=" " />
+            <s:link id="deleteNewsLetter" action="#{newsLetterHome.remove}" onclick="return confirmDelete()"
+              value="Delete NewsLetter" rendered="#{newsLetterHome.managed}">
+            </s:link>
+          </h:panelGroup>
+        </rich:toolBarGroup>
+      </rich:toolBar>
+
+    </h:form>
+
+  </ui:define>
+</ui:composition>

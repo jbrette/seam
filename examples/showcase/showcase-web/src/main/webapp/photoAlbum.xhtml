@@ -1,0 +1,110 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:rich="http://richfaces.org/rich" template="layout/template.xhtml">
+
+  <ui:define name="body">
+
+    <h:form id="clubEvent" enctype="multipart/form-data">
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+
+      <rich:panel styleClass="panelbodyNoBorder">
+        <rich:layout>
+          <rich:layoutPanel position="top" width="100%" style="padding:3px;" rendered="#{s:hasRole('member')}">
+            <h:outputText styleClass="outputTextBig" value="#{clubEvent.title}" />
+            <hr width="100%" />
+          </rich:layoutPanel>
+          <rich:layoutPanel position="left" width="0%" style="padding:3px;" rendered="#{s:hasRole('member')}">
+            <h:panelGroup>
+            </h:panelGroup>
+          </rich:layoutPanel>
+          <rich:layoutPanel position="center" width="70%" style="padding:3px;">
+            <a4j:outputPanel id="flashPanelDynamic">
+              <a4j:outputPanel layout="block" id="myFlashContent" style="width: 400px; height: 400px">
+                <a href="http://www.adobe.com/go/getflashplayer"> <img
+                  src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif"
+                  alt="Get Adobe Flash player" /> </a>
+              </a4j:outputPanel>
+              <script type="text/javascript">
+        						var flashvars = {pagesClubId:"#{clubEvent.club.id}",pagesClubEventId:"#{clubEvent.id}",jsessionid:"#{session.id}",cid:"#{param.cid}",xmlListHex:"#{clubEvent.flashXMLDocumentHex}"};
+        						var params = {menu:"false"};
+        						var attributes = {id:"myDynamicContent",name:"myDynamicContent"};
+        						swfobject.embedSWF("diapo.swf", "#{rich:clientId('myFlashContent')}", "600", "600", "9.0.0", false, flashvars, params, attributes); 
+        				</script>
+            </a4j:outputPanel>
+            <rich:toolBar>
+              <rich:toolBarGroup location="left">
+                <h:panelGroup id="closeEventControls1">
+                  <h:graphicImage value="/img/icons/close16.png" />
+                  <h:outputText value=" " />
+                  <s:link id="closePhotoAlbum1" view="/chooseAlbum.xhtml" value="Back To Album List" />
+                </h:panelGroup>
+                <h:panelGroup id="closeEventControls2">
+                  <h:graphicImage value="/img/icons/close16.png" />
+                  <h:outputText value=" " />
+                  <s:link id="closePhotoAlbum2" view="/viewClub.xhtml" value="Back To Club">
+                    <f:param name="pagesClubId" value="#{club.id}" />
+                  </s:link>
+                </h:panelGroup>
+              </rich:toolBarGroup>
+            </rich:toolBar>
+          </rich:layoutPanel>
+          <rich:layoutPanel position="right" width="30%" style="padding:3px;" rendered="#{s:hasRole('member')}">
+            <rich:dataGrid value="#{clubEvent.images}" var="attachment" id="imageTable" columns="2"
+              elements="100" rendered="#{s:hasRole('member')}">
+              <rich:panel bodyClass="panelbody">
+                <h:panelGrid columns="1">
+                  <s:graphicImage fileName="photoAlbum-#{attachment.imageId}" value="#{attachment.thumbnail}">
+                    <s:transformImageSize width="50" maintainRatio="true" />
+                  </s:graphicImage>
+                  <h:panelGroup id="downloadImage" rendered="#{s:hasRole('member')}">
+                    <h:graphicImage value="/img/icons/save2-16.png" />
+                    <h:outputText value=" " />
+                    <s:link value="Download" target="_blank" action="#{downloadAttachment.download}"
+                      rel="nofollow">
+                      <f:param name="attachmentId" value="#{attachment.imageId}" />
+                    </s:link>
+                  </h:panelGroup>
+                  <h:panelGroup id="deleteImage" rendered="#{s:hasRole('clubmgr')}">
+                    <h:graphicImage value="/img/icons/remove-from-database16.png" />
+                    <h:outputText value=" " />
+                    <s:link value="Delete" action="#{clubEventHome.deleteImage}" rel="nofollow">
+                      <f:param name="attachmentId" value="#{attachment.imageId}"
+                        rendered="#{s:hasRole('webcontentmgr')}" />
+                    </s:link>
+                  </h:panelGroup>
+                </h:panelGrid>
+              </rich:panel>
+            </rich:dataGrid>
+          </rich:layoutPanel>
+          <rich:layoutPanel position="bottom" width="100%" style="padding:3px;"
+            rendered="#{s:hasRole('member')}">
+            <hr width="100%" />
+            <h:outputLabel for="picture">Select a picture to upload</h:outputLabel>
+            <rich:fileUpload uploadData="#{clubEventHome.richFacesUploadData}"
+              fileUploadListener="#{clubEventHome.richfacesUploadListener}"
+              maxFilesQuantity="#{clubEventHome.richFacesUploadsAvailable}" id="picture" immediateUpload="false"
+              autoclear="true" allowFlash="false" noDuplicate="true" listHeight="300" listWidth="100%"
+              rendered="#{s:hasRole('member')}">
+              <f:facet name="label">
+                <h:outputText value="{_KB}KB from {KB}KB uploaded --- {mm}:{ss}" />
+              </f:facet>
+              <a4j:support event="onuploadcomplete" reRender="imageTable" />
+            </rich:fileUpload>
+          </rich:layoutPanel>
+        </rich:layout>
+      </rich:panel>
+    </h:form>
+  </ui:define>
+</ui:composition>

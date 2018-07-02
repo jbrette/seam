@@ -1,0 +1,40 @@
+<m:message xmlns="http://www.w3.org/1999/xhtml" xmlns:m="http://jboss.com/products/seam/mail"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
+
+  <m:from name="ALEMAX Design" address="do-not-reply@alemaxdesign.com" />
+  <m:to name="#{registration.member.assocName}">#{registration.member.email}</m:to>
+  <m:bcc name="EventCoordinator">#{registration.event.eventContact.assocMember.email}</m:bcc>
+  <m:subject>Received Payment Message for #{registration.event.title}</m:subject>
+  <m:body>
+    <p>
+      <h:outputText value="Cher(e) Adherent(e)" />
+      ,
+    </p>
+    <p>
+      Nous vous confirmons la bonne reception de votre reglement pour
+      <h:outputText value=" #{registration.event.title}" />
+      <br /> et vous en remercions.
+    </p>
+    <p />
+    <p>
+      Cordialement,<br /> Dallas Accueil.
+    </p>
+    <hr width="100%" />
+    <p />
+    <p>
+      <h:outputText value="Dear Member" />
+      ,
+    </p>
+    <p>
+      We confirm that your payment has been received for
+      <h:outputText value=" #{registration.event.title}" />
+    </p>
+    <p />
+    <p>
+      Best Regards,<br /> Dallas Accueil.
+    </p>
+    <p />
+    <p />
+    <hr width="100%" />
+  </m:body>
+</m:message>

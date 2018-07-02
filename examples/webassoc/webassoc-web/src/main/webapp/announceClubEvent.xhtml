@@ -1,0 +1,395 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:a="https://ajax4jsf.dev.java.net/ajax"
+  xmlns:rich="http://richfaces.org/rich" template="layout/template.xhtml">
+
+  <ui:define name="body">
+    <script type="text/javascript">
+      function confirmDelete()
+       {
+              return confirm("#{messages.jscript_confirmDelete}");
+       }
+
+      function confirmSend()
+       {
+              return confirm("#{messages.jscript_confirmSend}");
+       }
+
+      function confirmSendToMe()
+       {
+              return confirm("#{messages.jscript_confirmSendToMe}");
+       }
+    </script>
+
+    <h:form id="editForm">
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+      <s:validateAll>
+
+        <rich:panel width="100%">
+          <f:facet name="header">
+            <h:outputText value="#{club.name}"></h:outputText>
+          </f:facet>
+
+          <h:panelGrid id="panel" columns="2" width="100%">
+            <rich:panel bodyClass="panelbody" width="50%">
+              <f:facet name="header">
+                <h:outputText value="#{messages.announceClubEvent_pnl_general}"></h:outputText>
+              </f:facet>
+              <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+                <h:outputText value="#{messages.ClubEvent_Title}:" />
+                <s:decorate id="titleDecorate">
+                  <h:inputText id="title" value="#{clubEvent.title}" size="50" required="true"
+                    disabled="#{not (s:hasRole('eventmgr') and clubEvent.openRegistration)}" />
+                </s:decorate>
+
+                <h:outputText value="#{messages.editClubEvent_lbl_Date}:" />
+                <h:panelGroup id="dateControls">
+                  <s:decorate id="dateDecorate">
+                    <h:outputText value=" #{messages.editClubEvent_lbl_StartTime} " />
+                    <rich:calendar value="#{clubEvent.startTime}" id="date"
+                      disabled="#{not (s:hasRole('eventmgr') and clubEvent.openRegistration)}"
+                      datePattern="MM/dd/yyyy HH:mm" style="width:200px" />
+                    <h:outputText value="#{messages.panelg_separator}" escape="false" />
+                    <h:outputText value=" #{messages.editClubEvent_lbl_EndTime} " />
+                    <rich:calendar value="#{clubEvent.endTime}" id="date2"
+                      disabled="#{not (s:hasRole('eventmgr') and clubEvent.openRegistration)}"
+                      datePattern="MM/dd/yyyy HH:mm" style="width:200px" />
+                  </s:decorate>
+                </h:panelGroup>
+
+                <h:outputText value="#{messages.ClubEvent_HostName}:" />
+                <h:panelGroup id="hostControls">
+                  <s:decorate id="hostNameDecorate">
+                    <h:selectOneMenu value="#{clubEvent.hostMember}" rendered="#{s:hasRole('eventmgr')}"
+                      disabled="#{not (s:hasRole('eventmgr') and clubEvent.openRegistration)}">
+                      <s:convertEntity />
+                      <s:selectItems value="#{assocMemberHome.allMembersForEvents}" var="member"
+                        label="#{member.assocName}" noSelectionLabel="-" hideNoSelectionLabel="true" />
+                      <a:support event="onchange" action="#{clubEvent.fillupAddress}"
+                        reRender="hostName,address,city,zip,stateMenu,phone" />
+                    </h:selectOneMenu>
+                    <h:inputText id="hostName" value="#{clubEvent.hostName}" size="50"
+                      disabled="#{not (s:hasRole('eventmgr') and clubEvent.openRegistration)}" />
+                  </s:decorate>
+                </h:panelGroup>
+
+                <h:outputText value="#{messages.ClubEvent_Address}:" />
+                <s:decorate id="addressDecorate">
+                  <h:inputText id="address" value="#{clubEvent.address}" size="50"
+                    disabled="#{not (s:hasRole('eventmgr') and clubEvent.openRegistration)}" />
+                </s:decorate>
+
+                <h:outputText value="#{messages.ClubEvent_City}:" />
+                <h:panelGroup id="cityControls">
+                  <s:decorate id="cityDecorate">
+                    <h:inputText id="city" value="#{clubEvent.city}"
+                      disabled="#{not (s:hasRole('eventmgr') and clubEvent.openRegistration)}" />
+                    <h:selectOneMenu id="stateMenu" value="#{clubEvent.state}"
+                      disabled="#{not (s:hasRole('eventmgr') and clubEvent.openRegistration)}" required="true">
+                      <s:selectItems value="#{codeList.USStateCodesAsStrings}" var="uscode" label="#{uscode}"
+                        noSelectionLabel="Select a State..." />
+                    </h:selectOneMenu>
+                    <h:inputText id="zip" value="#{clubEvent.zip}" size="5"
+                      disabled="#{not (s:hasRole('eventmgr') and clubEvent.openRegistration)}" />
+                  </s:decorate>
+                </h:panelGroup>
+
+                <h:outputText value="#{messages.ClubEvent_Phone}:" />
+                <s:decorate id="phoneDecorate">
+                  <h:inputText id="phone" value="#{clubEvent.phone}"
+                    disabled="#{not (s:hasRole('eventmgr') and clubEvent.openRegistration)}" />
+                </s:decorate>
+
+              </h:panelGrid>
+            </rich:panel>
+
+
+            <rich:panel bodyClass="panelbody" width="50%">
+              <f:facet name="header">
+                <h:outputText value="#{messages.announceClubEvent_pnl_quota}"></h:outputText>
+              </f:facet>
+              <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+                <h:outputText value="#{messages.editClubEvent_lbl_Contact}:" />
+                <h:inputText rendered="#{not (s:hasRole('admin'))}"
+                  value="#{clubEvent.eventContact.lastName} #{clubEvent.eventContact.firstName}" size="50"
+                  disabled="true" />
+                <h:selectOneMenu value="#{clubEvent.eventContact}" rendered="#{s:hasRole('admin')}">
+                  <s:convertEntity />
+                  <s:selectItems value="#{familyMemberHome.allMembersForEvents}" var="member"
+                    label="#{member.lastName} #{member.firstName}" />
+                </h:selectOneMenu>
+
+                <h:outputText value="#{messages.editClubEvent_lbl_Adults}:" />
+                <h:panelGroup id="adultControls">
+                  <s:decorate id="adultControlsDecorate">
+                    <h:outputText value=" Min: " />
+                    <h:inputText id="adultMinimum" value="#{clubEvent.adultMinimum}" size="3"
+                      disabled="#{not (s:hasRole('eventmgr') and clubEvent.openRegistration)}" />
+                    <h:outputText value="#{messages.panelg_separator}" escape="false" />
+                    <h:outputText value=" Max: " />
+                    <h:inputText id="adultQuota" value="#{clubEvent.adultQuota}" size="3"
+                      disabled="#{not (s:hasRole('eventmgr') and clubEvent.openRegistration)}" />
+                  </s:decorate>
+                </h:panelGroup>
+
+                <h:outputText value="#{messages.editClubEvent_lbl_Kids}:" />
+                <h:panelGroup id="kidControls">
+                  <s:decorate id="kidControlsDecorate">
+                    <h:outputText value=" Min: " />
+                    <h:inputText id="kidMinimum" value="#{clubEvent.kidMinimum}" size="3"
+                      disabled="#{not (s:hasRole('eventmgr') and clubEvent.openRegistration)}" />
+                    <h:outputText value="#{messages.panelg_separator}" escape="false" />
+                    <h:outputText value=" Max: " />
+                    <h:inputText id="kidQuota" value="#{clubEvent.kidQuota}" size="3"
+                      disabled="#{not (s:hasRole('eventmgr') and clubEvent.openRegistration)}" />
+                  </s:decorate>
+                </h:panelGroup>
+
+                <h:outputText value="#{messages.editClubEvent_lbl_AdultFees}:" />
+                <h:panelGroup id="adultFeeControls">
+                  <s:decorate id="adultFeeControlsDecorate">
+                    <h:outputText value="#{messages.ClubEvent_AdultMemberFee}: $" />
+                    <h:inputText id="adultMemberFee" value="#{clubEvent.adultMemberFee}" size="3"
+                      disabled="#{not (s:hasRole('eventmgr') and clubEvent.openRegistration)}" />
+                    <h:outputText value="#{messages.panelg_separator}" escape="false" />
+                    <h:outputText value="#{messages.ClubEvent_AdultNonMemberFee}: $" />
+                    <h:inputText id="adultNonMemberFee" value="#{clubEvent.adultNonMemberFee}" size="3"
+                      disabled="#{not (s:hasRole('eventmgr') and clubEvent.openRegistration)}" />
+                  </s:decorate>
+                </h:panelGroup>
+
+                <h:outputText value="#{messages.editClubEvent_lbl_KidFees}:" />
+                <h:panelGroup id="kidFeeControls">
+                  <s:decorate id="kkidFeeControlsDecorate">
+                    <h:outputText value="#{messages.ClubEvent_KidMemberFee}: $" />
+                    <h:inputText id="kidMemberFee" value="#{clubEvent.kidMemberFee}" size="3"
+                      disabled="#{not (s:hasRole('eventmgr') and clubEvent.openRegistration)}" />
+                    <h:outputText value="#{messages.panelg_separator}" escape="false" />
+                    <h:outputText value="#{messages.ClubEvent_KidNonMemberFee}: $" />
+                    <h:inputText id="kidNonMemberFee" value="#{clubEvent.kidNonMemberFee}" size="3"
+                      disabled="#{not (s:hasRole('eventmgr') and clubEvent.openRegistration)}" />
+                  </s:decorate>
+                </h:panelGroup>
+
+                <h:outputText value="#{messages.ClubEvent_Status}" />
+                <s:decorate id="openRegistrationDecorate">
+                  <h:selectOneRadio id="fkind" value="#{clubEvent.status}" layout="lineDirection"
+                    disabled="#{not s:hasRole('eventmgr')}">
+                    <f:selectItem id="item1" itemLabel="Open with waiting list" itemValue="open" />
+                    <f:selectItem id="item2" itemLabel="Closed" itemValue="closed" />
+                    <f:selectItem id="item3" itemLabel="Open without waiting List"
+                      itemValue="openWithoutWaitingList" />
+                  </h:selectOneRadio>
+                </s:decorate>
+
+              </h:panelGrid>
+            </rich:panel>
+
+          </h:panelGrid>
+        </rich:panel>
+
+        <rich:panel bodyClass="panelbody" width="100%">
+          <f:facet name="header">
+            <h:outputText value="#{messages.announceClubEvent_pnl_announcementText}"></h:outputText>
+          </f:facet>
+          <s:decorate id="descDecorate">
+            <rich:editor id="content" configuration="editorconfig" width="750" height="200"
+              readonly="#{(not s:hasRole('eventmgr')) or (not (clubEvent.openRegistration))}"
+              value="#{clubEvent.content}" />
+          </s:decorate>
+          <rich:toolBar>
+
+            <rich:toolBarGroup location="left">
+
+              <h:panelGroup id="updateClubEventControls"
+                rendered="#{clubEventHome.managed and s:hasRole('eventmgr')}">
+                <h:graphicImage value="/img/icons/save2-16.png" />
+                <h:outputText value=" " />
+                <h:commandLink id="updateClubEvent" action="#{clubEventHome.update}"
+                  value="#{messages.announceClubEvent_btn_upd}">
+                  <f:param name="pagesClubId" value="#{club.id}" />
+                  <f:param name="pagesClubEventId" value="#{clubEvent.id}" />
+                </h:commandLink>
+              </h:panelGroup>
+              <h:panelGroup id="closeEventControls" rendered="#{clubEventHome.managed}">
+                <h:graphicImage value="/img/icons/close16.png" />
+                <h:outputText value=" " />
+                <s:link id="cancelManaged" view="/editClubEvent.xhtml"
+                  value="#{messages.announceClubEvent_btn_cls}">
+                  <f:param name="pagesClubId" value="#{club.id}" />
+                  <f:param name="pagesClubEventId" value="#{clubEvent.id}" />
+                </s:link>
+              </h:panelGroup>
+              <h:commandButton id="submit3" action="#{clubEvent.updateAmount}"
+                value="#{messages.announceClubEvent_btn_recomp}" disabled="#{not (clubEvent.openRegistration)}"
+                rendered="#{s:hasRole('eventmgr')}">
+              </h:commandButton>
+            </rich:toolBarGroup>
+          </rich:toolBar>
+        </rich:panel>
+      </s:validateAll>
+    </h:form>
+
+    <h:form id="mailingForm" enctype="multipart/form-data">
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+      <s:validateAll>
+
+        <rich:panel rendered="#{s:hasRole('eventmgr')}" width="100%">
+          <f:facet name="header">
+            <h:outputText value="#{messages.announceClubEvent_pnl_mailingList}"></h:outputText>
+          </f:facet>
+
+          <rich:dataTable value="#{clubEvent.mailings}" var="mailing" rendered="#{!empty clubEvent.mailings}"
+            id="mailingTable" rowClasses="datagridrow1, datagridrow2" width="100%">
+            <rich:column>
+              <f:facet name="header">
+                <h:outputText value="#{messages.AssocMember_AssocName}" />
+              </f:facet>
+              <h:outputText value="#{mailing.member.assocName}" />
+            </rich:column>
+            <rich:column>
+              <f:facet name="header">
+                <h:outputText value="#{messages.AssocMember_Email}" />
+              </f:facet>
+              <h:outputText value="#{mailing.member.email}" />
+            </rich:column>
+            <rich:column>
+              <f:facet name="header">
+                <h:outputText value="#{messages.Mailing_Sent}" />
+              </f:facet>
+              <h:panelGroup id="markControls">
+                <s:link id="linkToggleToSent" value="#{mailing.state}" action="#{clubEventHome.toggleToSent}"
+                  rendered="#{not (mailing.sent)}">
+                  <f:param name="mailingId" value="#{mailing.id}" />
+                </s:link>
+                <s:link id="linkToggleToUnsent" value="#{mailing.state}"
+                  action="#{clubEventHome.toggleToUnsent}" rendered="#{mailing.sent}">
+                  <f:param name="mailingId" value="#{mailing.id}" />
+                </s:link>
+                <h:outputText value="#{messages.panelg_separator}" escape="false" />
+                <s:link id="linkDelete" action="#{clubEventHome.deleteMailing}" onclick="return confirmDelete()"
+                  value="delete">
+                  <f:param name="mailingId" value="#{mailing.id}" />
+                </s:link>
+              </h:panelGroup>
+            </rich:column>
+          </rich:dataTable>
+
+
+          <rich:toolBar>
+            <rich:toolBarGroup location="left">
+              <h:panelGroup id="sendTestMailControls" rendered="#{s:hasRole('eventmgr')}">
+                <h:graphicImage value="/img/icons/emailButton.png" />
+                <h:outputText value=" " />
+                <h:commandButton id="sendTestEmail" action="#{clubEventHome.sendTestEmail}"
+                  onclick="return confirmSendToMe()" value="#{messages.announceClubEvent_btn_sendTestEmail}"
+                  disabled="#{not (clubEvent.openRegistration)}" rendered="#{s:hasRole('eventmgr')}">
+                </h:commandButton>
+              </h:panelGroup>
+            </rich:toolBarGroup>
+            <rich:toolBarGroup location="right">
+              <h:panelGroup id="sendingState" rendered="#{s:hasRole('eventmgr')}">
+                <h:outputText value="Sending State: " />
+                <h:outputText value="#{clubEvent.sendingState}" />
+              </h:panelGroup>
+              <h:panelGroup id="sendEmailControls"
+                rendered="#{s:hasRole('eventmgr') and (clubEvent.readyForAnnouncement)}">
+                <h:graphicImage value="/img/icons/emailButton.png" />
+                <h:outputText value=" " />
+                <h:commandButton id="announcementEmail" action="#{clubEventHome.sendAnnouncementEmail}"
+                  onclick="return confirmSend()" value="#{messages.announceClubEvent_btn_anctemail1}">
+                </h:commandButton>
+              </h:panelGroup>
+              <h:panelGroup id="sendReminderControls"
+                rendered="#{s:hasRole('eventmgr') and (clubEvent.readyForReminder)}">
+                <h:graphicImage value="/img/icons/emailButton.png" />
+                <h:outputText value=" " />
+                <h:commandButton id="reminderEmail" action="#{clubEventHome.sendReminderEmail}"
+                  onclick="return confirmSend()" value="#{messages.announceClubEvent_btn_anctemail2}">
+                </h:commandButton>
+              </h:panelGroup>
+              <h:panelGroup id="sendSecondReminderControls"
+                rendered="#{s:hasRole('eventmgr') and (clubEvent.readyForSecondReminder)}">
+                <h:graphicImage value="/img/icons/emailButton.png" />
+                <h:outputText value=" " />
+                <h:commandButton id="secondReminderEmail" action="#{clubEventHome.sendSecondReminderEmail}"
+                  onclick="return confirmSend()" value="#{messages.announceClubEvent_btn_anctemail3}">
+                </h:commandButton>
+              </h:panelGroup>
+            </rich:toolBarGroup>
+          </rich:toolBar>
+          <rich:toolBar>
+            <rich:toolBarGroup location="left">
+              <h:commandButton id="buildClubMemberMailingList"
+                action="#{clubEventHome.buildClubMemberMailingList}"
+                value="#{messages.announceClubEvent_btn_buildClubMemberMailingList}"
+                disabled="#{not (clubEvent.openRegistration)}" rendered="#{s:hasRole('eventmgr')}">
+              </h:commandButton>
+            </rich:toolBarGroup>
+            <rich:toolBarGroup location="right">
+              <h:commandButton id="cancelMailing" action="#{clubEventHome.emptyMailingList}"
+                value="#{messages.announceClubEvent_btn_emptyMailingList}"
+                disabled="#{not (clubEvent.openRegistration)}" rendered="#{s:hasRole('eventmgr')}">
+              </h:commandButton>
+              <h:commandButton id="markAsSent" action="#{clubEventHome.markAsSent}"
+                value="#{messages.announceClubEvent_btn_markAsSent}"
+                disabled="#{not (clubEvent.openRegistration)}" rendered="#{s:hasRole('admin')}">
+              </h:commandButton>
+            </rich:toolBarGroup>
+          </rich:toolBar>
+        </rich:panel>
+        <rich:panel bodyClass="panelbody" width="100%" rendered="#{clubEventHome.managed}">
+          <f:facet name="header">
+            <h:outputText value="Attachments:"></h:outputText>
+          </f:facet>
+          <rich:dataGrid value="#{clubEvent.attachments}" var="attachment"
+            rendered="#{not empty clubEvent.attachments}" columns="5" elements="10" width="100%">
+            <rich:panel bodyClass="panelbody" width="20%">
+              <h:panelGrid columns="1">
+                <s:link target="_blank" action="#{downloadAttachment.download}">
+                  <f:param name="attachmentId" value="#{attachment.imageId}" />
+                  <s:graphicImage rendered="#{attachment.thumbnailNotEmpty}"
+                    fileName="announceClubEvent-#{attachment.imageId}" value="#{attachment.thumbnail}">
+                    <s:transformImageSize width="75" maintainRatio="true" />
+                  </s:graphicImage>
+                </s:link>
+                <s:link value="Delete" action="#{clubEventHome.deleteAttachment}"
+                  disabled="#{not (clubEvent.openRegistration)}" onclick="return confirmDelete()">
+                  <f:param name="attachmentId" value="#{attachment.imageId}" />
+                </s:link>
+              </h:panelGrid>
+            </rich:panel>
+          </rich:dataGrid>
+          <h:outputLabel for="picture" rendered="#{clubEventHome.managed}">Select an attachment to upload</h:outputLabel>
+          <s:fileUpload id="picture" rendered="#{clubEventHome.managed and clubEvent.openRegistration}"
+            data="#{clubEventHome.uploadedData}" accept="images/*,application/pdf"
+            fileName="#{clubEventHome.uploadedFileName}" contentType="#{clubEventHome.uploadedContentType}" />
+          <h:commandButton rendered="#{clubEventHome.managed and clubEvent.openRegistration}"
+            image="/img/icons/icon-download.png" alt="Upload Image" action="#{clubEventHome.uploadAttachment}" />
+        </rich:panel>
+      </s:validateAll>
+    </h:form>
+  </ui:define>
+
+</ui:composition>

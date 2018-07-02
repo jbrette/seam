@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+        <u:selector name=".rich-bottom-cell">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-boundary-dates">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-btn">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-button">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-cell">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-cell-div">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-cell-size">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-date-layout">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-date-layout-cancel">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-date-layout-ok">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-date-layout-split">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-days">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-editor-btn">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-editor-btn-over">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-editor-btn-selected">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-editor-container">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-editor-layout-shadow">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-editor-shadow">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-editor-tool-over">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-editor-tool-press">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-exterior">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-footer">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-footer-optional">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-header">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-header-optional">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-holly">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-hover">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-input">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-month">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-popup">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-select">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-spinner-buttons">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-spinner-down">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-spinner-input">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-spinner-input-container">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-spinner-pressed">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-spinner-up">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-time-btn">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-time-btn-press">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-time-layout">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-time-layout-cancel">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-time-layout-fields">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-time-layout-ok">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-today">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-tool">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-tool-btn">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-tool-btn-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-tool-btn-hover">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-tool-btn-press">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-tool-close">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-toolfooter">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-week">
+        </u:selector>
+
+        <u:selector name=".rich-calendar-weekends">
+        </u:selector>
+
+        <u:selector name=".rich-right-cell">
+        </u:selector>
+
+</f:template>

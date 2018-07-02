@@ -1,0 +1,42 @@
+<rich:page xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:s="http://jboss.com/products/seam/taglib" xmlns:rich="http://richfaces.org/rich"
+  pageTitle="French Chamber of Commerce and Industry Abroad" sidebarPosition="right" sidebarWidth="175"
+  markupType="xhtml" contentType="text/html" theme="#{globals.theme}">
+  <f:facet name="pageHeader">
+    <link href="#{facesContext.externalContext.requestContextPath}/stylesheet/webfacc.css" rel="stylesheet"
+      type="text/css" />
+    <meta name="KEYWORDS" content="Dallas,FACC,Texas,USA" />
+    <meta name="DESCRIPTION" content="French-American Chamber of Commerce Dallas-Fort Worth" />
+    <meta name="ROBOTS" content="INDEX, FOLLOW" />
+  </f:facet>
+
+  <f:facet name="header">
+    <ui:include src="header.xhtml">
+      <ui:param name="projectName" value="FACC Dallas-Fort Worth" />
+    </ui:include>
+  </f:facet>
+
+  <f:facet name="sidebar">
+    <ui:include src="sidebar.xhtml">
+      <ui:param name="projectName" value="FACC Dallas-Fort Worth" />
+    </ui:include>
+  </f:facet>
+
+  <f:facet name="subheader">
+    <ui:include src="menu.xhtml">
+      <ui:param name="projectName" value="FACC Dallas-Fort Worth" />
+    </ui:include>
+  </f:facet>
+
+  <ui:insert name="body">
+    <ui:param name="projectName" value="FACC Dallas-Fort Worth" />
+  </ui:insert>
+
+
+  <f:facet name="footer">
+    <ui:include src="footer.xhtml">
+      <ui:param name="projectName" value="FACC Dallas-Fort Worth" />
+    </ui:include>
+  </f:facet>
+</rich:page>

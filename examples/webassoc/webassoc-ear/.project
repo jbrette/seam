@@ -1,0 +1,10 @@
+<projectDescription>
+  <name>webassoc-ear</name>
+  <comment>Examples for Seam 2 Framework. NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
+  <projects>
+    <project>webassoc-ejb</project>
+    <project>webassoc-web</project>
+  </projects>
+  <buildSpec/>
+  <natures/>
+</projectDescription>

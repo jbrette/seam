@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<datas>
+ <elements>
+  <logo>fileadmin/template/uccife/flash/img/logo.png</logo>
+  <bglogo alpha="85">fileadmin/template/uccife/flash/img/degrade_logos.png</bglogo>
+  <fontName1>HelveticaNeueExtBlackCond</fontName1>
+  <sizeText1>32</sizeText1>
+  <embedCase1>true</embedCase1>
+  <fontName2>Old_Republic</fontName2>
+  <sizeText2>38</sizeText2>
+  <embedCase2>true</embedCase2>
+ </elements>
+ <elements>
+  <image>fileadmin/template/uccife/flash/img/img_01.jpg</image>
+  <texte_01 txtcolor="0xFFFFFF" bordercolor="0x000000">PARTENAIRE DES ENTREPRISES</texte_01>
+  <texte_02 txtcolor="0xFFFFFF" bordercolor="0x000000">A L’INTERNATIONAL</texte_02>
+ </elements>
+ <elements>
+  <image>fileadmin/template/uccife/flash/img/img_02.jpg</image>
+  <texte_01 txtcolor="0x000000" bordercolor="0xFFFFFF">PLATES-FORMES DE SERVICES</texte_01>
+  <texte_02 txtcolor="0x000000" bordercolor="0xFFFFFF">A L'ETRANGER</texte_02>
+ </elements>
+ <elements>
+  <image>fileadmin/template/uccife/flash/img/img_03.jpg</image>
+  <texte_01 txtcolor="0xFFFFFF" bordercolor="0x000000">DES ENTREPRISES</texte_01>
+  <texte_02 txtcolor="0xFFFFFF" bordercolor="0x000000">AU SERVICE DES ENTREPRISES</texte_02>
+ </elements>
+ <elements>
+  <image>fileadmin/template/uccife/flash/img/img_04.jpg</image>
+  <texte_01 txtcolor="0x000000" bordercolor="0xFFFFFF">PARTENAIRE DES ENTREPRISES</texte_01>
+  <texte_02 txtcolor="0x000000" bordercolor="0xFFFFFF">A L’INTERNATIONAL</texte_02>
+ </elements>
+ <elements>
+  <image>fileadmin/template/uccife/flash/img/img_05.jpg</image>
+  <texte_01 txtcolor="0xFFFFFF" bordercolor="0x000000">PLATES-FORMES DE SERVICES</texte_01>
+  <texte_02 txtcolor="0xFFFFFF" bordercolor="0x000000">A L'ETRANGER</texte_02>
+ </elements>
+ <elements>
+  <image>fileadmin/template/uccife/flash/img/img_06.jpg</image>
+  <texte_01 txtcolor="0x000000" bordercolor="0xFFFFFF">DES ENTREPRISES</texte_01>
+  <texte_02 txtcolor="0x000000" bordercolor="0xFFFFFF">AU SERVICE DES ENTREPRISES</texte_02>
+ </elements>
+</datas>

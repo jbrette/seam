@@ -1,0 +1,200 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  template="/layout/template.xhtml">
+
+  <ui:define name="body">
+
+
+    <rich:layout>
+      <rich:layoutPanel position="top" width="100%">
+        <h1>
+          <h:outputText value="#{classified.title}" />
+        </h1>
+      </rich:layoutPanel>
+      <rich:layoutPanel position="left" width="2%">
+      </rich:layoutPanel>
+      <rich:layoutPanel position="center" width="96%">
+        <h:form id="editForm" enctype="multipart/form-data">
+          <f:facet name="beforeInvalidField">
+            <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+          </f:facet>
+          <f:facet name="aroundInvalidField">
+            <s:span styleClass="errors" />
+          </f:facet>
+          <f:facet name="afterInvalidField">
+            <s:span>&#160;<s:message styleClass="errors" />
+            </s:span>
+          </f:facet>
+
+          <s:validateAll>
+
+            <h:panelGrid id="panel" columns="1" width="100%">
+              <rich:panel bodyClass="panelbody" width="100%">
+                <f:facet name="header">
+                  <h:outputText value="General"></h:outputText>
+                </f:facet>
+                <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+                  <h:outputText value="#{messages.Classified_Title}:" />
+                  <s:decorate id="titleDecorate">
+                    <h:inputText id="title" size="50" value="#{classified.title}" required="true"
+                      disabled="#{not (s:hasRole('webcontentmgr') or (classified.publisher.id == authenticatedMember.id))}" />
+                  </s:decorate>
+
+                  <h:outputText value="#{messages.Classified_CKind}:" />
+                  <s:decorate id="kindDecorate">
+                    <h:selectOneRadio id="ckind" value="#{classified.CKind}" layout="lineDirection"
+                      required="true">
+                      <f:selectItem id="item1" itemLabel="Sell" itemValue="sell" />
+                      <f:selectItem id="item2" itemLabel="Rent" itemValue="rent" />
+                      <f:selectItem id="item3" itemLabel="Buy" itemValue="buy" />
+                      <f:selectItem id="item4" itemLabel="Service" itemValue="service" />
+                    </h:selectOneRadio>
+                  </s:decorate>
+
+                  <h:outputText value="#{messages.Classified_Date}:" />
+                  <s:decorate id="dateDecorate">
+                    <h:inputText size="50" value="#{classified.date}"
+                      disabled="#{not (s:hasRole('webcontentmgr') or (classified.publisher.id == authenticatedMember.id))}" />
+                  </s:decorate>
+
+                  <h:outputText value="#{messages.Classified_Visible}:" />
+                  <h:panelGroup rendered="#{s:hasRole('webcontentmgr')}">
+
+                    <s:decorate id="classifiedVisibleDecorate">
+                      <h:selectBooleanCheckbox id="classifiedVisible" value="#{classified.visible}" />
+                    </s:decorate>
+                  </h:panelGroup>
+                </h:panelGrid>
+              </rich:panel>
+              <rich:panel bodyClass="panelbody" width="100%">
+                <f:facet name="header">
+                  <h:outputText value="#{messages.Classified_Contact}:"></h:outputText>
+                </f:facet>
+                <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+                  <h:outputText value="#{messages.Classified_HomePhone}:" />
+                  <s:decorate id="homePhoneDecorate">
+                    <h:inputText size="50" value="#{classified.homePhone}" />
+                  </s:decorate>
+
+                  <h:outputText value="#{messages.Classified_CellPhone}:" />
+                  <s:decorate id="cellPhoneDecorate">
+                    <h:inputText size="50" value="#{classified.cellPhone}" />
+                  </s:decorate>
+
+                  <h:outputText value="#{messages.Classified_Email}:" />
+                  <s:decorate id="emailDecorate">
+                    <h:inputText size="50" value="#{classified.email}" />
+                  </s:decorate>
+                </h:panelGrid>
+              </rich:panel>
+              <rich:panel bodyClass="panelbody" width="100%">
+                <f:facet name="header">
+                  <h:outputText value="Texte"></h:outputText>
+                </f:facet>
+                <s:decorate id="descDecorate">
+                  <rich:editor id="content" configuration="editorconfig" width="625" height="400"
+                    value="#{classified.description}" />
+                </s:decorate>
+              </rich:panel>
+            </h:panelGrid>
+
+            <!--  -->
+
+          </s:validateAll>
+
+          <!-- actions -->
+          <rich:toolBar width="100%">
+            <rich:toolBarGroup location="left">
+              <h:panelGroup id="updateArticleControls">
+                <h:graphicImage value="/img/icons/save2-16.png" />
+                <h:outputText value=" " />
+                <h:commandLink id="updateClassified" action="#{classifiedHome.update}" value="Save Classified"
+                  rendered="#{classifiedHome.managed and (s:hasRole('webcontentmgr') or (classified.publisher.id == authenticatedMember.id))}">
+                  <f:param name="pagesClassifiedId" value="#{classified.id}" />
+                </h:commandLink>
+                <h:commandLink id="createClassified" action="#{classifiedHome.persist}" value="Save Classified"
+                  rendered="#{!classifiedHome.managed  and (s:hasRole('webcontentmgr') or (classified.publisher.id == authenticatedMember.id))}" />
+              </h:panelGroup>
+              <h:panelGroup id="closeArticleControls">
+                <h:graphicImage value="/img/icons/close16.png" />
+                <h:outputText value=" " />
+                <s:link id="cancelManaged" view="/includes/classifieds/searchClassified.xhtml" value="Close"
+                  rendered="#{classifiedHome.managed and s:hasRole('webcontentmgr')}">
+                </s:link>
+                <s:link id="cancelManaged2" view="/home.xhtml" value="Back To Home"
+                  rendered="#{classifiedHome.managed and !s:hasRole('webcontentmgr')}">
+                </s:link>
+                <s:link id="cancel3" view="/home.xhtml" value="Back To Home"
+                  rendered="#{!classifiedHome.managed}">
+                </s:link>
+              </h:panelGroup>
+            </rich:toolBarGroup>
+            <rich:toolBarGroup location="right">
+              <h:panelGroup id="deleteClassifiedControls"
+                rendered="#{classifiedHome.managed and s:hasRole('admin')}">
+                <h:graphicImage value="/img/icons/remove-from-database16.png" />
+                <h:outputText value=" " />
+                <s:link id="deleteClassified" action="#{classifiedHome.remove}" value="Delete Classified"
+                  rendered="#{classifiedHome.managed and s:hasRole('admin')}">
+                </s:link>
+              </h:panelGroup>
+            </rich:toolBarGroup>
+          </rich:toolBar>
+        </h:form>
+      </rich:layoutPanel>
+      <rich:layoutPanel position="right" width="2%">
+      </rich:layoutPanel>
+      <rich:layoutPanel position="bottom" width="100%">
+        <rich:panel bodyClass="panelbodyNoBorder" width="100%" rendered="#{classifiedHome.managed}">
+          <f:facet name="header">
+            <h:outputText value="Images:"></h:outputText>
+          </f:facet>
+          <h:form id="editForm2" enctype="multipart/form-data">
+            <rich:dataGrid value="#{classified.images}" var="attachment"
+              rendered="#{not empty classified.images}" columns="5" elements="10" width="100%">
+              <rich:panel bodyClass="panelbody" width="20%">
+                <f:facet name="header">
+                  <h:outputText value="#{attachment.fileName}" />
+                </f:facet>
+                <h:panelGrid columns="1">
+                  <h:outputText value="#{attachment.contentType}" />
+                  <h:outputText value="#{attachment.caption}" />
+                  <s:link target="_blank" action="#{downloadAttachment.download}">
+                    <f:param name="attachmentId" value="#{attachment.imageId}" />
+                    <s:graphicImage fileName="editClassified-#{attachment.imageId}"
+                      value="#{attachment.thumbnail}">
+                      <s:transformImageSize width="75" maintainRatio="true" />
+                    </s:graphicImage>
+                  </s:link>
+                  <s:link value="Delete" action="#{classifiedHome.deleteImage}">
+                    <f:param name="attachmentId" value="#{attachment.imageId}"
+                      rendered="#{s:hasRole('webcontentmgr') or (classified.publisher.id == authenticatedMember.id)}" />
+                  </s:link>
+                </h:panelGrid>
+              </rich:panel>
+              <f:facet name="footer">
+                <rich:datascroller></rich:datascroller>
+              </f:facet>
+            </rich:dataGrid>
+            <h:panelGroup
+              rendered="#{s:hasRole('webcontentmgr') or ((!classified.visible) and (classified.publisher.id == authenticatedMember.id))}">
+              <h:outputLabel for="picture">Select an attachment to upload</h:outputLabel>
+              <s:fileUpload id="picture" data="#{classifiedHome.uploadedData}" accept="images/*,application/pdf"
+                fileName="#{classifiedHome.uploadedFileName}"
+                contentType="#{classifiedHome.uploadedContentType}" />
+              <h:commandButton image="/img/icons/icon-download.png" alt="Upload Image"
+                action="#{classifiedHome.uploadImage}" />
+            </h:panelGroup>
+          </h:form>
+        </rich:panel>
+      </rich:layoutPanel>
+    </rich:layout>
+
+
+  </ui:define>
+</ui:composition>

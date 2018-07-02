@@ -1,0 +1,66 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:rich="http://richfaces.org/rich" template="/layout/template.xhtml">
+
+  <ui:define name="body">
+
+    <script type="text/javascript">
+        function confirmDelete()
+        {
+          return confirm("#{messages.jscript_confirmDelete}");
+        }
+      </script>
+
+    <h:form id="searchForm">
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+      <!-- search results -->
+      <a4j:outputPanel id="searchResult">
+        <rich:dataTable id="threads" value="#{roles}" var="role" cellspacing="0">
+          <rich:column width="auto">
+            <f:facet name="header">Role</f:facet>
+            #{role}
+          </rich:column>
+          <rich:column id="roles" width="auto">
+            <f:facet name="header">Member Of</f:facet>
+            #{roleSearch.getRoleGroups(role)}
+          </rich:column>
+          <rich:column width="auto">
+            <f:facet name="header">Action</f:facet>
+            <s:fragment rendered="#{s:hasPermission('seam.role', 'update')}">
+              <s:link id="edit" value="Edit" action="#{roleAction.editRole(roleSearch.selectedRole)}" />
+              <span> | </span>
+            </s:fragment>
+            <s:link id="delete" value="Delete" action="#{identityManager.deleteRole(roleSearch.selectedRole)}"
+              rendered="#{s:hasPermission('seam.role', 'delete')}" onclick="return confirmDelete()" />
+          </rich:column>
+        </rich:dataTable>
+      </a4j:outputPanel>
+
+      <!-- pagination control -->
+      <rich:toolBar id="searchBottomBar" itemSeparator="disc">
+        <rich:toolBarGroup>
+
+          <s:button id="newRole" value="New Role" action="#{roleAction.createRole}"
+            rendered="#{s:hasPermission('seam.account', 'create', null)}" />
+
+        </rich:toolBarGroup>
+      </rich:toolBar>
+
+    </h:form>
+
+  </ui:define>
+
+</ui:composition>
+

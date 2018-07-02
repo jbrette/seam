@@ -1,0 +1,19 @@
+<m:message xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:m="http://jboss.com/products/seam/mail" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html">
+
+  <m:from name="ALEMAX Design" address="do-not-reply@alemaxdesign.com" />
+  <m:to name="#{amember.assocName}">#{amember.email}</m:to>
+  <m:subject>
+    <h:outputText value="#{newsLetter.title}" />
+  </m:subject>
+  <ui:repeat value="#{newsLetter.attachments}" var="attachmentFile">
+    <m:attachment value="#{attachmentFile.data}" contentType="#{attachmentFile.contentType}"
+      fileName="#{attachmentFile.fileName}" />
+  </ui:repeat>
+  <m:body>
+    <h:outputText escape="false" value="#{newsLetter.content}" />
+
+    <hr width="100%" />
+  </m:body>
+</m:message>

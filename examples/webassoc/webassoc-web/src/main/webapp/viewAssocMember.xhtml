@@ -1,0 +1,327 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a4j="http://richfaces.org/a4j" template="layout/template.xhtml">
+
+  <ui:define name="body">
+
+
+    <rich:panel>
+
+
+      <f:facet name="header">
+        <h:outputText value="#{messages.viewAssocMember_pnl_member}: #{assocMember.assocName}"></h:outputText>
+      </f:facet>
+      <h:form id="assocMemberForm">
+        <f:facet name="beforeInvalidField">
+          <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+        </f:facet>
+        <f:facet name="aroundInvalidField">
+          <s:span styleClass="errors" />
+        </f:facet>
+        <f:facet name="afterInvalidField">
+          <s:span>&#160;<s:message styleClass="errors" />
+          </s:span>
+        </f:facet>
+
+        <h:panelGrid id="panel" columns="3" width="100%">
+
+          <rich:panel bodyClass="panelbody" width="25%" style="height : 150px">
+            <f:facet name="header">
+              <h:outputText value="#{messages.viewAssocMember_pnl_address}"></h:outputText>
+            </f:facet>
+            <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+              <h:outputText value="#{messages.AssocMember_Address}:" />
+              <h:outputText value="#{assocMember.fullAddress}" />
+
+              <h:outputText value="#{messages.AssocMember_City}:" />
+              <h:outputText value="#{assocMember.zip}, #{assocMember.city} #{assocMember.state}" />
+
+              <h:outputText value="#{messages.AssocMember_Country}:" />
+              <h:outputText value="#{assocMember.country}" />
+
+              <h:outputText value="#{messages.AssocMember_Nation1}:" />
+              <h:outputText value="#{assocMember.nation1}" />
+
+              <h:outputText value="#{messages.AssocMember_Nation2}:" />
+              <h:outputText value="#{assocMember.nation2}" />
+
+            </h:panelGrid>
+          </rich:panel>
+
+          <rich:panel bodyClass="panelbody" width="25%" style="height : 150px">
+            <f:facet name="header">
+              <h:outputText value="#{messages.viewAssocMember_pnl_communication}"></h:outputText>
+            </f:facet>
+            <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+              <h:outputText value="#{messages.AssocMember_HomePhone}:" />
+              <h:outputText value="#{assocMember.homePhone}" />
+
+              <h:outputText value="#{messages.AssocMember_Email}:" />
+              <h:outputText value="#{assocMember.email}" />
+
+              <h:outputText value="#{messages.AssocMember_UseEMail}:" />
+              <h:outputText value="#{assocMember.useEMail}" />
+
+              <h:outputText value="#{messages.AssocMember_UseUSPS}:" />
+              <h:outputText value="#{assocMember.useUSPS}" />
+
+            </h:panelGrid>
+          </rich:panel>
+
+          <rich:panel bodyClass="panelbody" rendered="#{s:hasRole('memberviewer')}" width="25%"
+            style="height : 150px">
+            <f:facet name="header">
+              <h:outputText value="#{messages.viewAssocMember_pnl_membership}"></h:outputText>
+            </f:facet>
+            <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+              <h:outputText value="#{messages.AssocMember_MembershipValid}:" />
+              <h:outputText value="#{assocMember.membershipValid}" />
+
+              <h:outputText value="#{messages.AssocMember_MemberSince}:" />
+              <h:outputText value="#{assocMember.memberSince}" />
+
+              <h:outputText value="#{messages.AssocMember_MembershipDues}:" />
+              <h:outputText value="#{assocMember.membershipDues}" />
+
+              <h:outputText value="#{messages.AssocMember_MemberUntil}:" />
+              <h:outputText value="#{assocMember.memberUntil}" />
+
+              <h:outputText value="#{messages.AssocMember_FreeMembership}:" />
+              <h:outputText value="#{assocMember.freeMembership}" />
+
+              <h:outputText value="#{messages.AssocMember_MKind}" />
+              <h:outputText value="#{assocMember.MKind}" />
+            </h:panelGrid>
+          </rich:panel>
+
+        </h:panelGrid>
+
+        <!-- actions -->
+        <rich:toolBar>
+          <rich:toolBarGroup location="left">
+            <h:panelGroup id="updateAssocMemberControls">
+              <h:graphicImage value="/img/icons/edit16.png" />
+              <h:outputText value=" " />
+              <s:link id="editAssocMember" view="/editAssocMember.xhtml"
+                value="#{messages.viewAssocMember_btn_editMember}" />
+            </h:panelGroup>
+            <h:panelGroup id="cancelManagedControls">
+              <h:graphicImage value="/img/icons/close16.png" />
+              <h:outputText value=" " />
+              <s:link id="closeAssocMember" view="/searchAssocMember.xhtml"
+                value="#{messages.viewAssocMember_btn_closeMember}" />
+            </h:panelGroup>
+          </rich:toolBarGroup>
+          <rich:toolBarGroup location="right">
+            <h:panelGroup id="mnyControls" rendered="#{s:hasRole('accounting')}">
+              <h:graphicImage value="/img/icons/money.png" />
+              <h:outputText value=" " />
+              <s:link id="mnyAssocMember" view="/includes/mny/viewMnyAccount.xhtml"
+                value="#{messages.viewAssocMember_btn_mnyAccount}" rendered="#{s:hasRole('accounting')}">
+                <f:param name="pagesMnyAccountId" value="#{assocMemberHome.findMnyAccountId()}" />
+              </s:link>
+            </h:panelGroup>
+            <h:panelGroup id="webAccountControls" rendered="#{s:hasRole('membermgr')}">
+              <h:graphicImage value="/img/icons/user_silhouette.png" />
+              <h:outputText value=" " />
+              <s:link id="webAccess" value="#{messages.viewAssocMember_btn_webAccount}"
+                rendered="#{s:hasRole('membermgr')}"
+                action="#{userAction.editUser(assocMemberHome.findWebAccountName())}" />
+            </h:panelGroup>
+            <h:panelGroup id="adminControls" rendered="#{s:hasRole('membermgr') or s:hasRole('accounting')}">
+              <h:graphicImage value="/img/icons/edit16.png" />
+              <h:outputText value=" " />
+              <s:link id="adminAssocMember" view="/adminAssocMember.xhtml"
+                value="#{messages.viewAssocMember_btn_adminMember}" rendered="#{s:hasRole('membermgr') or s:hasRole('accounting')}" />
+            </h:panelGroup>
+          </rich:toolBarGroup>
+        </rich:toolBar>
+
+      </h:form>
+    </rich:panel>
+
+
+
+    <rich:panel width="100%">
+      <f:facet name="header">
+        <h:outputText value="#{messages.viewAssocMember_pnl_fmembers}"></h:outputText>
+      </f:facet>
+      <h:form id="familyMemberForm">
+
+        <rich:dataTable value="#{assocMember.familyMembers}" var="fmember"
+          rendered="#{!empty assocMember.familyMembers}" id="fmemberTable"
+          rowClasses="datagridrow1, datagridrow2" width="100%">
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.FamilyMember_LastName} #{messages.FamilyMember_FirstName}" />
+            </f:facet>
+            <h:panelGroup id="editFamilyMemberControls">
+              <h:graphicImage value="/img/icons/edit16.png" />
+              <h:outputText value=" " />
+              <s:link id="link" view="/editFamilyMember.xhtml" value="#{fmember.lastName}  #{fmember.firstName}">
+                <f:param name="pagesAssocMemberId" value="#{assocMember.id}" />
+                <f:param name="pagesFamilyMemberId" value="#{fmember.id}" />
+              </s:link>
+            </h:panelGroup>
+
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.FamilyMember_Gender}" />
+            </f:facet>
+            <h:outputText value="#{fmember.gender}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.FamilyMember_FKind}" />
+            </f:facet>
+            <h:outputText value="#{fmember.FKind}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.FamilyMember_Age}" />
+            </f:facet>
+            <h:outputText value="#{fmember.age}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.FamilyMember_CellPhone}" />
+            </f:facet>
+            <h:outputText value="#{fmember.cellPhone}" />
+          </rich:column>
+        </rich:dataTable>
+
+        <rich:toolBar>
+          <rich:toolBarGroup location="left">
+            <h:panelGroup id="addMemberControls" rendered="#{assocMemberHome.managed}">
+              <h:graphicImage value="/img/icons/add1-16.png" />
+              <h:outputText value=" " />
+              <h:commandLink id="submit" action="#{familyMemberHome.addMember}"
+                value="#{messages.viewAssocMember_btn_addFamilyMember}" />
+            </h:panelGroup>
+          </rich:toolBarGroup>
+        </rich:toolBar>
+
+      </h:form>
+    </rich:panel>
+
+    <h:panelGrid columns="2" width="100%">
+      <rich:panel width="50%">
+        <f:facet name="header">
+          <h:outputText value="#{messages.viewAssocMember_pnl_events}"></h:outputText>
+        </f:facet>
+        <h:form id="clubEventForm">
+          <rich:dataTable value="#{assocMember.events}" var="registration"
+            rendered="#{!empty assocMember.events}" id="registrationTable"
+            style="xls-font: 10 Verdana; xls-column-widths: 8000 9000 10000"
+            rowClasses="datagridrow1, datagridrow2" width="100%">
+            <rich:column>
+              <f:facet name="header">
+                <h:outputText value="#{messages.ClubEventRegistration_Event}" />
+              </f:facet>
+              <s:link id="link1" view="/editClubEventRegistration.xhtml" value="#{registration.event.title}">
+                <f:param name="pagesClubEventRegistrationId" value="#{registration.id}" />
+                <f:param name="pagesClubEventId" value="#{registration.event.id}" />
+              </s:link>
+            </rich:column>
+            <rich:column>
+              <f:facet name="header">
+                <h:outputText value="Photo Album" />
+              </f:facet>
+              <s:link id="link3" view="/photoAlbum.xhtml" disabled="#{not (s:hasRole('member')) }"
+                value="#{registration.event.imagesCount} Photo(s)">
+                <f:param name="pagesClubId" value="#{registration.event.club.id}" />
+                <f:param name="pagesClubEventId" value="#{registration.event.id}" />
+              </s:link>
+            </rich:column>
+          </rich:dataTable>
+
+          <rich:toolBar>
+            <rich:toolBarGroup location="left">
+              <h:panelGroup id="addHostingControls">
+                <h:graphicImage value="/img/icons/add1-16.png" />
+                <h:outputText value=" " />
+                <h:selectOneMenu value="#{clubEventRegistrationHome.instance.event}">
+                  <s:convertEntity />
+                  <s:selectItems value="#{clubEventHome.upcomingEvents}" var="event" label="#{event.title}" />
+                </h:selectOneMenu>
+                <h:commandButton id="submit" action="#{clubEventRegistrationHome.register}"
+                  value="#{messages.viewAssocMember_btn_registerToEvent}" />
+              </h:panelGroup>
+            </rich:toolBarGroup>
+          </rich:toolBar>
+
+        </h:form>
+      </rich:panel>
+
+      <rich:panel width="50%">
+        <f:facet name="header">
+          <h:outputText value="#{messages.viewAssocMember_pnl_clubhostings}"></h:outputText>
+        </f:facet>
+        <h:form id="registrationForm">
+          <rich:dataTable value="#{assocMember.eventHostings}" var="eventHosting"
+            rendered="#{!empty assocMember.eventHostings}" id="eventHostingTable"
+            rowClasses="datagridrow1, datagridrow2" width="100%">
+            <rich:column>
+              <f:facet name="header">
+                <h:outputText value="#{messages.ClubEventHosting_Club}" />
+              </f:facet>
+              <s:link id="linkClub" view="/viewClub.xhtml" value="#{eventHosting.club.name}">
+                <f:param name="pagesClubId" value="#{eventHosting.club.id}" />
+              </s:link>
+            </rich:column>
+            <rich:column>
+              <f:facet name="header">
+                <h:outputText value="#{messages.ClubEventHosting_FKind}" />
+              </f:facet>
+              <h:outputText value="#{eventHosting.FKind}" />
+            </rich:column>
+            <rich:column rendered="#{s:hasRole('membermgr')}">
+              <f:facet name="header">
+                <h:outputText value="#{messages.ClubEventHosting_Active}" />
+              </f:facet>
+              <s:link id="linkEventHosting" view="/editClubEventHosting.xhtml" value="#{eventHosting.active}">
+                <f:param name="pagesAssocMemberId" value="#{eventHosting.member.id}" />
+                <f:param name="pagesClubId" value="#{eventHosting.club.id}" />
+                <f:param name="pagesClubEventHostingId" value="#{eventHosting.id}" />
+              </s:link>
+            </rich:column>
+            <rich:column>
+              <f:facet name="header">
+                <h:outputText value="-" />
+              </f:facet>
+              <h:panelGroup id="deleteEventHostingControls">
+                <h:graphicImage value="/img/icons/cancel16.png" />
+                <h:outputText value=" " />
+                <s:link value="Cancel Hosting" action="#{assocMemberHome.cancelHosting}"
+                  onclick="return confirmDelete()">
+                  <f:param name="eventHostingId" value="#{eventHosting.id}" />
+                </s:link>
+              </h:panelGroup>
+            </rich:column>
+          </rich:dataTable>
+
+          <rich:toolBar>
+            <rich:toolBarGroup location="left">
+              <h:panelGroup id="addHostingControls">
+                <h:graphicImage value="/img/icons/add1-16.png" />
+                <h:outputText value=" " />
+                <h:selectOneMenu value="#{clubEventHostingHome.instance.club}">
+                  <s:convertEntity />
+                  <s:selectItems value="#{clubs.resultList}" var="theclub" label="#{theclub.name}" />
+                </h:selectOneMenu>
+                <h:commandButton id="submit" action="#{clubEventHostingHome.register}"
+                  value="#{messages.viewAssocMember_btn_hostClub}" />
+              </h:panelGroup>
+            </rich:toolBarGroup>
+          </rich:toolBar>
+
+        </h:form>
+      </rich:panel>
+
+    </h:panelGrid>
+  </ui:define>
+</ui:composition>

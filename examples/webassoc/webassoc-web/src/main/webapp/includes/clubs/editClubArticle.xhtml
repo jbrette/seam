@@ -1,0 +1,148 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  template="/layout/template.xhtml">
+
+  <ui:define name="body">
+    <script type="text/javascript">
+           function confirmDelete()
+        {
+               return confirm("#{messages.jscript_confirmDelete}");
+        }
+        </script>
+
+    <rich:panel>
+      <f:facet name="header">
+        <h:outputText value="#{clubArticle.title}"></h:outputText>
+      </f:facet>
+
+      <h:form id="editForm">
+        <f:facet name="beforeInvalidField">
+          <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+        </f:facet>
+        <f:facet name="aroundInvalidField">
+          <s:span styleClass="errors" />
+        </f:facet>
+        <f:facet name="afterInvalidField">
+          <s:span>&#160;<s:message styleClass="errors" />
+          </s:span>
+        </f:facet>
+
+        <s:validateAll>
+
+          <h:panelGrid id="panel" columns="1" width="100%">
+            <rich:panel bodyClass="panelbody" width="100%">
+              <f:facet name="header">
+                <h:outputText value="General"></h:outputText>
+              </f:facet>
+              <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+                <h:outputText value="Title:" />
+                <s:decorate id="titleDecorate">
+                  <h:inputText id="title" value="#{clubArticle.title}" required="true" />
+                </s:decorate>
+
+                <h:outputText value="Subject:" />
+                <s:decorate id="subjectDecorate">
+                  <h:inputText id="subject" value="#{clubArticle.subject}" />
+                </s:decorate>
+
+                <h:outputText value="Visible" />
+                <s:decorate id="visibleDecorate">
+                  <h:selectBooleanCheckbox id="visible" value="#{clubArticle.visible}"
+                    disabled="#{not s:hasRole('clubmgr')}" />
+                </s:decorate>
+
+              </h:panelGrid>
+            </rich:panel>
+            <rich:panel bodyClass="panelbody" width="100%">
+              <s:decorate id="descDecorate">
+                <rich:editor id="content" configuration="editorconfig" width="800" height="800"
+                  value="#{clubArticle.description}" />
+              </s:decorate>
+            </rich:panel>
+          </h:panelGrid>
+
+          <!--  -->
+
+        </s:validateAll>
+
+        <!-- actions -->
+        <rich:toolBar>
+          <rich:toolBarGroup location="left">
+
+            <h:commandLink id="updateArticle" action="#{clubArticleHome.update}" value="Update Article"
+              rendered="#{clubArticleHome.managed and s:hasRole('clubmgr')}">
+              <f:param name="pagesArticleId" value="#{clubArticle.id}" />
+            </h:commandLink>
+            <s:link id="cancelManaged" view="/viewClub.xhtml" value="Close"
+              rendered="#{clubArticleHome.managed}">
+              <f:param name="pagesArticleId" value="#{clubArticle.id}" />
+            </s:link>
+
+            <h:commandLink id="createArticle" action="#{clubArticleHome.persist}" value="Create Article"
+              rendered="#{!clubArticleHome.managed  and s:hasRole('clubmgr')}" />
+            <s:link id="cancel" view="/viewClub.xhtml" value="Cancel" rendered="#{!clubArticleHome.managed}" />
+          </rich:toolBarGroup>
+          <rich:toolBarGroup location="right">
+            <s:link id="deleteClubArticle" action="#{clubArticleHome.remove}" onclick="return confirmDelete()"
+              value="Delete" rendered="#{clubArticleHome.managed and s:hasRole('clubmgr')}">
+            </s:link>
+          </rich:toolBarGroup>
+        </rich:toolBar>
+
+      </h:form>
+    </rich:panel>
+    <rich:panel bodyClass="panelbody" width="100%">
+      <h:form id="editForm2" enctype="multipart/form-data">
+        <f:facet name="beforeInvalidField">
+          <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+        </f:facet>
+        <f:facet name="aroundInvalidField">
+          <s:span styleClass="errors" />
+        </f:facet>
+        <f:facet name="afterInvalidField">
+          <s:span>&#160;<s:message styleClass="errors" />
+          </s:span>
+        </f:facet>
+        <f:facet name="header">
+          <h:outputText value="Images:"></h:outputText>
+        </f:facet>
+        <rich:dataGrid value="#{clubArticle.attachments}" var="attachment"
+          rendered="#{not empty clubArticle.attachments}" columns="5" elements="10" width="100%">
+          <rich:panel bodyClass="panelbody" width="20%">
+            <f:facet name="header">
+              <h:outputText value="#{attachment.fileName}" />
+            </f:facet>
+            <h:panelGrid columns="1">
+              <h:outputText value="#{attachment.contentType}" />
+              <h:outputText value="#{attachment.caption}" />
+              <s:link target="_blank" action="#{downloadAttachment.download}">
+                <f:param name="attachmentId" value="#{attachment.imageId}" />
+                <s:graphicImage fileName="editClubArticle-#{attachment.imageId}"
+                  rendered="#{attachment.thumbnailNotEmpty}" value="#{attachment.thumbnail}">
+                  <s:transformImageSize width="75" maintainRatio="true" />
+                </s:graphicImage>
+              </s:link>
+              <s:link value="Delete" action="#{clubArticleHome.deleteAttachment}"
+                onclick="return confirmDelete()">
+                <f:param name="attachmentId" value="#{attachment.imageId}" rendered="#{s:hasRole('clubmgr')}" />
+              </s:link>
+            </h:panelGrid>
+          </rich:panel>
+          <f:facet name="footer">
+            <rich:datascroller></rich:datascroller>
+          </f:facet>
+        </rich:dataGrid>
+        <h:outputLabel for="picture" rendered="#{clubArticleHome.managed}">Select an attachment to upload</h:outputLabel>
+        <s:fileUpload id="picture" rendered="#{clubArticleHome.managed}" data="#{clubArticleHome.uploadedData}"
+          accept="images/*,application/pdf" fileName="#{clubArticleHome.uploadedFileName}"
+          contentType="#{clubArticleHome.uploadedContentType}" />
+        <h:commandButton rendered="#{clubArticleHome.managed}" image="/img/icons/icon-download.png"
+          alt="Upload Attachment" action="#{clubArticleHome.uploadAttachment}" />
+      </h:form>
+    </rich:panel>
+  </ui:define>
+</ui:composition>

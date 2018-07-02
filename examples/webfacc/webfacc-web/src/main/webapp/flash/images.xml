@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<datas>
+ <elements>
+  <logo>fileadmin/template/usahouston/flash/img/logo.png</logo>
+  <bglogo alpha="85">fileadmin/template/usahouston/flash/img/degrade_logos.png</bglogo>
+  <fontName1>Old_Republic</fontName1>
+  <sizeText1>38</sizeText1>
+  <embedCase1>true</embedCase1>
+  <fontName2>HelveticaNeueExtBlackCond</fontName2>
+  <sizeText2>38</sizeText2>
+  <embedCase2>true</embedCase2>
+ </elements>
+ <elements>
+  <image>fileadmin/template/usahouston/flash/img/img_01.jpg</image>
+  <texte_01 txtcolor="0xFFFFFF" bordercolor="0x000000">LA FACC HOUSTON</texte_01>
+  <texte_02 txtcolor="0xFFFFFF" bordercolor="0x000000">CREATED IN 1977</texte_02>
+ </elements>
+ <elements>
+  <image>fileadmin/template/usahouston/flash/img/img_02.jpg</image>
+  <texte_01 txtcolor="0x000000" bordercolor="0xFFFFFF">Support of French</texte_01>
+  <texte_02 txtcolor="0x000000" bordercolor="0xFFFFFF">and American companies</texte_02>
+ </elements>
+ <elements>
+  <image>fileadmin/template/usahouston/flash/img/img_03.jpg</image>
+  <texte_01 txtcolor="0xFFFFFF" bordercolor="0x000000">112 CHAMBRES DE COMMERCE ET</texte_01>
+  <texte_02 txtcolor="0xFFFFFF" bordercolor="0x000000">D'INDUSTRIE FRANCAISE A L'ETRANGER</texte_02>
+ </elements>
+ <elements>
+  <image>fileadmin/template/usahouston/flash/img/img_04.jpg</image>
+  <texte_01 txtcolor="0x000000" bordercolor="0xFFFFFF">DES EQUIPES DE PROFESSIONNELS</texte_01>
+  <texte_02 txtcolor="0x000000" bordercolor="0xFFFFFF">DANS 75 PAYS</texte_02>
+ </elements>
+ <elements>
+  <image>fileadmin/template/usahouston/flash/img/img_05.jpg</image>
+  <texte_01 txtcolor="0xFFFFFF" bordercolor="0x000000"></texte_01>
+  <texte_02 txtcolor="0xFFFFFF" bordercolor="0x000000">SE DEVELOPPER A L'INTERNATIONAL</texte_02>
+ </elements>
+ <elements>
+  <image>fileadmin/template/usahouston/flash/img/img_06.jpg</image>
+  <texte_01 txtcolor="0x000000" bordercolor="0xFFFFFF"></texte_01>
+  <texte_02 txtcolor="0x000000" bordercolor="0xFFFFFF">APPROCHER LA FRANCE</texte_02>
+ </elements>
+</datas>

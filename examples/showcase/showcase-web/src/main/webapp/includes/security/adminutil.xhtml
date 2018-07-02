@@ -1,0 +1,70 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  template="/layout/template.xhtml">
+
+  <ui:define name="body">
+    <script type="text/javascript">
+        function confirmDelete()
+        {
+          return confirm("Are you sure ?");
+        }
+       </script>
+
+    <h:form id="adminutil">
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+      <h:panelGrid columns="3" rendered="#{s:hasRole('admin')}">
+        <h:commandButton id="btn01" action="#{registerAction.registerAllMembers}" value="Create Web Accounts"
+          onclick="return confirmDelete()" />
+        <h:commandButton id="btn02" action="#{registerAction.checkAssocMembersWebAccess}"
+          value="Check Web Accounts 1" onclick="return confirmDelete()" />
+        <h:commandButton id="btn03" action="#{registerAction.checkRegisterAllMembers}" value="-"
+          onclick="return confirmDelete()" />
+
+        <h:commandButton id="btn11" action="#{adminOperations.invokedByMenuButton1}"
+          value="Check Web Accounts 3" onclick="return confirmDelete()" />
+        <h:commandButton id="btn12" action="#{adminOperations.invokedByMenuButton2}" value="Build ThumNails"
+          onclick="return confirmDelete()" />
+        <h:commandButton id="btn13" action="#{adminOperations.invokedByMenuButton3}"
+          value="Check AssocMember Fields" onclick="return confirmDelete()" />
+
+        <h:commandButton id="btn21" action="#{clubMembershipAdminOperations.invokedByMenuButton1}"
+          value="Cleanup NonMember ClubMembership" onclick="return confirmDelete()" />
+        <h:commandButton id="btn22" action="#{clubMembershipAdminOperations.invokedByMenuButton2}" value="-"
+          onclick="return confirmDelete()" />
+        <h:commandButton id="btn23" action="#{clubMembershipAdminOperations.invokedByMenuButton3}" value="-"
+          onclick="return confirmDelete()" />
+
+        <h:commandButton id="btn31" action="#{cgiFormAdminOperations.invokedByMenuButton1}"
+          value="checkAptOrSuite" onclick="return confirmDelete()" />
+        <h:commandButton id="btn32" action="#{cgiFormAdminOperations.invokedByMenuButton2}" value="updateLngLat"
+          onclick="return confirmDelete()" />
+        <h:commandButton id="btn33" action="#{cgiFormAdminOperations.invokedByMenuButton3}"
+          value="checkDatabase" onclick="return confirmDelete()" />
+
+        <h:commandButton id="btn41" action="#{dbSchemaAdminOperations.invokedByMenuButton1}"
+          value="Testing makeDeposit" onclick="return confirmDelete()" />
+        <h:commandButton id="btn42" action="#{dbSchemaAdminOperations.invokedByMenuButton2}"
+          value="Testing makeWithdrawal" onclick="return confirmDelete()" />
+        <h:commandButton id="btn43" action="#{dbSchemaAdminOperations.invokedByMenuButton3}" value="-"
+          onclick="return confirmDelete()" />
+
+      </h:panelGrid>
+    </h:form>
+
+
+  </ui:define>
+
+</ui:composition>
+

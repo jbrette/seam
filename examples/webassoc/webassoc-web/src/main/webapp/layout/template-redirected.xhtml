@@ -1,0 +1,27 @@
+<rich:page xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:s="http://jboss.com/products/seam/taglib" xmlns:rich="http://richfaces.org/rich" pageTitle="WebAssoc"
+  sidebarPosition="right" sidebarWidth="300" markupType="xhtml" contentType="text/html" theme="simple">
+  <f:facet name="pageHeader">
+    <link href="stylesheet/webassoc.css" rel="stylesheet" type="text/css" />
+  </f:facet>
+
+  <f:facet name="header">
+    <ui:include src="header.xhtml">
+      <ui:param name="projectName" value="Dallas Accueil" />
+    </ui:include>
+  </f:facet>
+
+  <f:facet name="sidebar">
+  </f:facet>
+
+  <ui:insert name="body">
+    <ui:param name="projectName" value="DallasAccueil" />
+  </ui:insert>
+
+  <f:facet name="footer">
+    <ui:include src="footer.xhtml">
+      <ui:param name="projectName" value="Dallas Accueil" />
+    </ui:include>
+  </f:facet>
+</rich:page>

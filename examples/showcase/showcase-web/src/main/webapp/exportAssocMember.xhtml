@@ -1,0 +1,93 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a4j="http://richfaces.org/a4j" xmlns:e="http://jboss.com/products/seam/excel"
+  template="layout/template.xhtml">
+
+  <ui:define name="body">
+
+    <h:form id="searchForm">
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+
+      <span class="prop"> <span class="name">Request Kind :</span> <span class="value"> <h:selectOneMenu
+            value="#{globals.searchedComboBox}"
+            rendered="#{s:hasRole('memberviewer') or s:hasRole('accounting')}">
+            <f:selectItem id="item01" itemLabel="Only Me" itemValue="0" />
+            <f:selectItem id="item02" itemLabel="Committee" itemValue="12" />
+            <f:selectItem id="item03" itemLabel="----" itemValue="99" />
+            <f:selectItem id="item04" itemLabel="All Members" itemValue="2" />
+            <f:selectItem id="item05" itemLabel="Guest Members" itemValue="8" />
+            <f:selectItem id="item06" itemLabel="All Members, Guests, Sponsors, Advertisers, PartnersOrgs"
+              itemValue="1" />
+            <f:selectItem id="item07" itemLabel="----" itemValue="99" />
+            <f:selectItem id="item08" itemLabel="Bulletin E-Mail - Not Late Members" itemValue="3" />
+            <f:selectItem id="item09" itemLabel="Bulletin E-Mail - Members, Sponsors, Advertisers, PartnerOrgs"
+              itemValue="13" />
+            <f:selectItem id="item10" itemLabel="Bulletin E-Mail - Sponsors, Advertisers, PartnerOrgs"
+              itemValue="5" />
+            <f:selectItem id="item11" itemLabel="Bulletin E-Mail - Late Members" itemValue="4" />
+            <f:selectItem id="item12" itemLabel="----" itemValue="99" />
+            <f:selectItem id="item13" itemLabel="Bulletin USPS   - Members, Sponsors, Advertisers, PartnerOrgs"
+              itemValue="14" />
+            <f:selectItem id="item14" itemLabel="----" itemValue="99" />
+            <f:selectItem id="item15" itemLabel="Sponsors" itemValue="9" />
+            <f:selectItem id="item16" itemLabel="Advertisers" itemValue="10" />
+            <f:selectItem id="item17" itemLabel="Partner Orgs" itemValue="11" />
+            <f:selectItem id="item18" itemLabel="----" itemValue="99" />
+            <f:selectItem id="item19" itemLabel="Past Members" itemValue="15" />
+            <f:selectItem id="item20" itemLabel="Members - Not Late" itemValue="6" />
+            <f:selectItem id="item21" itemLabel="Members - Late" itemValue="7" />
+          </h:selectOneMenu> </span> </span>
+
+      <a4j:commandButton id="reqId" action="newsearch" value="Search"
+        rendered="#{s:hasRole('memberviewer') or s:hasRole('accounting')}" />
+      <h:outputText value="#{messages.panelg_separator}" escape="false"
+        rendered="#{s:hasRole('memberviewer') or s:hasRole('accounting')}" />
+      <h:commandButton id="export2" value="Export" action="#{excelExporter.export('searchForm:memberTable')}"
+        rendered="#{s:hasRole('memberviewer') or s:hasRole('accounting')}" />
+      <h:outputText value="#{messages.panelg_separator}" escape="false"
+        rendered="#{s:hasRole('memberviewer') or s:hasRole('accounting')}" />
+      <h:panelGroup id="whitePagesControls" rendered="#{s:hasRole('memberviewer') or s:hasRole('accounting')}">
+        <h:graphicImage value="/img/icons/page_white_excel.png" />
+        <h:outputText value=" " />
+        <s:link view="/whitePages.xhtml" value="White Pages">
+        </s:link>
+      </h:panelGroup>
+
+      <!-- search results -->
+      <a4j:outputPanel id="searchResult">
+        <rich:dataTable value="#{assocMemberHome.filterAssocMembers(globals.searchedComboBox)}" var="amember"
+          id="memberTable" style="xls-font: 10 Verdana; xls-column-widths: 8000 9000 10000"
+          rowClasses="datagridrow1, datagridrow2" width="100%">
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.AssocMember_AssocName}" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{amember.assocName}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Web" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputLink value="http://#{amember.homePage}" target="_blank">
+              <h:outputText value="#{amember.homePage}"></h:outputText>
+            </h:outputLink>
+          </rich:column>
+        </rich:dataTable>
+      </a4j:outputPanel>
+
+    </h:form>
+
+  </ui:define>
+</ui:composition>

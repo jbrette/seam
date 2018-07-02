@@ -1,0 +1,130 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" template="layout/template.xhtml">
+
+  <ui:define name="body">
+    <script type="text/javascript">
+        function confirmDelete()
+        {
+          return confirm("#{messages.jscript_confirmDelete}");
+        }
+      </script>
+
+    <h:form id="editForm" enctype="multipart/form-data">
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+
+      <s:validateAll>
+
+        <h:panelGrid id="panel" columns="1" width="100%">
+          <rich:panel bodyClass="panelbody" width="100%">
+            <f:facet name="header">
+              <h:outputText value="Description"></h:outputText>
+            </f:facet>
+            <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+              <h:outputText value="#{messages.Vote_Title}:" />
+              <s:decorate id="nameDecorate">
+                <h:inputText id="voteTitle" value="#{vote.title}" required="true" />
+              </s:decorate>
+
+              <h:outputText value="#{messages.Vote_StartDate}:" />
+              <s:decorate id="dateDecorate">
+                <rich:calendar value="#{vote.startDate}" id="voteStartDate" datePattern="MM/dd/yyyy"
+                  style="width:200px" required="true" />
+              </s:decorate>
+
+              <h:outputText value="#{messages.Vote_EndDate}:" />
+              <s:decorate id="dateDecorate2">
+                <rich:calendar value="#{vote.endDate}" id="voteEndDate" datePattern="MM/dd/yyyy"
+                  style="width:200px" required="true" />
+              </s:decorate>
+
+              <h:outputText value="#{messages.Vote_VKind}:" />
+              <s:decorate id="nkindDecorate">
+                <h:selectOneMenu id="nkind" value="#{vote.VKind}" layout="lineDirection" required="true">
+                  <f:selectItem id="item1" itemLabel="All Members Vote" itemValue="allmembers" />
+                  <f:selectItem id="item2" itemLabel="Committee Vote" itemValue="committeemembers" />
+                </h:selectOneMenu>
+              </s:decorate>
+
+              <h:outputText value="#{messages.Vote_Content}:" />
+              <s:decorate id="descDecorate">
+                <rich:editor id="content" configuration="editorconfig" width="750" height="400"
+                  value="#{vote.content}" />
+              </s:decorate>
+
+            </h:panelGrid>
+          </rich:panel>
+
+        </h:panelGrid>
+        <rich:panel bodyClass="panelbody" width="100%" rendered="#{voteHome.managed}">
+          <f:facet name="header">
+            <h:outputText value="Attachments:"></h:outputText>
+          </f:facet>
+          <rich:dataGrid value="#{vote.attachments}" var="attachment" rendered="#{not empty vote.attachments}"
+            columns="5" elements="10" width="100%">
+            <rich:panel bodyClass="panelbody" width="20%">
+              <f:facet name="header">
+                <h:outputText value="#{attachment.fileName}" />
+              </f:facet>
+              <h:panelGrid columns="1">
+                <h:outputText value="#{attachment.contentType}" />
+                <h:outputText value="#{attachment.caption}" />
+                <s:link target="_blank" action="#{downloadAttachment.download}">
+                  <f:param name="attachmentId" value="#{attachment.imageId}" />
+                  <s:graphicImage fileName="editVote-#{attachment.imageId}"
+                    rendered="#{attachment.thumbnailNotEmpty}" value="#{attachment.thumbnail}">
+                    <s:transformImageSize width="75" maintainRatio="true" />
+                  </s:graphicImage>
+                </s:link>
+                <s:link value="Delete" action="#{voteHome.deleteAttachment}">
+                  <f:param name="attachmentId" value="#{attachment.imageId}" />
+                </s:link>
+              </h:panelGrid>
+            </rich:panel>
+            <f:facet name="footer">
+              <rich:datascroller></rich:datascroller>
+            </f:facet>
+          </rich:dataGrid>
+          <h:outputLabel for="picture">Select an attachment to upload</h:outputLabel>
+          <s:fileUpload id="picture" data="#{voteHome.uploadedData}" accept="images/*,application/pdf"
+            fileName="#{voteHome.uploadedFileName}" contentType="#{voteHome.uploadedContentType}" />
+          <h:commandButton value="Upload Image" action="#{voteHome.uploadAttachment}" />
+        </rich:panel>
+
+      </s:validateAll>
+
+      <!-- actions -->
+      <rich:toolBar>
+        <rich:toolBarGroup>
+
+          <h:commandLink id="updateVote" action="#{voteHome.update}" value="Save Vote"
+            rendered="#{voteHome.managed}" />
+          <s:link id="cancelManaged" view="/viewVote.xhtml" value="Cancel" rendered="#{voteHome.managed}" />
+
+          <h:commandLink id="createVote" action="#{voteHome.persist}" value="Save Vote"
+            rendered="#{!voteHome.managed}" />
+          <s:link id="cancel" view="/searchVote.xhtml" value="Cancel" rendered="#{!voteHome.managed}" />
+
+          <s:link id="deleteVote" action="#{voteHome.remove}" onclick="return confirmDelete()"
+            value="Delete Vote" rendered="#{voteHome.managed}">
+          </s:link>
+
+        </rich:toolBarGroup>
+      </rich:toolBar>
+
+    </h:form>
+
+  </ui:define>
+</ui:composition>

@@ -1,0 +1,123 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:rich="http://richfaces.org/rich" template="layout/template.xhtml">
+
+  <ui:define name="body">
+    <rich:panel styleClass="panelbodyNoBorder">
+      <rich:layout>
+        <rich:layoutPanel position="top" width="100%" style="padding:3px;">
+          <h:outputText escape="false" value="#{webPageHome.homePage.headerText}" />
+        </rich:layoutPanel>
+        <rich:layoutPanel position="left" width="#{webPageHome.homePage.leftColumnSize}%" style="padding:3px;">
+          <rich:panel styleClass="panelbodyNoBorder">
+            <h:outputText styleClass="outputTextBig" value="#{messages.homePage_lbl_latestNews}" />
+            <ul class="latestNewsUL">
+              <ui:repeat value="#{webPageHome.latestNewsPage.activeArticles}" var="carticle">
+                <li><s:link id="viewArticle" value="#{carticle.subject}" view="/viewArticle.xhtml"
+                    rel="nofollow">
+                    <f:param name="pagesWebPageId" value="#{carticle.webPage.id}" />
+                    <f:param name="pagesArticleId" value="#{carticle.id}" />
+                  </s:link>
+                </li>
+              </ui:repeat>
+            </ul>
+            <hr />
+          </rich:panel>
+          <h:dataTable value="#{webPageHome.homePage.c1Articles}" var="article1">
+            <h:column>
+              <rich:panel style="border:0px">
+                <f:facet name="header">
+                </f:facet>
+                <h:panelGrid columns="1" rendered="#{article1.layout==0}">
+                  <h:outputText escape="false" value="#{article1.description}" />
+                </h:panelGrid>
+                <h:panelGrid columns="2" rendered="#{article1.layout==1}">
+                  <s:graphicImage fileName="home-#{article1.id}" value="#{article1.ilst.data}">
+                    <s:transformImageSize width="#{article1.ilstWidth}" maintainRatio="true" />
+                  </s:graphicImage>
+                  <h:outputText escape="false" value="#{article1.description}" />
+                </h:panelGrid>
+                <h:panelGrid columns="2" rendered="#{article1.layout==2}">
+                  <h:outputText escape="false" value="#{article1.description}" />
+                  <s:graphicImage fileName="home-#{article1.id}" value="#{article1.ilst.data}">
+                    <s:transformImageSize width="#{article1.ilstWidth}" maintainRatio="true" />
+                  </s:graphicImage>
+                </h:panelGrid>
+                <h:panelGrid columns="1" rendered="#{article1.layout==3}">
+                  <s:graphicImage fileName="home-#{article1.id}" value="#{article1.ilst.data}">
+                    <s:transformImageSize width="#{article1.ilstWidth}" maintainRatio="true" />
+                  </s:graphicImage>
+                </h:panelGrid>
+                <h:panelGrid columns="1" rendered="#{article1.layout==4}">
+                  <h:outputText escape="false" value="#{article1.description}" />
+                  <s:graphicImage fileName="home-#{article1.id}" value="#{article1.ilst.data}">
+                    <s:transformImageSize width="#{article1.ilstWidth}" maintainRatio="true" />
+                  </s:graphicImage>
+                </h:panelGrid>
+                <h:panelGrid columns="1" rendered="#{article1.layout==5}">
+                  <s:graphicImage fileName="home-#{article1.id}" value="#{article1.ilst.data}">
+                    <s:transformImageSize width="#{article1.ilstWidth}" maintainRatio="true" />
+                  </s:graphicImage>
+                  <h:outputText escape="false" value="#{article1.description}" />
+                </h:panelGrid>
+                <hr />
+              </rich:panel>
+            </h:column>
+          </h:dataTable>
+        </rich:layoutPanel>
+        <rich:layoutPanel position="center" width="#{webPageHome.homePage.centerColumnSize}%"
+          style="padding:3px;">
+          <h:dataTable value="#{webPageHome.homePage.c2Articles}" var="article2">
+            <h:column>
+              <rich:panel style="border:0px">
+                <f:facet name="header">
+                </f:facet>
+                <h:panelGrid columns="1" rendered="#{article2.layout==0}">
+                  <h:outputText escape="false" value="#{article2.description}" />
+                </h:panelGrid>
+                <h:panelGrid columns="2" rendered="#{article2.layout==1}">
+                  <s:graphicImage fileName="home-#{article2.id}" value="#{article2.ilst.data}">
+                    <s:transformImageSize width="#{article2.ilstWidth}" maintainRatio="true" />
+                  </s:graphicImage>
+                  <h:outputText escape="false" value="#{article2.description}" />
+                </h:panelGrid>
+                <h:panelGrid columns="2" rendered="#{article2.layout==2}">
+                  <h:outputText escape="false" value="#{article2.description}" />
+                  <s:graphicImage fileName="home-#{article2.id}" value="#{article2.ilst.data}">
+                    <s:transformImageSize width="#{article2.ilstWidth}" maintainRatio="true" />
+                  </s:graphicImage>
+                </h:panelGrid>
+                <h:panelGrid columns="1" rendered="#{article2.layout==3}">
+                  <s:graphicImage fileName="home-#{article2.id}" value="#{article2.ilst.data}">
+                    <s:transformImageSize width="#{article2.ilstWidth}" maintainRatio="true" />
+                  </s:graphicImage>
+                </h:panelGrid>
+                <h:panelGrid columns="1" rendered="#{article2.layout==4}">
+                  <h:outputText escape="false" value="#{article2.description}" />
+                  <s:graphicImage fileName="home-#{article2.id}" value="#{article2.ilst.data}">
+                    <s:transformImageSize width="#{article2.ilstWidth}" maintainRatio="true" />
+                  </s:graphicImage>
+                </h:panelGrid>
+                <h:panelGrid columns="1" rendered="#{article2.layout==5}">
+                  <s:graphicImage fileName="home-#{article2.id}" value="#{article2.ilst.data}">
+                    <s:transformImageSize width="#{article2.ilstWidth}" maintainRatio="true" />
+                  </s:graphicImage>
+                  <h:outputText escape="false" value="#{article2.description}" />
+                </h:panelGrid>
+                <hr />
+              </rich:panel>
+            </h:column>
+          </h:dataTable>
+        </rich:layoutPanel>
+        <rich:layoutPanel position="right" width="#{webPageHome.homePage.rightColumnSize}%" style="padding:3px;">
+        </rich:layoutPanel>
+        <rich:layoutPanel position="bottom" width="100%" style="padding:3px;">
+          <h:outputText escape="false" value="#{webPageHome.homePage.footerText}" />
+        </rich:layoutPanel>
+      </rich:layout>
+    </rich:panel>
+  </ui:define>
+</ui:composition>

@@ -1,0 +1,102 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" template="layout/template.xhtml">
+
+  <ui:define name="body">
+
+    <rich:panel width="100%">
+      <f:facet name="header">
+        <h:outputText
+          value="Detail of registration of member: #{clubEventRegistration.member.assocName} for event: #{clubEventRegistration.event.title}"></h:outputText>
+      </f:facet>
+      <h:form id="editForm">
+        <f:facet name="beforeInvalidField">
+          <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+        </f:facet>
+        <f:facet name="aroundInvalidField">
+          <s:span styleClass="errors" />
+        </f:facet>
+        <f:facet name="afterInvalidField">
+          <s:span>&#160;<s:message styleClass="errors" />
+          </s:span>
+        </f:facet>
+
+        <s:validateAll>
+
+          <h:panelGrid id="panel" columns="1" width="100%">
+            <rich:panel bodyClass="panelbody" width="100%">
+              <f:facet name="header">
+                <h:outputText value="Ticket Details"></h:outputText>
+              </f:facet>
+              <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+                <h:outputText value="#{messages.ClubEventTicket_LastName}:" />
+                <s:decorate id="lastNameDecorate">
+                  <h:inputText id="lastName" value="#{clubEventTicket.lastName}" required="true" />
+                </s:decorate>
+
+                <h:outputText value="#{messages.ClubEventTicket_FirstName}:" />
+                <s:decorate id="firstNameDecorate">
+                  <h:inputText id="firstName" value="#{clubEventTicket.firstName}" required="true" />
+                </s:decorate>
+
+                <h:outputText value="#{messages.ClubEventTicket_FKind}:" />
+                <s:decorate id="fkindDecorate">
+                  <h:selectOneRadio id="fkind1" value="#{clubEventTicket.FKind}" layout="lineDirection"
+                    required="true" rendered="#{s:hasRole('eventmgr') or s:hasRole('member')}">
+                    <f:selectItem id="item1" itemLabel="Adult Member" itemValue="adultMember" />
+                    <f:selectItem id="item2" itemLabel="Kid Member" itemValue="kidMember" />
+                    <f:selectItem id="item3" itemLabel="Adult Non Member" itemValue="adultNonMember" />
+                    <f:selectItem id="item4" itemLabel="Kid Non Member" itemValue="kidNonMember" />
+                  </h:selectOneRadio>
+                  <h:selectOneRadio id="fkind2" value="#{clubEventTicket.FKind}" layout="lineDirection"
+                    required="true" rendered="#{not (s:hasRole('member'))}">
+                    <f:selectItem id="item5" itemLabel="Adult Non Member" itemValue="adultNonMember" />
+                    <f:selectItem id="item6" itemLabel="Kid Non Member" itemValue="kidNonMember" />
+                  </h:selectOneRadio>
+                </s:decorate>
+
+              </h:panelGrid>
+            </rich:panel>
+
+          </h:panelGrid>
+
+        </s:validateAll>
+
+        <!-- actions -->
+        <rich:toolBar>
+          <rich:toolBarGroup>
+
+            <h:panelGroup id="updateTicketControls" rendered="#{clubEventTicketHome.managed}">
+              <h:graphicImage value="/img/icons/save2-16.png" />
+              <h:outputText value=" " />
+              <h:commandLink id="updateClubEventTicket" action="#{clubEventTicketHome.update}"
+                value="#{messages.editClubEventTicket_btn_updTicket}">
+                <f:param name="pagesClubEventRegistrationId" value="#{clubEventRegistration.id}" />
+              </h:commandLink>
+            </h:panelGroup>
+            <h:panelGroup id="closeTicketControls" rendered="#{clubEventTicketHome.managed}">
+              <h:graphicImage value="/img/icons/close16.png" />
+              <h:outputText value=" " />
+              <s:link id="cancelManaged" view="/editClubEventRegistration.xhtml"
+                value="#{messages.editClubEventTicket_btn_cancel}">
+                <f:param name="pagesClubEventRegistrationId" value="#{clubEventRegistration.id}" />
+              </s:link>
+            </h:panelGroup>
+            <h:panelGroup id="removeTicketControls" rendered="#{clubEventTicketHome.managed}">
+              <h:graphicImage value="/img/icons/remove-ticket16.png" />
+              <h:outputText value=" " />
+              <s:link id="deleteClubEventTicket" action="#{clubEventTicketHome.unregister}"
+                value="#{messages.editClubEventTicket_btn_removeTicket}">
+                <f:param name="pagesClubEventRegistrationId" value="#{clubEventRegistration.id}" />
+              </s:link>
+            </h:panelGroup>
+          </rich:toolBarGroup>
+        </rich:toolBar>
+
+      </h:form>
+    </rich:panel>
+  </ui:define>
+</ui:composition>

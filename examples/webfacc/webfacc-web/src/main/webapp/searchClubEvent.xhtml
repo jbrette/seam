@@ -1,0 +1,57 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a4j="http://richfaces.org/a4j" xmlns:e="http://jboss.com/products/seam/excel"
+  template="layout/template.xhtml">
+
+  <ui:define name="body">
+
+    <!-- search results -->
+    <a4j:outputPanel id="searchResult">
+      <h:form id="eventForm">
+        <rich:dataTable value="#{clubEvents.resultList}" var="fevent" id="eventTable" rows="50"
+          rowClasses="datagridrow1, datagridrow2" width="100%">
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Club Organizing" style="xls-font: red bold" />
+            </f:facet>
+            <s:link id="link1" view="/viewClub.xhtml" value="#{fevent.club.name}">
+              <f:param name="pagesClubId" value="#{fevent.club.id}" />
+            </s:link>
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Event Organised" style="xls-font: red bold" />
+            </f:facet>
+            <s:link id="link2" view="/editClubEvent.xhtml" value="#{fevent.title}">
+              <f:param name="pagesClubId" value="#{fevent.club.id}" />
+              <f:param name="pagesClubEventId" value="#{fevent.id}" />
+            </s:link>
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Date" style="xls-font: red bold" />
+            </f:facet>
+            <h:outputText value="#{fevent.startTime}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Photo Album" style="xls-font: red bold" />
+            </f:facet>
+            <s:link id="link3" view="/photoAlbum.xhtml" disabled="#{not (s:hasRole('member')) }"
+              value="Photos  (#{fevent.imagesCount})">
+              <f:param name="pagesClubId" value="#{fevent.club.id}" />
+              <f:param name="pagesClubEventId" value="#{fevent.id}" />
+            </s:link>
+          </rich:column>
+          <f:facet name="footer">
+            <rich:datascroller for="eventTable" maxPages="5" />
+          </f:facet>
+        </rich:dataTable>
+      </h:form>
+    </a4j:outputPanel>
+
+  </ui:define>
+</ui:composition>

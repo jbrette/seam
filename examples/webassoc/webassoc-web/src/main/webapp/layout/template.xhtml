@@ -1,0 +1,43 @@
+<rich:page xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:s="http://jboss.com/products/seam/taglib" xmlns:rich="http://richfaces.org/rich"
+  pageTitle="Site WebAssoc de DallasAccueil" sidebarPosition="right" sidebarWidth="250" markupType="xhtml"
+  contentType="text/html" theme="#{globals.theme}">
+  <f:facet name="pageHeader">
+    <link href="#{facesContext.externalContext.requestContextPath}/stylesheet/webassoc.css" rel="stylesheet"
+      type="text/css" />
+    <meta name="KEYWORDS"
+      content="Dallas,Texas,USA,Accueil,Renseignements,Demenagement,Installation,Logement,Expatries,Expatriation,Francais,Francophone,FIAFE,Association,French,Newcomers,Relocation,Organisation,France,Aide,WebAssoc" />
+    <meta name="DESCRIPTION"
+      content="Dallas Accueil, association a but non-lucratif, membre de la FIAFE, pour faciliter l'expatriation des Francais et francophones et leur installation a Dallas, Texas, Etats-Unis" />
+    <meta name="ROBOTS" content="INDEX, FOLLOW" />
+  </f:facet>
+
+  <f:facet name="header">
+    <ui:include src="header.xhtml">
+      <ui:param name="projectName" value="Dallas Accueil" />
+    </ui:include>
+  </f:facet>
+
+  <f:facet name="subheader">
+    <ui:include src="menu.xhtml">
+      <ui:param name="projectName" value="Dallas Accueil" />
+    </ui:include>
+  </f:facet>
+
+  <f:facet name="sidebar">
+    <ui:include src="sidebar.xhtml">
+      <ui:param name="projectName" value="Dallas Accueil" />
+    </ui:include>
+  </f:facet>
+
+  <ui:insert name="body">
+    <ui:param name="projectName" value="DallasAccueil" />
+  </ui:insert>
+
+  <f:facet name="footer">
+    <ui:include src="footer.xhtml">
+      <ui:param name="projectName" value="Dallas Accueil" />
+    </ui:include>
+  </f:facet>
+</rich:page>

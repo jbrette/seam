@@ -1,0 +1,173 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a4j="http://richfaces.org/a4j" template="layout/template.xhtml">
+
+  <ui:define name="body">
+    <script type="text/javascript">
+         function confirmDelete()
+          {
+                 return confirm("#{messages.jscript_confirmDelete}");
+          }
+    
+         function confirmSend()
+          {
+                 return confirm("#{messages.jscript_confirmSend}");
+          }
+        </script>
+    <h:form id="clubForm">
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+
+      <h:panelGrid columns="2">
+        <rich:panel bodyClass="panelbody" width="100%">
+          <f:facet name="header">
+            <h:outputText value="Vote: #{vote.title}"></h:outputText>
+          </f:facet>
+          <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+            <h:outputText value="#{messages.Vote_Title}:" />
+            <h:outputText value="#{vote.title}" />
+
+            <h:outputText value="#{messages.Vote_StartDate}:" />
+            <h:outputText value="#{vote.startDate}" />
+
+            <h:outputText value="#{messages.Vote_EndDate}:" />
+            <h:outputText value="#{vote.endDate}" />
+
+            <h:outputText value="#{messages.Vote_VKind}:" />
+            <h:outputText value="#{vote.VKind}" />
+
+            <h:outputText value="#{messages.Vote_Content}:" />
+            <h:outputText escape="false" value="#{vote.content}" />
+
+          </h:panelGrid>
+        </rich:panel>
+        <rich:panel bodyClass="panelbody" width="100%">
+          <f:facet name="header">
+            <h:outputText value="Attachments:"></h:outputText>
+          </f:facet>
+          <rich:dataGrid value="#{vote.attachments}" var="attachment" rendered="#{not empty vote.attachments}"
+            columns="1" elements="3" width="100%">
+            <rich:panel bodyClass="panelbody" width="20%">
+              <f:facet name="header">
+                <h:outputText value="#{attachment.fileName}" />
+              </f:facet>
+              <s:link target="_blank" action="#{downloadAttachment.download}">
+                <f:param name="attachmentId" value="#{attachment.imageId}" />
+                <s:graphicImage fileName="viewVote-#{attachment.imageId}"
+                  rendered="#{attachment.thumbnailNotEmpty}" value="#{attachment.thumbnail}">
+                  <s:transformImageSize width="75" maintainRatio="true" />
+                </s:graphicImage>
+              </s:link>
+            </rich:panel>
+          </rich:dataGrid>
+        </rich:panel>
+      </h:panelGrid>
+      <rich:toolBar>
+        <rich:toolBarGroup location="left">
+          <s:link id="editVote" view="/editVote.xhtml" value="Edit Vote" rendered="#{s:hasRole('boardmember')}" />
+          <s:link id="closeVote" view="/searchVote.xhtml" value="Close Vote" />
+          <h:commandButton id="sendTestEmail" action="#{voteHome.sendTestEmail}" value="Send To Me First"
+            rendered="#{s:hasRole('boardmember')}">
+          </h:commandButton>
+        </rich:toolBarGroup>
+      </rich:toolBar>
+
+      <rich:toolBar rendered="#{s:hasRole('boardmember')}">
+        <rich:toolBarGroup location="left">
+          <h:commandButton id="prepareVote" action="#{voteHome.buildBallotList}" value="Prepare Vote"
+            rendered="#{s:hasRole('boardmember')}">
+          </h:commandButton>
+          <h:commandButton id="cancelVote" action="#{voteHome.emptyBallotList}" value="Cancel Vote"
+            rendered="#{s:hasRole('boardmember')}">
+          </h:commandButton>
+          <h:commandButton id="updateResults" action="#{voteHome.updateResults}" value="Update Results"
+            rendered="#{s:hasRole('boardmember')}">
+          </h:commandButton>
+        </rich:toolBarGroup>
+      </rich:toolBar>
+
+      <!-- actions -->
+
+
+    </h:form>
+
+    <h:form id="ballotsForm">
+
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+      <rich:panel rendered="#{s:hasRole('boardmember')}" width="100%">
+        <f:facet name="header">
+          <h:outputText value="Vote Vote"></h:outputText>
+        </f:facet>
+
+        <rich:dataTable value="#{vote.ballots}" var="ballot" rendered="#{!empty vote.ballots}" id="ballotsTable"
+          rowClasses="datagridrow1, datagridrow2" width="100%">
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.AssocMember_AssocName}" />
+            </f:facet>
+            <h:outputText value="#{ballot.member.assocName}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.AssocMember_Email}" />
+            </f:facet>
+            <h:outputText value="#{ballot.member.email}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.Ballot_Res}" />
+            </f:facet>
+            <h:outputText value="#{ballot.res}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.Ballot_CastingDate}" />
+            </f:facet>
+            <h:outputText id="castingDate" value="#{ballot.castingDate}">
+              <s:convertDateTime pattern="MM/dd/yyyy" />
+            </h:outputText>
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.Ballot_State}" />
+            </f:facet>
+            <h:outputText value="#{ballot.state}" />
+          </rich:column>
+        </rich:dataTable>
+      </rich:panel>
+      <rich:toolBar>
+        <rich:toolBarGroup location="left">
+          <h:panelGroup id="sendingState" rendered="#{s:hasRole('boardmember')}">
+            <h:outputText value="Sending State: " />
+            <h:outputText value="#{vote.sendingState}" />
+          </h:panelGroup>
+          <h:commandButton id="sendVote" action="#{voteHome.announceVote}" onclick="return confirmSend()"
+            value="Send Vote" rendered="#{s:hasRole('boardmember')}"
+            disabled="#{not (vote.readyForAnnouncement)}">
+          </h:commandButton>
+        </rich:toolBarGroup>
+      </rich:toolBar>
+    </h:form>
+
+  </ui:define>
+</ui:composition>

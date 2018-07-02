@@ -1,0 +1,300 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" template="layout/template.xhtml">
+
+  <ui:define name="body">
+    <script type="text/javascript">
+        function confirmDelete()
+        {
+          return confirm("#{messages.jscript_confirmDelete}");
+        }
+
+        function confirmCancel()
+        {
+          return confirm("#{messages.jscript_confirmCancel}");
+        }
+      </script>
+
+    <rich:panel>
+      <f:facet name="header">
+        <h:outputText value="#{clubEventRegistration.member.assocName} at #{clubEventRegistration.event.title}"></h:outputText>
+      </f:facet>
+
+      <h:form id="editForm">
+        <f:facet name="beforeInvalidField">
+          <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+        </f:facet>
+        <f:facet name="aroundInvalidField">
+          <s:span styleClass="errors" />
+        </f:facet>
+        <f:facet name="afterInvalidField">
+          <s:span>&#160;<s:message styleClass="errors" />
+          </s:span>
+        </f:facet>
+
+        <s:validateAll>
+
+          <h:panelGrid id="panel" columns="2" width="100%">
+
+            <rich:panel bodyClass="panelbody" width="50%">
+              <f:facet name="header">
+                <h:outputText value="Participant Number:"></h:outputText>
+              </f:facet>
+              <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+                <h:outputText value="#{messages.ClubEventRegistration_AdultMemberNb}:" />
+                <h:panelGroup id="adultControl">
+                  <h:outputText value="#{clubEventRegistration.adultMemberNb}" />
+                  <h:outputText value="#{messages.panelg_separator}" escape="false" />
+                  <h:outputText value="#{clubEventRegistration.adultNonMemberNb}" />
+                </h:panelGroup>
+
+
+                <h:outputText value="#{messages.ClubEventRegistration_KidMemberNb}:" />
+                <h:panelGroup id="kidControl">
+                  <h:outputText value="#{clubEventRegistration.kidMemberNb}" />
+                  <h:outputText value="#{messages.panelg_separator}" escape="false" />
+                  <h:outputText value="#{clubEventRegistration.kidNonMemberNb}" />
+                </h:panelGroup>
+
+                <h:outputText value="#{messages.ClubEventRegistration_Amount}:" />
+                <h:outputText value="#{clubEventRegistration.amount}" />
+              </h:panelGrid>
+            </rich:panel>
+
+            <rich:panel bodyClass="panelbody" width="50%">
+              <f:facet name="header">
+                <h:outputText value="Dates:"></h:outputText>
+              </f:facet>
+              <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+                <h:outputText value="#{messages.ClubEventRegistration_RegistrationDate}:" />
+                <h:outputText value="#{clubEventRegistration.registrationDate}" />
+
+                <h:outputText value="#{messages.ClubEventRegistration_Confirmed}:" />
+                <h:panelGroup id="confirmControl">
+                  <h:outputText value="#{clubEventRegistration.confirmed}" />
+                  <h:outputText value="#{messages.panelg_separator}" escape="false" />
+                  <h:outputText value="#{clubEventRegistration.confirmationDate}" />
+                </h:panelGroup>
+
+                <h:outputText value="#{messages.ClubEventRegistration_Cancelled}:" />
+                <h:panelGroup id="cancelControl">
+                  <h:outputText value="#{clubEventRegistration.cancelled}" />
+                  <h:outputText value="#{messages.panelg_separator}" escape="false" />
+                  <h:outputText value="#{clubEventRegistration.cancellationDate}" />
+                </h:panelGroup>
+
+              </h:panelGrid>
+            </rich:panel>
+
+
+          </h:panelGrid>
+
+          <!--  -->
+          <h:panelGrid id="panel2" columns="2" width="100%">
+            <rich:panel bodyClass="panelbody" width="50%">
+              <f:facet name="header">
+                <h:outputText value="#{messages.ClubEventRegistration_Notes}:"></h:outputText>
+              </f:facet>
+              <s:decorate id="notesDecorate">
+                <h:inputTextarea id="notes" value="#{clubEventRegistration.notes}" rows="5" cols="50"
+                  disabled="#{(not s:hasRole('eventmgr')) and ((clubEventRegistration.member.id == authenticatedMember.id) and (clubEventRegistration.cancelled))}" />
+              </s:decorate>
+            </rich:panel>
+            <rich:panel bodyClass="panelbody" rendered="#{s:hasRole('eventmgr')}" width="50%">
+              <f:facet name="header">
+                <h:outputText value="Total Participation:"></h:outputText>
+              </f:facet>
+              <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+                <h:outputText value="#{messages.ClubEventRegistration_Paid}:" />
+                <h:panelGroup id="paymentControl">
+                  <h:selectBooleanCheckbox id="paid" value="#{clubEventRegistration.paid}" />
+                  <h:outputText value="#{messages.panelg_separator}" escape="false" />
+                  <h:inputText id="paymentInfo" value="#{clubEventRegistration.paymentInfo}" />
+                </h:panelGroup>
+
+                <h:outputText value="#{messages.ClubEventRegistration_Refunded}:" />
+                <h:panelGroup id="refundControl">
+                  <h:selectBooleanCheckbox id="refund" value="#{clubEventRegistration.refunded}" />
+                  <h:outputText value="#{messages.panelg_separator}" escape="false" />
+                  <h:inputText id="refundInfo" value="#{clubEventRegistration.refundInfo}" />
+                </h:panelGroup>
+
+                <h:outputText value="-"
+                  rendered="#{s:hasRole('eventmgr') and (not (clubEventRegistration.event.free))}" />
+                <h:commandButton id="paymentEmail" action="#{clubEventRegistrationHome.emailPayment}"
+                  value="#{messages.editClubEventRegistration_btn_emailPayment}"
+                  rendered="#{s:hasRole('eventmgr') and (not (clubEventRegistration.event.free))}">
+                </h:commandButton>
+
+                <h:outputText value="-"
+                  rendered="#{s:hasRole('eventmgr') and (clubEventRegistration.registered) }" />
+                <h:commandButton id="confirmRegistration"
+                  action="#{clubEventRegistrationHome.confirmRegistration}"
+                  value="#{messages.editClubEventRegistration_btn_emailConfirmation}"
+                  rendered="#{s:hasRole('eventmgr') and (clubEventRegistration.registered) }">
+                </h:commandButton>
+
+                <h:outputText value="-"
+                  rendered="#{s:hasRole('eventmgr') and (clubEventRegistration.registered) }" />
+                <h:commandButton id="enterWaitingList" action="#{clubEventRegistrationHome.enterWaitingList}"
+                  value="#{messages.editClubEventRegistration_btn_enterWaitingList}"
+                  rendered="#{s:hasRole('eventmgr') and (clubEventRegistration.registered) }">
+                </h:commandButton>
+
+                <h:outputText value="-"
+                  rendered="#{s:hasRole('eventmgr') and (clubEventRegistration.waitingList) }" />
+                <h:commandButton id="exitWaitingList" action="#{clubEventRegistrationHome.exitWaitingList}"
+                  value="#{messages.editClubEventRegistration_btn_exitWaitingList}"
+                  rendered="#{s:hasRole('eventmgr') and (clubEventRegistration.waitingList) }">
+                </h:commandButton>
+              </h:panelGrid>
+            </rich:panel>
+          </h:panelGrid>
+          <!--  -->
+        </s:validateAll>
+
+        <!-- actions -->
+        <rich:toolBar>
+          <rich:toolBarGroup location="left">
+
+            <h:panelGroup id="updateClubEventRegistrationControls"
+              rendered="#{clubEventRegistrationHome.managed}">
+              <h:graphicImage value="/img/icons/save2-16.png" />
+              <h:outputText value=" " />
+              <h:commandLink id="updateClubEventRegistration" action="#{clubEventRegistrationHome.update}"
+                value="#{messages.editClubEventRegistration_btn_update}">
+                <f:param name="pagesClubId" value="#{clubEventRegistration.event.club.id}" />
+                <f:param name="pagesClubEventId" value="#{clubEventRegistration.event.id}" />
+              </h:commandLink>
+            </h:panelGroup>
+            <h:panelGroup id="closeEventControls" rendered="#{clubEventRegistrationHome.managed}">
+              <h:graphicImage value="/img/icons/close16.png" />
+              <h:outputText value=" " />
+              <h:commandLink id="updateAndClose" action="#{clubEventRegistrationHome.updateAndClose}"
+                value="#{messages.editClubEventRegistration_btn_close}">
+                <f:param name="pagesClubId" value="#{clubEventRegistration.event.club.id}" />
+                <f:param name="pagesClubEventId" value="#{clubEventRegistration.event.id}" />
+              </h:commandLink>
+            </h:panelGroup>
+            <h:commandButton id="emailRegistration" action="#{clubEventRegistrationHome.emailRegistration}"
+              value="#{messages.editClubEventRegistration_btn_emailCopy}"
+              rendered="#{(clubEventRegistration.member.id == authenticatedMember.id) and (not (clubEventRegistration.cancelled))}">
+              <f:param name="pagesClubId" value="#{clubEventRegistration.event.club.id}" />
+            </h:commandButton>
+
+          </rich:toolBarGroup>
+
+          <rich:toolBarGroup location="right">
+            <h:commandButton id="cancelRegistration" action="#{clubEventRegistrationHome.cancelRegistration}"
+              onclick="return confirmCancel()"
+              value="#{messages.editClubEventRegistration_btn_emailCancelation}"
+              rendered="#{(s:hasRole('eventmgr') and (not (clubEventRegistration.cancelled))) or ((clubEventRegistration.member.id == authenticatedMember.id) and (not (clubEventRegistration.cancelled)))}">
+              <f:param name="pagesClubId" value="#{clubEventRegistration.event.club.id}" />
+            </h:commandButton>
+            <h:panelGroup id="deleteClubEventRegistrationControls"
+              rendered="#{clubEventRegistrationHome.managed and s:hasRole('admin')}">
+              <h:graphicImage value="/img/icons/delete16.png" />
+              <h:outputText value=" " />
+              <s:link id="deleteClubEventRegistration" action="#{clubEventRegistrationHome.unregister}"
+                onclick="return confirmDelete()" value="Delete Registration">
+                <f:param name="pagesClubId" value="#{clubEventRegistration.event.club.id}" />
+                <f:param name="pagesClubEventId" value="#{clubEventRegistration.event.id}" />
+              </s:link>
+            </h:panelGroup>
+          </rich:toolBarGroup>
+        </rich:toolBar>
+
+      </h:form>
+    </rich:panel>
+
+    <rich:panel width="100%">
+      <f:facet name="header">
+        <h:outputText value="Event tickets"></h:outputText>
+      </f:facet>
+      <h:form id="ticketsForm">
+        <f:facet name="beforeInvalidField">
+          <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+        </f:facet>
+        <f:facet name="aroundInvalidField">
+          <s:span styleClass="errors" />
+        </f:facet>
+        <f:facet name="afterInvalidField">
+          <s:span>&#160;<s:message styleClass="errors" />
+          </s:span>
+        </f:facet>
+
+        <rich:dataTable value="#{clubEventRegistration.tickets}" var="ticket"
+          rendered="#{!empty clubEventRegistration.tickets}" id="ticketTable"
+          style="xls-font: 10 Verdana; xls-column-widths: 8000 9000 10000"
+          rowClasses="datagridrow1, datagridrow2" width="100%">
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.ClubEventTicket_LastName}" />
+            </f:facet>
+            <h:outputText value="#{ticket.lastName}" />
+
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.ClubEventTicket_FirstName}" />
+            </f:facet>
+            <h:outputText value="#{ticket.firstName}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.ClubEventTicket_FKind}" />
+            </f:facet>
+            <h:outputText value="#{ticket.FKind}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="-" />
+            </f:facet>
+            <h:panelGroup id="editTicketControls"
+              rendered="#{(s:hasRole('eventmgr') and (not (clubEventRegistration.cancelled))) or ((clubEventRegistration.member.id == authenticatedMember.id) and (clubEventRegistration.memberCanModifyTicket))}">
+              <h:graphicImage value="/img/icons/edit16.png" />
+              <h:outputText value=" " />
+              <s:link id="editClubEventTicket" view="/editClubEventTicket.xhtml"
+                value="#{messages.editClubEventRegistration_btn_editTicket}">
+                <f:param name="pagesClubEventRegistrationId" value="#{ticket.registration.id}" />
+                <f:param name="pagesClubEventTicketId" value="#{ticket.id}" />
+              </s:link>
+            </h:panelGroup>
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="-" />
+            </f:facet>
+            <h:panelGroup id="removeTicketControls"
+              rendered="#{(s:hasRole('eventmgr') and (not (clubEventRegistration.cancelled))) or ((clubEventRegistration.member.id == authenticatedMember.id) and (clubEventRegistration.memberCanRemoveTicket))}">
+              <h:graphicImage value="/img/icons/remove-ticket16.png" />
+              <h:outputText value=" " />
+              <s:link value="#{messages.editClubEventRegistration_btn_removeTicket}"
+                action="#{clubEventRegistrationHome.deleteTicket}" onclick="return confirmDelete()">
+                <f:param name="ticketId" value="#{ticket.id}" />
+              </s:link>
+            </h:panelGroup>
+          </rich:column>
+        </rich:dataTable>
+
+        <rich:toolBar>
+          <rich:toolBarGroup location="left">
+            <h:panelGroup id="addTicketControls"
+              rendered="#{(s:hasRole('eventmgr') and (not (clubEventRegistration.cancelled))) or ((clubEventRegistration.member.id == authenticatedMember.id) and (clubEventRegistration.memberCanAddTicket))}">
+              <h:graphicImage value="/img/icons/create-ticket16.png" />
+              <h:outputText value=" " />
+              <h:commandButton id="submit" action="#{clubEventTicketHome.register}"
+                value="#{messages.editClubEventRegistration_btn_addTicket}" />
+            </h:panelGroup>
+          </rich:toolBarGroup>
+        </rich:toolBar>
+      </h:form>
+    </rich:panel>
+
+  </ui:define>
+</ui:composition>

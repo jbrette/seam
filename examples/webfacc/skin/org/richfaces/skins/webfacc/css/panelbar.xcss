@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+        <u:selector name=".rich-panelbar">
+        </u:selector>
+
+        <u:selector name=".rich-panelbar-content">
+        </u:selector>
+
+        <u:selector name=".rich-panelbar-content-exterior">
+        </u:selector>
+
+        <u:selector name=".rich-panelbar-header">
+        </u:selector>
+
+        <u:selector name=".rich-panelbar-header-act">
+        </u:selector>
+
+        <u:selector name=".rich-panelbar-interior">
+        </u:selector>
+
+</f:template>

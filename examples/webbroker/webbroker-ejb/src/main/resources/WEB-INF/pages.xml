@@ -1,0 +1,1279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages xmlns="http://jboss.com/products/seam/pages"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd"
+       no-conversation-view-id="/home.xhtml"
+       login-view-id="/includes/security/login.xhtml">
+
+    <page view-id="*">
+        <header name="X-UA-Compatible">IE=EmulateIE8</header>
+        <navigation>
+            <rule if-outcome="home">
+                <redirect view-id="/home.xhtml"/>
+            </rule>
+            <rule if-outcome="success">
+                <redirect />
+            </rule>
+            <rule if-outcome="failed">
+                <redirect />
+            </rule>
+            <rule if-outcome="toggled">
+                <redirect />
+            </rule>
+            <rule if-outcome="wrongstate">
+                <redirect />
+            </rule>
+            <rule if-outcome="regclosed">
+                <redirect />
+            </rule>
+            <rule if-outcome="regopened">
+                <redirect />
+            </rule>
+            <rule if-outcome="imageDeleted">
+                <redirect />
+            </rule>
+            <rule if-outcome="membershipDeleted">
+                <redirect />
+            </rule>
+        </navigation> 
+        
+        <navigation from-action="#{identity.logout}">
+            <redirect view-id="/home.xhtml"/>
+        </navigation>
+
+        <!--  action execute="#{identity.tryLogin}" if="#{not identity.loggedIn}" -->
+        <action execute="#{registerAction.doActivate(request.getParameter('act'))}" if="#{request.getParameter('act') != null}"/>
+        
+    </page>
+
+   <!--   -->
+   <page view-id="/buildPageLayout1.xhtml">
+     <param name="pagesWebPageName" value="#{webPageHome.pageName}" />
+   </page>
+
+   <!--   -->
+   <page view-id="/buildPageLayout2.xhtml">
+     <param name="pagesWebPageName" value="#{webPageHome.pageName}" />
+   </page>
+     
+   <!--   -->
+   <page view-id="/buildPageLayout3.xhtml">
+     <param name="pagesWebPageName" value="#{webPageHome.pageName}" />
+   </page>
+     
+   <!--   -->
+   <page view-id="/buildSponsorPage.xhtml">
+      <param name="pagesSearchFieldsCurrentPageInt" 
+             value="#{globals.currentPageInt}" 
+             converterId="javax.faces.Long" />
+   </page>
+   
+   <!--   -->
+   <page view-id="/buildAdvertiserPage.xhtml">
+      <param name="pagesSearchFieldsCurrentPageInt" 
+             value="#{globals.currentPageInt}" 
+             converterId="javax.faces.Long" />
+   </page>
+     
+   <!--   -->
+   <page view-id="/buildClassifiedPage.xhtml">
+      <param name="pagesSearchFieldsCurrentPageInt" 
+             value="#{globals.currentPageInt}" 
+             converterId="javax.faces.Long"/>
+   </page>
+      
+   <!--   -->
+   <page view-id="/buildClubPage.xhtml">
+      <param name="pagesSearchFieldsCurrentPageInt" 
+             value="#{globals.currentPageInt}" 
+             converterId="javax.faces.Long"/>
+   </page>
+    
+   <!--   -->
+   <page view-id="/buildNewsLetterPage.xhtml">
+      <param name="pagesSearchFieldsCurrentPageInt" 
+             value="#{globals.currentPageInt}" 
+             converterId="javax.faces.Long"/>
+   </page>
+   
+      <!--   -->
+   <page view-id="/buildClubGMAP1.xhtml">
+      <param name="pagesWebPageName" value="#{webPageHome.pageName}" />
+      <param name="pagesClubId" value="#{clubHome.id}" converterId="javax.faces.Long"/>
+   </page>
+
+   <page view-id="/buildClubGMAP2.xhtml">
+      <restrict>#{s:hasRole('member')}</restrict>
+      <param name="pagesWebPageName" value="#{webPageHome.pageName}" />
+      <param name="pagesClubId" value="#{clubHome.id}" converterId="javax.faces.Long"/>
+   </page>
+   <!--   -->
+   
+   <page view-id="/viewAssocMember.xhtml">
+      <restrict>#{s:hasRole('webuser')}</restrict>
+      <param name="pagesAssocMemberId" 
+             value="#{assocMemberHome.id}" 
+             converterId="javax.faces.Long"/>
+          
+       <navigation>
+          <rule if-outcome="updated">
+            <redirect />
+          </rule>
+          <rule if-outcome="persisted">
+             <redirect/>
+          </rule>
+          <rule if-outcome="imageUploaded">
+             <redirect/>
+          </rule>
+          <rule if-outcome="imageDeleted">
+             <redirect/>
+          </rule>
+          <rule if-outcome="clubEventHostingDeleted">
+             <redirect/>
+          </rule>
+          <rule if-outcome="removed">
+             <redirect view-id="/searchAssocMember.xhtml"/>
+          </rule>
+       </navigation>
+
+   </page>
+
+   <page view-id="/editAssocMember.xhtml">
+      <restrict>#{s:hasRole('webuser')}</restrict>
+      <param name="pagesAssocMemberId" 
+             value="#{assocMemberHome.id}" 
+             converterId="javax.faces.Long"/>
+
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect view-id="/viewAssocMember.xhtml"/>
+         </rule>
+         <rule if-outcome="persisted">
+            <redirect view-id="/viewAssocMember.xhtml"/>
+         </rule>
+         <rule if-outcome="imageUploaded">
+             <redirect/>
+         </rule>
+         <rule if-outcome="imageDeleted">
+             <redirect/>
+         </rule>
+         <rule if-outcome="removed">
+            <redirect view-id="/searchAssocMember.xhtml"/>
+         </rule>
+      </navigation>
+      
+   </page>
+
+   <page view-id="/adminAssocMember.xhtml">
+      <restrict>#{s:hasRole('membermgr')}</restrict>
+      <param name="pagesAssocMemberId" 
+             value="#{assocMemberHome.id}" 
+             converterId="javax.faces.Long"/>
+
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect view-id="/viewAssocMember.xhtml"/>
+         </rule>
+         <rule if-outcome="persisted">
+            <redirect view-id="/viewAssocMember.xhtml"/>
+         </rule>
+         <rule if-outcome="removed">
+            <redirect view-id="/searchAssocMember.xhtml"/>
+         </rule>
+      </navigation>
+      
+   </page>
+   
+   <page view-id="/importAssocMember.xhtml">
+   	  <restrict>#{s:hasRole('membermgr')}</restrict>
+      <param name="pagesAssocMemberId" 
+             value="#{assocMemberHome.id}" 
+             converterId="javax.faces.Long"/>
+
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect view-id="/viewAssocMember.xhtml"/>
+         </rule>
+         <rule if-outcome="persisted">
+            <redirect view-id="/viewAssocMember.xhtml"/>
+         </rule>
+         <rule if-outcome="removed">
+            <redirect view-id="/searchAssocMember.xhtml"/>
+         </rule>
+      </navigation>
+      
+   </page>
+   
+   <page view-id="/searchAssocMember.xhtml">
+      <restrict>#{s:hasRole('memberviewer') or s:hasRole('accounting')}</restrict>
+      <param name="pagesAssocName" 
+             value="#{globals.searchedString}"/>
+      <param name="pagesFirstResult" 
+             value="#{assocMembers.firstResult}"/>
+
+
+      <navigation>
+          <rule if-outcome="newsearch">
+              <redirect view-id="/searchAssocMember.xhtml"> 
+                 <param name="pagesFirstResult" value="0"/>
+              </redirect>
+          </rule>
+      </navigation>
+   </page>
+   
+   <page view-id="/exportAssocMember.xhtml">
+     <navigation>
+          <rule if-outcome="newsearch">
+              <redirect view-id="/exportAssocMember.xhtml"> 
+                 <param name="pagesFirstResult" value="0"/>
+              </redirect>
+          </rule>
+      </navigation>
+   </page>
+   
+   <!--   -->
+   
+   <page view-id="/exportYellowPage.xhtml">
+   </page>
+   
+   <page view-id="/viewYellowPage.xhtml">
+      <restrict>#{s:hasRole('member')}</restrict>
+      <param name="pagesYellowPageId" 
+             value="#{yellowPageHome.id}" 
+             converterId="javax.faces.Long"/>
+          
+       <navigation>
+          <rule if-outcome="updated">
+            <redirect />
+          </rule>
+          <rule if-outcome="persisted">
+             <redirect/>
+          </rule>
+          <rule if-outcome="removed">
+             <redirect view-id="/exportYellowPage.xhtml"/>
+          </rule>
+       </navigation>
+
+   </page>
+
+   <page view-id="/editYellowPage.xhtml">
+      <restrict>#{s:hasRole('memberviewer')}</restrict>
+      <param name="pagesYellowPageId" 
+             value="#{yellowPageHome.id}" 
+             converterId="javax.faces.Long"/>
+
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect view-id="/viewYellowPage.xhtml"/>
+         </rule>
+         <rule if-outcome="persisted">
+            <redirect view-id="/viewYellowPage.xhtml"/>
+         </rule>
+         <rule if-outcome="imageUploaded">
+             <redirect/>
+         </rule>
+         <rule if-outcome="imageDeleted">
+             <redirect/>
+         </rule>
+         <rule if-outcome="removed">
+            <redirect view-id="/exportYellowPage.xhtml"/>
+         </rule>
+      </navigation>
+      
+   </page>
+   
+   <!--   -->
+   
+   <page view-id="/editFamilyMember.xhtml">
+      <restrict>#{s:hasRole('webuser')}</restrict>
+      <param name="pagesAssocMemberId" 
+             value="#{assocMemberHome.id}" 
+             converterId="javax.faces.Long"/>
+      <param name="pagesFamilyMemberId" 
+             value="#{familyMemberHome.id}" 
+             converterId="javax.faces.Long"/>
+
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect />
+         </rule>
+         <rule if-outcome="persisted">
+            <redirect />
+         </rule>
+         <rule if-outcome="removed">
+            <redirect view-id="/viewAssocMember.xhtml"/>
+         </rule>
+      </navigation>
+      
+   </page>
+   
+
+   
+   <page view-id="/searchFamilyMember.xhtml">
+      <restrict>#{s:hasRole('memberviewer')}</restrict>
+      <param name="pagesFamilyName" 
+             value="#{globals.searchedString}"/>
+      <param name="pagesFirstResult" 
+             value="#{familyMembers.firstResult}"/>
+
+
+      <navigation>
+          <rule if-outcome="newsearch">
+              <redirect view-id="/searchFamilyMember.xhtml"> 
+                 <param name="pagesFirstResult" value="0"/>
+              </redirect>
+          </rule>
+      </navigation>
+   </page>
+   
+   <page view-id="/exportFamilyMember.xhtml">
+      <restrict>#{s:hasRole('member')}</restrict>
+      <navigation>
+          <rule if-outcome="newsearch">
+              <redirect view-id="/exportFamilyMember.xhtml"> 
+                 <param name="pagesFirstResult" value="0"/>
+              </redirect>
+          </rule>
+      </navigation>
+   </page>
+   
+   	<!--   -->
+   
+   <page view-id="/includes/clubs/editClubMembership.xhtml">
+      <restrict>#{s:hasRole('webuser')}</restrict>
+      <param name="pagesAssocMemberId" 
+             value="#{assocMemberHome.id}" 
+             converterId="javax.faces.Long"/>
+      <param name="pagesFamilyMemberId" 
+             value="#{familyMemberHome.id}" 
+             converterId="javax.faces.Long"/>
+	  <param name="pagesClubId" 
+             value="#{clubHome.id}" 
+             converterId="javax.faces.Long"/>
+	  <param name="pagesClubMembershipId" 
+             value="#{clubMembershipHome.id}" 
+             converterId="javax.faces.Long"/>
+
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect view-id="/includes/clubs/editClubMembership.xhtml"/>
+         </rule>
+         <rule if-outcome="persisted">
+            <redirect view-id="/editFamilyMember.xhtml"/>
+         </rule>
+         <rule if-outcome="removed">
+            <redirect view-id="/editFamilyMember.xhtml"/>
+         </rule>
+      </navigation>
+      
+   </page>
+   
+   <!--   -->
+
+   <page view-id="/includes/clubs/clubMembershipPicker.xhtml">
+      <restrict>#{s:hasRole('clubmgr')}</restrict>
+      <param name="pagesClubId"  value="#{clubHome.id}" converterId="javax.faces.Long"/>
+
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect view-id="/includes/clubs/clubMembershipPicker.xhtml"/>
+         </rule>
+      </navigation>
+      
+   </page>
+         
+   <!--   -->
+   
+   <page view-id="/searchClub.xhtml">
+
+      <param name="pagesFirstResult" 
+             value="#{clubs.firstResult}"/>
+
+
+      <navigation>
+          <rule if-outcome="newsearch">
+              <redirect view-id="/searchClub.xhtml"> 
+                 <param name="pagesFirstResult" value="0"/>
+              </redirect>
+          </rule>
+      </navigation>
+   </page>
+   
+   <page view-id="/editClub.xhtml">
+      <restrict>#{s:hasRole('clubmgr')}</restrict>
+      <param name="pagesClubId" 
+             value="#{clubHome.id}" 
+             converterId="javax.faces.Long"/>
+
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect view-id="/viewClub.xhtml"/>
+         </rule>
+         <rule if-outcome="persisted">
+            <redirect view-id="/viewClub.xhtml"/>
+         </rule>
+         <rule if-outcome="imageUploaded">
+             <redirect/>
+         </rule>
+         <rule if-outcome="imageDeleted">
+             <redirect/>
+         </rule>
+         <rule if-outcome="removed">
+            <redirect view-id="/searchClub.xhtml"/>
+         </rule>
+      </navigation>
+      
+   </page>
+   
+   <page view-id="/viewClub.xhtml">
+
+      <param name="pagesClubId" 
+             value="#{clubHome.id}" 
+             converterId="javax.faces.Long"/>
+          
+       <navigation>
+          <rule if-outcome="updated">
+            <redirect />
+          </rule>
+          <rule if-outcome="persisted">
+             <redirect/>
+          </rule>
+          <rule if-outcome="removed">
+             <redirect view-id="/searchClub.xhtml"/>
+          </rule>
+       </navigation>
+
+   </page>
+   
+   <!--   -->
+   <page view-id="/includes/clubs/editClubArticle.xhtml">
+      <restrict>#{s:hasRole('clubmgr')}</restrict>
+      <param name="pagesClubId" 
+             value="#{clubHome.id}" 
+             converterId="javax.faces.Long"/>
+      <param name="pagesClubArticleId" 
+             value="#{clubArticleHome.id}" 
+             converterId="javax.faces.Long"/>
+
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect view-id="/includes/clubs/editClubArticle.xhtml"/>
+         </rule>
+         <rule if-outcome="persisted">
+            <redirect view-id="/includes/clubs/editClubArticle.xhtml"/>
+         </rule>
+         <rule if-outcome="attachmentUploaded">
+             <redirect/>
+         </rule>
+         <rule if-outcome="attachmentDeleted">
+             <redirect/>
+         </rule>
+         <rule if-outcome="removed">
+            <redirect view-id="/viewClub.xhtml"/>
+         </rule>
+      </navigation>
+      
+   </page>
+   
+   <!--   -->
+  <page view-id="/includes/clubs/viewClubArticle.xhtml">
+	  <restrict>#{s:hasRole('member')}</restrict>
+      <param name="pagesClubId" 
+             value="#{clubHome.id}" 
+             converterId="javax.faces.Long"/>
+      <param name="pagesClubArticleId" 
+             value="#{clubArticleHome.id}" 
+             converterId="javax.faces.Long"/>
+          
+       <navigation>
+          <rule if-outcome="updated">
+            <redirect />
+          </rule>
+          <rule if-outcome="persisted">
+             <redirect/>
+          </rule>
+          <rule if-outcome="removed">
+             <redirect view-id="/viewClub.xhtml"/>
+          </rule>
+       </navigation>
+
+   </page>
+   
+   <!--   -->
+   
+   <page view-id="/editClubEvent.xhtml">
+      <restrict>#{s:hasRole('webuser')}</restrict>
+      <param name="pagesClubId" 
+             value="#{clubHome.id}" 
+             converterId="javax.faces.Long"/>
+      <param name="pagesClubEventId" 
+             value="#{clubEventHome.id}" 
+             converterId="javax.faces.Long"/>
+
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect view-id="/viewClub.xhtml"/>
+         </rule>
+         <rule if-outcome="persisted">
+            <redirect />
+         </rule>
+         <rule if-outcome="removed">
+            <redirect view-id="/viewClub.xhtml"/>
+         </rule>
+      </navigation>
+      
+   </page>
+   
+
+   
+   <page view-id="/announceClubEvent.xhtml">
+      <restrict>#{s:hasRole('eventmgr')}</restrict>
+      <param name="pagesClubId" 
+             value="#{clubHome.id}" 
+             converterId="javax.faces.Long"/>
+      <param name="pagesClubEventId" 
+             value="#{clubEventHome.id}" 
+             converterId="javax.faces.Long"/>
+
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect />
+         </rule>
+         <rule if-outcome="persisted">
+            <redirect />
+         </rule>
+         <rule if-outcome="imageUploaded">
+             <redirect/>
+         </rule>
+         <rule if-outcome="imageDeleted">
+             <redirect/>
+         </rule>
+         <rule if-outcome="attachmentUploaded">
+             <redirect/>
+         </rule>
+         <rule if-outcome="attachmentDeleted">
+             <redirect/>
+         </rule>
+         <rule if-outcome="mailingDeleted">
+             <redirect/>
+         </rule>
+         <rule if-outcome="removed">
+            <redirect view-id="/viewClub.xhtml"/>
+         </rule>
+      </navigation>
+      
+   </page>
+   
+   <page view-id="/searchClubEvent.xhtml">
+	  <restrict>#{s:hasRole('webuser')}</restrict>
+      <param name="pagesFirstResult" 
+             value="#{clubEvents.firstResult}"/>
+
+
+      <navigation>
+          <rule if-outcome="newsearch">
+              <redirect view-id="/searchClubEvent.xhtml"> 
+                 <param name="pagesFirstResult" value="0"/>
+              </redirect>
+          </rule>
+      </navigation>
+   </page>
+   
+   <!--   -->
+   
+   <page view-id="/photoAlbum.xhtml">
+      <restrict>#{s:hasRole('member')}</restrict>
+      <param name="pagesClubId" 
+             value="#{clubHome.id}" 
+             converterId="javax.faces.Long"/>
+      <param name="pagesClubEventId" 
+             value="#{clubEventHome.id}" 
+             converterId="javax.faces.Long"/>
+
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect view-id="/chooseAlbum.xhtml"/>
+         </rule>
+         <rule if-outcome="persisted">
+            <redirect />
+         </rule>
+      </navigation>
+      
+   </page>
+   
+   <page view-id="/photoAlbumList.xhtml">
+      <restrict>#{s:hasRole('member')}</restrict>
+      <param name="pagesClubId" 
+             value="#{clubHome.id}" 
+             converterId="javax.faces.Long"/>
+      <param name="pagesClubEventId" 
+             value="#{clubEventHome.id}" 
+             converterId="javax.faces.Long"/>
+   </page>
+   
+   <!--   -->
+   <page view-id="/editClubEventRegistration.xhtml">
+      <restrict>#{s:hasRole('webuser')}</restrict>
+      <param name="pagesClubEventId" 
+             value="#{clubEventHome.id}" 
+             converterId="javax.faces.Long"/>
+      <param name="pagesClubEventRegistrationId" 
+             value="#{clubEventRegistrationHome.id}" 
+             converterId="javax.faces.Long"/>
+             
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect view-id="/editClubEvent.xhtml">
+            	<param name="pagesClubId" value="#{clubEventRegistration.event.club.id}"/>
+            	<param name="pagesClubEventId" value="#{clubEventRegistration.event.id}"/>
+            </redirect>
+         </rule>
+         <rule if-outcome="updatedAndClosed">
+            <redirect view-id="/editClubEvent.xhtml">
+            	<param name="pagesClubId" value="#{clubEventRegistration.event.club.id}"/>
+            	<param name="pagesClubEventId" value="#{clubEventRegistration.event.id}"/>
+            </redirect>
+         </rule>
+         <rule if-outcome="ticketDeleted">
+            <redirect />
+         </rule>
+         <rule if-outcome="persisted">
+            <redirect />
+         </rule>
+         <rule if-outcome="removed">
+            <redirect view-id="/editClubEvent.xhtml">
+            	<param name="pagesClubId" value="#{clubEventRegistration.event.club.id}"/>
+            	<param name="pagesClubEventId" value="#{clubEventRegistration.event.id}"/>
+            </redirect>
+         </rule>
+      </navigation>
+      
+   </page>
+   
+	<!--   -->
+   
+   <page view-id="/editClubEventTicket.xhtml">
+      <restrict>#{s:hasRole('webuser')}</restrict>
+      <param name="pagesClubEventRegistrationId" 
+             value="#{clubEventRegistrationHome.id}" 
+             converterId="javax.faces.Long"/>
+      <param name="pagesClubEventTicketId" 
+             value="#{clubEventTicketHome.id}" 
+             converterId="javax.faces.Long"/>
+
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect view-id="/editClubEventRegistration.xhtml"/>
+         </rule>
+         <rule if-outcome="persisted">
+            <redirect view-id="/editClubEventRegistration.xhtml"/>
+         </rule>
+         <rule if-outcome="removed">
+            <redirect view-id="/editClubEventRegistration.xhtml"/>
+         </rule>
+      </navigation>
+      
+   </page>
+   
+      <!--   -->
+   
+   <page view-id="/searchNewsLetter.xhtml">
+      <restrict>#{s:hasRole('webuser')}</restrict>
+      <param name="pagesFirstResult" 
+             value="#{newsLetters.firstResult}"/>
+
+
+      <navigation>
+          <rule if-outcome="newsearch">
+              <redirect view-id="/searchNewsLetter.xhtml"> 
+                 <param name="pagesFirstResult" value="0"/>
+              </redirect>
+          </rule>
+      </navigation>
+   </page>
+   
+   <page view-id="/editNewsLetter.xhtml">
+      <restrict>#{s:hasRole('webuser')}</restrict>
+      <param name="pagesNewsLetterId" 
+             value="#{newsLetterHome.id}" 
+             converterId="javax.faces.Long"/>
+
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect view-id="/viewNewsLetter.xhtml"/>
+         </rule>
+         <rule if-outcome="persisted">
+            <redirect view-id="/viewNewsLetter.xhtml"/>
+         </rule>
+          <rule if-outcome="attachmentUploaded">
+             <redirect/>
+          </rule>
+          <rule if-outcome="attachmentDeleted">
+             <redirect/>
+          </rule>
+         <rule if-outcome="removed">
+            <redirect view-id="/searchNewsLetter.xhtml"/>
+         </rule>
+      </navigation>
+      
+   </page>
+   
+   <page view-id="/viewNewsLetter.xhtml">
+      <restrict>#{s:hasRole('webuser')}</restrict>
+      <param name="pagesNewsLetterId" 
+             value="#{newsLetterHome.id}" 
+             converterId="javax.faces.Long"/>
+          
+       <navigation>
+          <rule if-outcome="updated">
+            <redirect />
+          </rule>
+          <rule if-outcome="persisted">
+             <redirect/>
+          </rule>
+          <rule if-outcome="mailingDeleted">
+             <redirect/>
+         </rule>
+          <rule if-outcome="removed">
+             <redirect view-id="/searchNewsLetter.xhtml"/>
+          </rule>
+       </navigation>
+
+   </page>
+   
+   
+   <!--   -->
+   
+   <page view-id="/editMailing.xhtml">
+      <restrict>#{s:hasRole('webuser')}</restrict>
+	  <param name="pagesNewsLetterId" 
+             value="#{newsLetterHome.id}" 
+             converterId="javax.faces.Long"/>
+	  <param name="pagesMailingId" 
+             value="#{mailingHome.id}" 
+             converterId="javax.faces.Long"/>
+
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect view-id="/viewNewsLetter.xhtml"/>
+         </rule>
+         <rule if-outcome="persisted">
+            <redirect view-id="/viewNewsLetter.xhtml"/>
+         </rule>
+         <rule if-outcome="removed">
+            <redirect view-id="/viewNewsLetter.xhtml"/>
+         </rule>
+      </navigation>
+      
+   	</page>
+   
+      
+    <!--   -->
+   
+   <page view-id="/searchVote.xhtml">
+	  <restrict>#{s:hasRole('boardmember') or s:hasRole('admin')}</restrict>
+      <param name="pagesFirstResult" 
+             value="#{votes.firstResult}"/>
+
+
+      <navigation>
+          <rule if-outcome="newsearch">
+              <redirect view-id="/searchVote.xhtml"> 
+                 <param name="pagesFirstResult" value="0"/>
+              </redirect>
+          </rule>
+      </navigation>
+   </page>
+   
+   <page view-id="/editVote.xhtml">
+      <restrict>#{s:hasRole('boardmember')}</restrict>
+      <param name="pagesVoteId" 
+             value="#{voteHome.id}" 
+             converterId="javax.faces.Long"/>
+
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect view-id="/viewVote.xhtml"/>
+         </rule>
+         <rule if-outcome="persisted">
+            <redirect view-id="/viewVote.xhtml"/>
+         </rule>
+         <rule if-outcome="attachmentUploaded">
+             <redirect/>
+         </rule>
+         <rule if-outcome="attachmentDeleted">
+             <redirect/>
+         </rule>
+         <rule if-outcome="removed">
+            <redirect view-id="/searchVote.xhtml"/>
+         </rule>
+      </navigation>
+      
+   </page>
+   
+   <page view-id="/viewVote.xhtml">
+
+      <param name="pagesVoteId" 
+             value="#{voteHome.id}" 
+             converterId="javax.faces.Long"/>
+          
+       <navigation>
+          <rule if-outcome="updated">
+             <redirect/>
+          </rule>
+          <rule if-outcome="unchanged">
+             <redirect/>
+          </rule>
+          <rule if-outcome="persisted">
+             <redirect/>
+          </rule>
+          <rule if-outcome="removed">
+             <redirect view-id="/searchVote.xhtml"/>
+          </rule>
+       </navigation>
+
+   </page>
+   
+      <!--   -->
+   <page view-id="/castBallot.xhtml">
+      <restrict>#{s:hasRole('member')}</restrict>
+      <param name="pagesVoteId" 
+             value="#{voteHome.id}" 
+             converterId="javax.faces.Long"/>
+      <param name="pagesBallotId" 
+             value="#{ballotHome.id}" 
+             converterId="javax.faces.Long"/>
+             
+      <navigation>
+          <rule if-outcome="updated">
+            <redirect />
+          </rule>
+         <rule if-outcome="persisted">
+            <redirect />
+         </rule>
+         <rule if-outcome="removed">
+			<redirect />
+         </rule>
+      </navigation>
+      
+   </page>
+   
+  	<!--   -->
+   
+   <page view-id="/includes/tests/searchBug.xhtml">
+	  <restrict>#{s:hasRole('boardmember') or s:hasRole('admin')}</restrict>
+      <param name="pagesFirstResult" 
+             value="#{bugs.firstResult}"/>
+
+
+      <navigation>
+          <rule if-outcome="newsearch">
+              <redirect view-id="/includes/tests/searchBug.xhtml"> 
+                 <param name="pagesFirstResult" value="0"/>
+              </redirect>
+          </rule>
+      </navigation>
+   </page>
+   
+   <page view-id="/includes/tests/editBug.xhtml">
+      <restrict>#{s:hasRole('boardmember') or s:hasRole('admin')}</restrict>
+      <param name="pagesBugId" 
+             value="#{bugHome.id}" 
+             converterId="javax.faces.Long"/>
+
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect view-id="/includes/tests/editBug.xhtml"/>
+         </rule>
+         <rule if-outcome="persisted">
+            <redirect view-id="/includes/tests/editBug.xhtml"/>
+         </rule>
+         <rule if-outcome="removed">
+            <redirect view-id="/includes/tests/searchBug.xhtml"/>
+         </rule>
+      </navigation>
+      
+   </page>
+   
+     	<!--   -->
+   
+   <page view-id="/includes/webcontent/searchArticle.xhtml">
+
+      <param name="pagesFirstResult" 
+             value="#{articles.firstResult}"/>
+
+
+      <navigation>
+          <rule if-outcome="newsearch">
+              <redirect view-id="/includes/webcontent/searchArticle.xhtml"> 
+                 <param name="pagesFirstResult" value="0"/>
+              </redirect>
+          </rule>
+      </navigation>
+   </page>
+   
+   <page view-id="/includes/webcontent/editArticle.xhtml">
+      <restrict>#{s:hasRole('webcontentmgr')}</restrict>
+      <param name="pagesArticleId" 
+             value="#{articleHome.id}" 
+             converterId="javax.faces.Long"/>
+
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect view-id="/includes/webcontent/editArticle.xhtml"/>
+         </rule>
+         <rule if-outcome="persisted">
+            <redirect view-id="/includes/webcontent/editArticle.xhtml"/>
+         </rule>
+         <rule if-outcome="illustrationUploaded">
+             <redirect/>
+         </rule>
+         <rule if-outcome="illustrationDeleted">
+             <redirect/>
+         </rule>
+         <rule if-outcome="attachmentUploaded">
+             <redirect/>
+         </rule>
+         <rule if-outcome="attachmentDeleted">
+             <redirect/>
+         </rule>
+         <rule if-outcome="removed">
+            <redirect view-id="/includes/webcontent/searchArticle.xhtml"/>
+         </rule>
+      </navigation>
+      
+   </page>
+   
+      <!--   -->
+  <page view-id="/viewArticle.xhtml">
+	  <restrict>#{s:hasRole('webuser')}</restrict>
+      <param name="pagesArticleId" 
+             value="#{articleHome.id}" 
+             converterId="javax.faces.Long"/>
+   </page>
+   
+        	<!--   -->
+   
+   <page view-id="/includes/sponsors/searchSponsor.xhtml">
+      <param name="pagesFirstResult" 
+             value="#{sponsors.firstResult}"/>
+
+
+      <navigation>
+          <rule if-outcome="newsearch">
+              <redirect view-id="/includes/sponsors/searchSponsor.xhtml"> 
+                 <param name="pagesFirstResult" value="0"/>
+              </redirect>
+          </rule>
+      </navigation>
+   </page>
+   
+   <page view-id="/includes/sponsors/editSponsor.xhtml">
+      <restrict>#{s:hasRole('webcontentmgr')}</restrict>
+      <param name="pagesSponsorId" 
+             value="#{sponsorHome.id}" 
+             converterId="javax.faces.Long"/>
+
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect view-id="/includes/sponsors/searchSponsor.xhtml"/>
+         </rule>
+         <rule if-outcome="persisted">
+            <redirect view-id="/includes/sponsors/searchSponsor.xhtml"/>
+         </rule>
+         <rule if-outcome="imageUploaded">
+             <redirect/>
+         </rule>
+         <rule if-outcome="imageDeleted">
+             <redirect/>
+         </rule>
+         <rule if-outcome="removed">
+            <redirect view-id="/includes/sponsors/searchSponsor.xhtml"/>
+         </rule>
+      </navigation>
+      
+   </page>
+   
+   
+        	<!--   -->
+   
+   <page view-id="/includes/classifieds/searchClassified.xhtml">
+      <param name="pagesFirstResult" 
+             value="#{classifieds.firstResult}"/>
+
+
+      <navigation>
+          <rule if-outcome="newsearch">
+              <redirect view-id="/includes/classifieds/searchClassified.xhtml"> 
+                 <param name="pagesFirstResult" value="0"/>
+              </redirect>
+          </rule>
+      </navigation>
+   </page>
+   
+   <page view-id="/includes/classifieds/editClassified.xhtml">
+      <restrict>#{s:hasRole('member')}</restrict>
+      <param name="pagesClassifiedId" 
+             value="#{classifiedHome.id}" 
+             converterId="javax.faces.Long"/>
+
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect view-id="/includes/classifieds/editClassified.xhtml"/>
+         </rule>
+         <rule if-outcome="persisted">
+            <redirect view-id="/includes/classifieds/editClassified.xhtml"/>
+         </rule>
+         <rule if-outcome="imageUploaded">
+             <redirect/>
+         </rule>
+         <rule if-outcome="imageDeleted">
+             <redirect/>
+         </rule>
+         <rule if-outcome="removed">
+            <redirect view-id="/includes/classifieds/searchClassified.xhtml"/>
+         </rule>
+      </navigation>
+      
+   </page>
+   
+   
+   <page view-id="/includes/security/usermanager.xhtml" action="#{userSearch.loadUsers}">
+  		<restrict>#{s:hasPermission('seam.user', 'read')}</restrict>    
+  
+  		<navigation from-action="#{userAction.createUser}">
+    		<redirect view-id="/includes/security/userdetail.xhtml"/>
+  		</navigation>
+  
+  		<navigation from-action="#{userAction.editUser(accountMemberSearch.selectedAccount.userName)}">
+    		<redirect view-id="/includes/security/userdetail.xhtml"/>
+  		</navigation>      
+	</page>
+
+	<page view-id="/includes/security/userdetail.xhtml" >
+		<restrict>#{s:hasPermission('seam.role', 'read')}</restrict>
+	    <navigation from-action="#{userAction.save}">
+	      <rule if-outcome="success">
+	          <redirect view-id="/includes/security/usermanager.xhtml"/>
+	      </rule>
+	    </navigation>
+	</page>   
+	
+	<!--  from usermanager.page.xml -->
+	<page view-id="/includes/security/rolemanager.xhtml"  action="#{roleSearch.loadRoles}">
+	  <restrict>#{s:hasPermission('seam.role', 'read')}</restrict>    
+	  
+	  <navigation from-action="#{roleAction.createRole}">
+	    <redirect view-id="/includes/security/roledetail.xhtml"/>
+	  </navigation>
+	  
+	  <navigation from-action="#{roleAction.editRole(roleSearch.selectedRole)}">
+	    <redirect view-id="/includes/security/roledetail.xhtml"/>
+	  </navigation>          
+	</page>
+	
+	<page view-id="/includes/security/roledetail.xhtml" >
+	    <navigation from-action="#{roleAction.save}">
+	        <rule if-outcome="success">
+	            <redirect view-id="/includes/security/rolemanager.xhtml"/>
+	        </rule>
+	    </navigation>
+	</page>
+
+   <!--   -->
+   <page view-id="/includes/clubs/clubpermissiondetail.xhtml">
+         <restrict>#{s:hasPermission('seam.role', 'read')}</restrict>
+         <param name="pagesClubId" 
+             value="#{clubHome.id}" 
+             converterId="javax.faces.Long"/>
+   		<navigation from-action="#{clubPermissionMgr.applyPermissions}">
+      		<rule if-outcome="success">
+       			<redirect view-id="/includes/clubs/clubpermissions.xhtml"/>
+      		</rule>
+   		</navigation>
+   </page>
+      
+   <!--   -->
+   <page view-id="/includes/clubs/clubpermissions.xhtml" action="#{permissionSearch.refresh}">
+   	  <restrict>#{s:hasPermission('seam.role', 'read')}</restrict>
+      <param name="pagesClubId" 
+             value="#{clubHome.id}" 
+             converterId="javax.faces.Long"/>
+      <navigation from-action="#{clubPermissionMgr.createPermission}">
+          <redirect view-id="/includes/clubs/clubpermissiondetail.xhtml"/>
+      </navigation>
+      <navigation from-action="#{clubPermissionMgr.editPermission}">
+          <redirect view-id="/includes/clubs/clubpermissiondetail.xhtml"/>
+      </navigation>
+   </page>
+   
+
+
+      
+   <!--   -->
+   <page view-id="/includes/security/adminutil.xhtml">
+      <restrict>#{s:hasRole('admin')}</restrict>
+   </page>
+   
+   <page view-id="/includes/webcontent/searchWebPage.xhtml">
+	  <restrict>#{s:hasRole('webcontentmgr')}</restrict>
+   </page>
+   
+   <page view-id="/includes/webcontent/editWebPage.xhtml">
+      <restrict>#{s:hasRole('webcontentmgr')}</restrict>
+      <param name="pagesWebPageId" 
+             value="#{webPageHome.id}" 
+             converterId="javax.faces.Long"/>
+
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect view-id="/includes/webcontent/viewWebPage.xhtml"/>
+         </rule>
+         <rule if-outcome="persisted">
+            <redirect view-id="/includes/webcontent/viewWebPage.xhtml"/>
+         </rule>
+         <rule if-outcome="removed">
+            <redirect view-id="/includes/webcontent/searchWebPage.xhtml"/>
+         </rule>
+      </navigation>
+      
+   </page>
+   
+   <page view-id="/includes/webcontent/viewWebPage.xhtml">
+	  <restrict>#{s:hasRole('webcontentmgr')}</restrict>
+      <param name="pagesWebPageId" 
+             value="#{webPageHome.id}" 
+             converterId="javax.faces.Long"/>
+          
+       <navigation>
+          <rule if-outcome="updated">
+            <redirect />
+          </rule>
+          <rule if-outcome="persisted">
+             <redirect/>
+          </rule>
+          <rule if-outcome="removed">
+             <redirect view-id="/includes/webcontent/searchWebPage.xhtml"/>
+          </rule>
+       </navigation>
+
+   </page>
+   
+   <!--  Guide orders -->
+   <page view-id="/orderGuide.xhtml">
+      <!--  no restriction -->
+      <param name="pagesGuideOrderId" 
+             value="#{guideOrderHome.id}" 
+             converterId="javax.faces.Long"/>
+
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect view-id="/orderGuide.xhtml"/>
+         </rule>
+         <rule if-outcome="persisted">
+            <redirect view-id="/home.xhtml"/>
+         </rule>
+         <rule if-outcome="removed">
+            <redirect view-id="/searchGuideOrder.xhtml"/>
+         </rule>
+      </navigation>
+   </page>
+   
+   <page view-id="/searchGuideOrder.xhtml">
+      <restrict>#{s:hasRole('memberviewer') or s:hasRole('accounting')}</restrict>
+   </page>
+
+   <!--  Account orders -->
+   <page view-id="/orderAccount.xhtml">
+      <!--  no restriction -->
+      <param name="pagesAccountOrderId" 
+             value="#{accountOrderHome.id}" 
+             converterId="javax.faces.Long"/>
+
+      <navigation>
+         <rule if-outcome="updated">
+            <redirect view-id="/orderAccount.xhtml"/>
+         </rule>
+         <rule if-outcome="persisted">
+            <redirect view-id="/home.xhtml"/>
+         </rule>
+         <rule if-outcome="removed">
+            <redirect view-id="/searchAccountOrder.xhtml"/>
+         </rule>
+      </navigation>      
+   </page>
+   
+   <page view-id="/searchAccountOrder.xhtml">
+      <restrict>#{s:hasRole('memberviewer') or s:hasRole('accounting')}</restrict>
+   </page>
+   
+   <page view-id="/includes/security/login.xhtml">
+   		<navigation>
+            <rule if-outcome="loggedIn">
+                <redirect view-id="/home.xhtml"/>
+            </rule>
+            <rule if-outcome="pswdChanged">
+                <redirect view-id="/home.xhtml"/>
+            </rule>
+            <rule if-outcome="pswdUnchanged">
+                <redirect view-id="/home.xhtml"/>
+            </rule>
+        </navigation>      
+   </page>
+   
+      <!--   -->
+    <exception class="org.jboss.seam.framework.EntityNotFoundException">
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">#{messages['org.jboss.seam.framework.EntityNotFoundException']}</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.EntityNotFoundException">
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">Record not found</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.EntityExistsException">
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">Duplicate record</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.persistence.OptimisticLockException">
+        <end-conversation/>
+        <redirect view-id="/error.xhtml">
+            <message severity="warn">Another user changed the same data, please try again</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.security.AuthorizationException" log="false">
+        <redirect view-id="/error.xhtml">
+            <message severity="error">#{messages['org.jboss.seam.security.AuthorizationException']}</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.security.NotLoggedInException" log="false">
+        <redirect view-id="/includes/security/login.xhtml">
+            <message severity="warn">#{messages['org.jboss.seam.security.NotLoggedInException']}</message>
+        </redirect>
+    </exception>
+    
+    <exception class="javax.faces.application.ViewExpiredException" log="false">
+        <redirect view-id="/home.xhtml">
+            <message severity="warn">Your session has timed out, please try again</message>
+        </redirect>
+    </exception>
+    
+    <exception class="org.jboss.seam.ConcurrentRequestTimeoutException" log-level="trace">
+      <http-error error-code="503" />
+    </exception>
+     
+    <exception>
+        <redirect view-id="/error.xhtml">
+            <message severity="error">Unexpected error, please try again</message>
+        </redirect>
+    </exception>
+    
+</pages>
+

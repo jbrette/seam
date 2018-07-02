@@ -1,0 +1,7 @@
+find webfacc-ejb/src/main/java -name "*.java" -print > javaFiles
+dos2unix `cat javaFiles`
+svn ci -m "update" `cat javaFiles`
+\rm -f javaFiles
+find webfacc-web/src/main/webapp -name "*.xhtml" -print > xhtmlFiles
+svn ci -m "update" `cat xhtmlFiles`
+\rm -f xhtmlFiles

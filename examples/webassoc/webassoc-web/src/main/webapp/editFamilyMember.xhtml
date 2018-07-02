@@ -1,0 +1,238 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" template="layout/template.xhtml">
+
+  <ui:define name="body">
+    <script type="text/javascript">
+        function confirmDelete()
+        {
+          return confirm("#{messages.jscript_confirmDelete}");
+        }
+      </script>
+
+    <rich:panel width="100%">
+      <f:facet name="header">
+        <h:outputText value="#{assocMember.assocName}"></h:outputText>
+      </f:facet>
+      <h:form id="editForm">
+        <f:facet name="beforeInvalidField">
+          <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+        </f:facet>
+        <f:facet name="aroundInvalidField">
+          <s:span styleClass="errors" />
+        </f:facet>
+        <f:facet name="afterInvalidField">
+          <s:span>&#160;<s:message styleClass="errors" />
+          </s:span>
+        </f:facet>
+
+        <s:validateAll>
+
+          <h:panelGrid id="panel" columns="2" width="100%">
+            <rich:panel bodyClass="panelbody" width="50%">
+              <f:facet name="header">
+                <h:outputText value="Identity"></h:outputText>
+              </f:facet>
+              <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+                <h:outputText value="#{messages.FamilyMember_LastName}:" />
+                <s:decorate id="lastNameDecorate">
+                  <h:inputText id="lastName" value="#{familyMember.lastName}" required="true" />
+                </s:decorate>
+
+                <h:outputText value="#{messages.FamilyMember_FirstName}:" />
+                <s:decorate id="firstNameDecorate">
+                  <h:inputText id="firstName" value="#{familyMember.firstName}" required="true" />
+                </s:decorate>
+
+                <h:outputText value="#{messages.FamilyMember_Gender}:" />
+                <s:decorate id="genderDecorate">
+                  <h:selectOneRadio id="gender" value="#{familyMember.gender}" layout="lineDirection"
+                    required="true">
+                    <f:selectItem id="item1" itemLabel="Male" itemValue="male" />
+                    <f:selectItem id="item2" itemLabel="Female" itemValue="female" />
+                  </h:selectOneRadio>
+                </s:decorate>
+
+                <h:outputText value="#{messages.FamilyMember_Dob}:" />
+                <s:decorate id="dobDecorate">
+                  <h:inputText id="dob" value="#{familyMember.dob}" required="true">
+                    <s:convertDateTime pattern="yyyy" />
+                  </h:inputText>
+                </s:decorate>
+
+
+              </h:panelGrid>
+            </rich:panel>
+
+
+            <rich:panel bodyClass="panelbody" width="50%">
+              <f:facet name="header">
+                <h:outputText value="Other"></h:outputText>
+              </f:facet>
+              <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+                <h:outputText value="#{messages.FamilyMember_CellPhone}:" />
+                <s:decorate id="cellPhoneDecorate">
+                  <h:inputText id="cellPhone" value="#{familyMember.cellPhone}" />
+                </s:decorate>
+
+                <h:outputText value="#{messages.FamilyMember_PhoneExt}:" />
+                <s:decorate id="phoneExtDecorate">
+                  <h:inputText id="phoneExt" value="#{familyMember.phoneExt}" />
+                </s:decorate>
+
+                <h:outputText value="#{messages.FamilyMember_FaxExt}:" />
+                <s:decorate id="faxExtDecorate">
+                  <h:inputText id="faxExt" value="#{familyMember.faxExt}" />
+                </s:decorate>
+
+                <h:outputText value="#{messages.FamilyMember_Occupation}:" />
+                <s:decorate id="occupationDecorate">
+                  <h:selectOneMenu id="occupation" value="#{familyMember.occupation}" required="true">
+                    <s:selectItems value="#{codeList.occupationCodes}" var="occode" label="#{occode}"
+                      noSelectionLabel="Select a Occupation..." />
+                    <s:convertEnum />
+                  </h:selectOneMenu>
+                </s:decorate>
+
+                <h:outputText value="#{messages.FamilyMember_FKind}:" />
+                <s:decorate id="fkindDecorate">
+                  <h:selectOneRadio id="fkind" value="#{familyMember.FKind}" layout="lineDirection"
+                    required="true">
+                    <f:selectItem id="item4" itemLabel="Main" itemValue="main" />
+                    <f:selectItem id="item1" itemLabel="Spouse" itemValue="spouse" />
+                    <f:selectItem id="item2" itemLabel="Kid" itemValue="kid" />
+                    <f:selectItem id="item3" itemLabel="Cie Contact" itemValue="contact" />
+                  </h:selectOneRadio>
+                </s:decorate>
+
+
+              </h:panelGrid>
+            </rich:panel>
+          </h:panelGrid>
+
+        </s:validateAll>
+
+        <!-- actions -->
+        <rich:toolBar>
+          <rich:toolBarGroup location="left">
+            <h:panelGroup id="updateFamilyMemberControls" rendered="#{familyMemberHome.managed}">
+              <h:graphicImage value="/img/icons/save2-16.png" />
+              <h:outputText value=" " />
+              <h:commandLink id="updateFamilyMember" value="Save" action="#{familyMemberHome.update}">
+                <f:param name="pagesAssocMemberId" value="#{assocMember.id}" />
+                <f:param name="pagesFamilyMemberId" value="#{familyMember.id}" />
+              </h:commandLink>
+            </h:panelGroup>
+            <h:panelGroup id="cancelManagedControls" rendered="#{familyMemberHome.managed}">
+              <h:graphicImage value="/img/icons/close16.png" />
+              <h:outputText value=" " />
+              <s:link id="cancelManaged" view="/viewAssocMember.xhtml" value="Close">
+                <f:param name="pagesAssocMemberId" value="#{assocMember.id}" />
+              </s:link>
+            </h:panelGroup>
+          </rich:toolBarGroup>
+          <rich:toolBarGroup location="right">
+            <h:panelGroup id="deleteMemberControls"
+              rendered="#{familyMemberHome.managed and s:hasRole('admin')}">
+              <h:graphicImage value="/img/icons/remove-from-database16.png" />
+              <h:outputText value=" " />
+              <s:link id="deleteFamilyMember" onclick="return confirmDelete()"
+                action="#{familyMemberHome.remove}" value="Delete Member"
+                rendered="#{familyMemberHome.managed and s:hasRole('admin')}">
+                <f:param name="pagesAssocMemberId" value="#{assocMember.id}" />
+              </s:link>
+            </h:panelGroup>
+          </rich:toolBarGroup>
+        </rich:toolBar>
+
+      </h:form>
+    </rich:panel>
+
+    <rich:panel width="100%" rendered="#{familyMemberHome.managed}">
+      <f:facet name="header">
+        <h:outputText value="Club registration"></h:outputText>
+      </f:facet>
+      <h:form id="registrationForm">
+
+        <f:facet name="beforeInvalidField">
+          <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+        </f:facet>
+        <f:facet name="aroundInvalidField">
+          <s:span styleClass="errors" />
+        </f:facet>
+        <f:facet name="afterInvalidField">
+          <s:span>&#160;<s:message styleClass="errors" />
+          </s:span>
+        </f:facet>
+        <rich:dataTable value="#{familyMember.memberships}" var="membership"
+          rendered="#{!empty familyMember.memberships}" id="membershipTable"
+          style="xls-font: 10 Verdana; xls-column-widths: 8000 9000 10000"
+          rowClasses="datagridrow1, datagridrow2" width="100%">
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.ClubMembership_Club}" />
+            </f:facet>
+            <s:link id="linkClub" view="/viewClub.xhtml" value="#{membership.club.name}">
+              <f:param name="pagesClubId" value="#{membership.club.id}" />
+            </s:link>
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="#{messages.ClubMembership_FKind}" />
+            </f:facet>
+            <h:outputText value="#{membership.FKind}" />
+          </rich:column>
+          <rich:column rendered="#{s:hasRole('membermgr')}">
+            <f:facet name="header">
+              <h:outputText value="Edit" />
+            </f:facet>
+            <h:panelGroup id="editMembershipControls">
+              <h:graphicImage value="/img/icons/edit16.png" />
+              <h:outputText value=" " />
+              <s:link id="linkMembership" view="/includes/clubs/editClubMembership.xhtml"
+                value="#{membership.active}">
+                <f:param name="pagesAssocMemberId" value="#{membership.member.assocMember.id}" />
+                <f:param name="pagesFamilyMemberId" value="#{membership.member.id}" />
+                <f:param name="pagesClubId" value="#{membership.club.id}" />
+                <f:param name="pagesClubMembershipId" value="#{membership.id}" />
+              </s:link>
+            </h:panelGroup>
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="-" />
+            </f:facet>
+            <h:panelGroup id="deleteMembershipControls">
+              <h:graphicImage value="/img/icons/cancel16.png" />
+              <h:outputText value=" " />
+              <s:link value="Cancel Membership" action="#{familyMemberHome.cancelMembership}"
+                onclick="return confirmDelete()">
+                <f:param name="membershipId" value="#{membership.id}" />
+              </s:link>
+            </h:panelGroup>
+          </rich:column>
+        </rich:dataTable>
+
+        <rich:toolBar>
+          <rich:toolBarGroup location="left">
+            <h:panelGroup id="addClubControls">
+              <h:graphicImage value="/img/icons/add1-16.png" />
+              <h:outputText value=" " />
+              <h:selectOneMenu value="#{clubMembershipHome.instance.club}">
+                <s:convertEntity />
+                <s:selectItems value="#{familyMemberHome.allowedClubs}" var="theclub" label="#{theclub.name}" />
+              </h:selectOneMenu>
+              <h:commandButton id="submit" action="#{clubMembershipHome.register}" value="Register to Club" />
+            </h:panelGroup>
+          </rich:toolBarGroup>
+        </rich:toolBar>
+
+      </h:form>
+    </rich:panel>
+
+  </ui:define>
+</ui:composition>

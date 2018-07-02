@@ -1,0 +1,126 @@
+
+<m:message xmlns="http://www.w3.org/1999/xhtml" xmlns:m="http://jboss.com/products/seam/mail"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core">
+
+  <m:from name="FACCDallas" address="do-not-reply@faccdallas.com" />
+  <m:to name="#{registration.member.assocName}">#{registration.member.email}</m:to>
+  <m:bcc name="EventContact">#{registration.event.eventContact.assocMember.email}</m:bcc>
+  <m:subject>Accepted for #{registration.event.title}</m:subject>
+  <m:body>
+    <p>
+      <h:outputText value="Cher(e) Adherent(e) #{registration.member.assocName}" />
+      ,
+    </p>
+
+    <p>Nous vous indiquons que de la place s'est liberee. Par consequent les personnes suivantes pourront
+      prendre part a l'evenement :</p>
+    <ul>
+      <ui:repeat value="#{registration.tickets}" var="ticket">
+        <li><h:outputText value="${ticket.lastName} ${ticket.firstName}" />
+        </li>
+      </ui:repeat>
+    </ul>
+    <p />
+    <p>
+      Pour annuler ou modifier votre enregistrement, <a href="#{registration.cancellationLink}">Cliquez Ici.</a>
+    </p>
+    <p />
+    <hr width="50%" />
+    <p />
+    <p>
+      <u>Info pratiques:</u>
+    </p>
+    <p />
+    <p>
+      Cliquez sur le lien pour acceder a votre itineraire, <a href="#{registration.drivingDirectionLink}">Cliquez
+        Ici.</a>
+    </p>
+    <p />
+
+    <h:panelGrid columns="2">
+
+      <h:outputText style="font-weight:bold" value="Hote:" />
+      <h:outputText value="#{clubEvent.hostName}" />
+
+      <h:outputText style="font-weight:bold" value="" />
+      <h:outputText value="#{clubEvent.address}" />
+
+      <h:outputText style="font-weight:bold" value="" />
+      <h:panelGroup>
+        <h:outputText value="#{clubEvent.city}, " />
+        <h:outputText value="#{clubEvent.state} " />
+        <h:outputText value="#{clubEvent.zip}" />
+      </h:panelGroup>
+
+      <h:outputText style="font-weight:bold" value="Date:" />
+      <h:outputText value="#{clubEvent.startTime}">
+        <f:convertDateTime type="both" dateStyle="full" timeStyle="short" timeZone="CST" locale="fr" />
+      </h:outputText>
+
+      <h:outputText style="font-weight:bold" value="Tel:" />
+      <h:outputText value="#{clubEvent.phone}" />
+    </h:panelGrid>
+
+    <p />
+    <p>
+      Cordialement,<br /> Dallas Accueil.
+    </p>
+    <hr width="100%" />
+
+    <p>
+      <h:outputText value="Dear Member #{registration.member.assocName}" />
+      ,
+    </p>
+    <p>We indicate some people cancelled. The following persons can now take part to the event:</p>
+    <ul>
+      <ui:repeat value="#{registration.tickets}" var="ticket">
+        <li><h:outputText value="${ticket.lastName} ${ticket.firstName}" />
+        </li>
+      </ui:repeat>
+    </ul>
+    <p />
+    <p>
+      To cancel or modify your registration, <a href="#{registration.cancellationLink}">Click Here</a>
+    </p>
+    <p />
+    <hr width="50%" />
+    <p />
+    <p>
+      <u>Useful Information:</u>
+    </p>
+    <p />
+    <p>
+      Click here for driving directions, <a href="#{registration.drivingDirectionLink}">Click Here</a>
+    </p>
+    <p />
+    <h:panelGrid columns="2">
+      <h:outputText style="font-weight:bold" value="Host:" />
+      <h:outputText value="#{clubEvent.hostName}" />
+
+      <h:outputText style="font-weight:bold" value="" />
+      <h:outputText value="#{clubEvent.address}" />
+
+      <h:outputText style="font-weight:bold" value="" />
+      <h:panelGroup>
+        <h:outputText value="#{clubEvent.city}, " />
+        <h:outputText value="#{clubEvent.state} " />
+        <h:outputText value="#{clubEvent.zip}" />
+      </h:panelGroup>
+
+      <h:outputText style="font-weight:bold" value="Date:" />
+      <h:outputText value="#{clubEvent.startTime}">
+        <f:convertDateTime type="both" dateStyle="full" timeStyle="short" timeZone="CST" locale="en" />
+      </h:outputText>
+
+
+      <h:outputText style="font-weight:bold" value="Tel:" />
+      <h:outputText value="#{clubEvent.phone}" />
+    </h:panelGrid>
+
+    <p>
+      Best Regards,<br /> Dallas Accueil.
+    </p>
+    <p />
+  </m:body>
+</m:message>

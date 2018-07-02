@@ -1,0 +1,96 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" template="layout/template.xhtml">
+
+  <ui:define name="body">
+    <script type="text/javascript">
+        function confirmDelete()
+        {
+          return confirm("#{messages.jscript_confirmDelete}");
+        }
+
+        function confirmCancel()
+        {
+          return confirm("#{messages.jscript_confirmCancel}");
+        }
+      </script>
+
+    <rich:panel rendered="#{(s:hasRole('boardmember') or (ballot.member.id == authenticatedMember.id))}">
+      <f:facet name="header">
+        <h:outputText value="#{ballot.member.assocName}"></h:outputText>
+      </f:facet>
+
+      <h:form id="editForm">
+
+
+        <h:panelGrid columns="2">
+          <rich:panel bodyClass="panelbody" width="50%">
+            <f:facet name="header">
+              <h:outputText value="Attachments:"></h:outputText>
+            </f:facet>
+            <rich:dataGrid value="#{vote.attachments}" var="attachment" rendered="#{not empty vote.attachments}"
+              columns="1" elements="3" width="100%">
+              <rich:panel bodyClass="panelbody" width="20%">
+                <f:facet name="header">
+                  <h:outputText value="#{attachment.fileName}" />
+                </f:facet>
+                <s:link target="_blank" action="#{downloadAttachment.download}">
+                  <f:param name="attachmentId" value="#{attachment.imageId}" />
+                  <s:graphicImage fileName="castBallot-#{attachment.imageId}" value="#{attachment.thumbnail}">
+                    <s:transformImageSize width="75" maintainRatio="true" />
+                  </s:graphicImage>
+                </s:link>
+              </rich:panel>
+            </rich:dataGrid>
+          </rich:panel>
+
+          <rich:panel bodyClass="panelbody" width="50%">
+            <f:facet name="header">
+              <h:outputText value="Vote:"></h:outputText>
+            </f:facet>
+            <h:panelGroup id="voteControl">
+              <h:selectOneRadio id="fvote" value="#{ballot.res}" layout="lineDirection" required="true"
+                disabled="#{ballot.blocked}">
+                <f:selectItem id="item1" itemLabel="#{messages.castBallot_Yea}" itemValue="yea" />
+                <f:selectItem id="item2" itemLabel="#{messages.castBallot_Nay}" itemValue="nay" />
+                <f:selectItem id="item3" itemLabel="#{messages.castBallot_Blank}" itemValue="blank" />
+              </h:selectOneRadio>
+              <h:commandButton id="submit2" action="#{ballotHome.update}" value="#{messages.castBallot_Done}"
+                disabled="#{ballot.blocked}" />
+            </h:panelGroup>
+          </rich:panel>
+        </h:panelGrid>
+
+        <h:panelGrid columns="1">
+          <rich:panel bodyClass="panelbody" width="100%">
+            <f:facet name="header">
+              <h:outputText value="Vote: #{vote.title}"></h:outputText>
+            </f:facet>
+            <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+              <h:outputText value="#{messages.Vote_Title}:" />
+              <h:outputText value="#{vote.title}" />
+
+              <h:outputText value="#{messages.Vote_StartDate}:" />
+              <h:outputText value="#{vote.startDate}" />
+
+              <h:outputText value="#{messages.Vote_EndDate}:" />
+              <h:outputText value="#{vote.endDate}" />
+
+              <h:outputText value="#{messages.Vote_VKind}:" />
+              <h:outputText value="#{vote.VKind}" />
+
+              <h:outputText value="#{messages.Vote_Content}:" />
+              <h:outputText escape="false" value="#{vote.content}" />
+
+            </h:panelGrid>
+          </rich:panel>
+
+
+        </h:panelGrid>
+      </h:form>
+    </rich:panel>
+
+  </ui:define>
+</ui:composition>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+        <u:selector name=".rich-stglpanel">
+        </u:selector>
+
+        <u:selector name=".rich-stglpanel-body">
+        </u:selector>
+
+        <u:selector name=".rich-stglpanel-header">
+        </u:selector>
+
+        <u:selector name=".rich-stglpanel-marker">
+        </u:selector>
+
+        <u:selector name=".rich-stglpnl-marker">
+        </u:selector>
+
+</f:template>

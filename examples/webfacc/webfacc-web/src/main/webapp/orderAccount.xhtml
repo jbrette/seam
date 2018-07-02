@@ -1,0 +1,182 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" template="layout/template.xhtml">
+
+  <ui:define name="body">
+    <rich:panel styleClass="panelbodyNoBorder">
+      <rich:layout>
+        <rich:layoutPanel position="top" width="100%" style="padding:3px;">
+          <h:outputText escape="false" value="#{webPage.headerText}" />
+          <rich:spacer height="1" width="600" />
+        </rich:layoutPanel>
+        <rich:layoutPanel position="left" width="#{webPage.leftColumnSize}%" style="padding:3px;">
+          <h:panelGroup>
+            <h:outputLink value="mailto:info@faccdallas.com">
+              <h:outputText value="#{messages.orderAccount_contactus}"></h:outputText>
+            </h:outputLink>
+          </h:panelGroup>
+        </rich:layoutPanel>
+        <rich:layoutPanel position="center" width="#{webPage.centerColumnSize}%" style="padding:3px;">
+          <rich:dataTable value="#{webPage.activeArticles}" var="article" id="articleTable" width="100%"
+            border="none">
+            <rich:column>
+              <h:panelGrid columns="1" rendered="#{article.layout==0}">
+                <h:outputText escape="false" value="#{article.description}" />
+              </h:panelGrid>
+            </rich:column>
+          </rich:dataTable>
+          <h:form id="editForm" enctype="multipart/form-data">
+            <f:facet name="beforeInvalidField">
+              <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+            </f:facet>
+            <f:facet name="aroundInvalidField">
+              <s:span styleClass="errors" />
+            </f:facet>
+            <f:facet name="afterInvalidField">
+              <s:span>&#160;<s:message styleClass="errors" />
+              </s:span>
+            </f:facet>
+
+            <s:validateAll>
+              <rich:panel bodyClass="panelbody" width="100%">
+                <f:facet name="header">
+                  <h:outputText value="#{messages.viewAssocMember_pnl_membership}"></h:outputText>
+                </f:facet>
+                <h:panelGrid columnClasses="panelgridcol1, panelgridcol3" columns="2">
+
+                  <h:outputText value="#{messages.AccountOrder_BuyerName}:" />
+                  <s:decorate id="buyerNameDecorate">
+                    <h:inputText id="buyerName" value="#{accountOrder.buyerName}" required="true" />
+                  </s:decorate>
+
+                  <h:outputText value="#{messages.AccountOrder_Address}:" />
+                  <s:decorate id="addressDecorate">
+                    <h:inputText id="address" value="#{accountOrder.address}" />
+                  </s:decorate>
+
+                  <h:outputText value="#{messages.AccountOrder_AptOrSuite}:" />
+                  <s:decorate id="aptOrSuiteDecorate">
+                    <h:inputText id="aptOrSuite" value="#{accountOrder.aptOrSuite}" />
+                  </s:decorate>
+
+                  <h:outputText value="#{messages.AccountOrder_City}:" />
+                  <s:decorate id="cityDecorate">
+                    <h:inputText id="city" value="#{accountOrder.city}" />
+                  </s:decorate>
+
+                  <h:outputText value="#{messages.AccountOrder_Zip}:" />
+                  <s:decorate id="zipDecorate">
+                    <h:inputText id="zip" value="#{accountOrder.zip}" />
+                  </s:decorate>
+
+                  <h:outputText value="#{messages.AccountOrder_State}:" />
+                  <h:selectOneMenu id="stateMenu" value="#{accountOrder.state}" required="true">
+                    <s:selectItems value="#{codeList.USStateCodesAsStrings}" var="uscode" label="#{uscode}"
+                      noSelectionLabel="Select a State..." />
+                  </h:selectOneMenu>
+
+                  <h:outputText value="#{messages.AccountOrder_Country}:" />
+                  <s:decorate id="countryDecorate">
+                    <h:inputText id="country" value="#{accountOrder.country}" />
+                  </s:decorate>
+
+                  <h:outputText value="#{messages.AccountOrder_HomePhone}:" />
+                  <s:decorate id="homePhoneDecorate">
+                    <h:inputText id="homePhone" value="#{accountOrder.homePhone}" />
+                  </s:decorate>
+
+                  <h:outputText value="#{messages.AccountOrder_Email}:" />
+                  <s:decorate id="emailDecorate">
+                    <h:inputText id="email" value="#{accountOrder.email}" />
+                  </s:decorate>
+
+
+                </h:panelGrid>
+
+              </rich:panel>
+              <rich:panel id="captchaAccount" styleClass="tooltip-text" bodyClass="col0"
+                rendered="#{!accountOrderHome.managed}">
+                <h:outputText value="#{messages.orderAccount_captcha_label}" />
+                <rich:spacer width="10" height="16" />
+                <h:graphicImage id="captchaAccountTipHelp" value="/img/icons/help.gif" />
+                <br />
+                <s:decorate id="verifyCaptchaAccountField" template="/includes/decoratedFormField2.xhtml">
+                  <h:graphicImage id="captchaAccountChallenge" value="/seam/resource/captcha"
+                    styleClass="captchaChallenge" />
+                  <h:inputText id="verifyCaptchaAccount" value="#{captcha.response}" required="true" size="3" />
+                </s:decorate>
+              </rich:panel>
+              <rich:panel bodyClass="panelbody" width="100%" rendered="#{s:hasRole('accounting')}">
+                <f:facet name="header">
+                  <h:outputText value="Processing Information"></h:outputText>
+                </f:facet>
+                <h:panelGrid columnClasses="panelgridcol1, panelgridcol3" columns="2">
+
+                  <h:outputText value="#{messages.AccountOrder_PaymentInfo}:" />
+                  <s:decorate id="paymentInfoDecorate">
+                    <h:inputText id="paymentInfo" size="100" value="#{accountOrder.paymentInfo}" />
+                  </s:decorate>
+                </h:panelGrid>
+              </rich:panel>
+            </s:validateAll>
+
+            <!-- actions -->
+            <rich:toolBar>
+              <rich:toolBarGroup>
+                <h:panelGroup id="updateAccountOrderControls" rendered="#{accountOrderHome.managed}">
+                  <h:graphicImage value="/img/icons/save2-16.png" />
+                  <h:outputText value=" " />
+                  <h:commandLink id="updateAccountOrder" action="#{accountOrderHome.update}"
+                    value="Update Order" rendered="#{accountOrderHome.managed}" />
+                </h:panelGroup>
+                <h:panelGroup id="cancelManagedControls" rendered="#{accountOrderHome.managed}">
+                  <h:graphicImage value="/img/icons/close16.png" />
+                  <h:outputText value=" " />
+                  <s:link id="cancelManaged" view="/searchAccountOrder.xhtml" value="Close"
+                    rendered="#{accountOrderHome.managed}" />
+                </h:panelGroup>
+                <h:panelGroup id="createAccountOrderControls" rendered="#{!accountOrderHome.managed}">
+                  <h:graphicImage value="/img/icons/save2-16.png" />
+                  <h:outputText value=" " />
+                  <h:commandLink id="createAccountOrder" action="#{accountOrderHome.persist}"
+                    value="#{messages.Menu_Assoc_Register}" rendered="#{!accountOrderHome.managed}" />
+                </h:panelGroup>
+                <h:panelGroup id="cancel2ManagedControls" rendered="#{!accountOrderHome.managed}">
+                  <h:graphicImage value="/img/icons/cancel16.png" />
+                  <h:outputText value=" " />
+                  <s:link id="cancel" view="/home.xhtml" value="Cancel" rendered="#{!accountOrderHome.managed}" />
+                </h:panelGroup>
+              </rich:toolBarGroup>
+              <rich:toolBarGroup location="right">
+                <h:panelGroup id="deleteOrderControls"
+                  rendered="#{accountOrderHome.managed and s:hasRole('admin')}">
+                  <h:graphicImage value="/img/icons/remove-from-database16.png" />
+                  <h:outputText value=" " />
+                  <s:link id="deleteOrder" onclick="return confirmDelete()" action="#{accountOrderHome.remove}"
+                    value="Delete Order" rendered="#{accountOrderHome.managed and s:hasRole('admin')}">
+                  </s:link>
+                </h:panelGroup>
+              </rich:toolBarGroup>
+            </rich:toolBar>
+            <h:outputText value="#{messages.orderAccount_info1}"></h:outputText>
+            <h:outputLink value="mailto:info@faccdallas.com">
+              <h:outputText value="#{messages.orderAccount_contactus}"></h:outputText>
+            </h:outputLink>
+          </h:form>
+        </rich:layoutPanel>
+        <rich:layoutPanel position="right" width="#{webPage.rightColumnSize}%" style="padding:3px;">
+          <h:panelGroup>
+          </h:panelGroup>
+        </rich:layoutPanel>
+        <rich:layoutPanel position="bottom" width="100%" style="padding:3px;">
+          <h:outputText escape="false" value="#{webPage.footerText}" />
+        </rich:layoutPanel>
+      </rich:layout>
+    </rich:panel>
+
+
+
+  </ui:define>
+</ui:composition>

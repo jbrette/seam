@@ -1,0 +1,62 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:e="http://jboss.com/products/seam/excel" xmlns:f="http://java.sun.com/jsf/core">
+
+<e:workbook type="jxl" filename="YellowPages.xls">
+  <e:worksheet name="Directory" value="#{yellowPageHome.directory}" var="ypage">
+    <e:header>
+      <f:facet name="left">
+                The date is #date# and the time is #time#
+            </f:facet>
+    </e:header>
+    <e:column style="xls-column-autosize: true">
+      <f:facet name="header">
+        <e:cell value="#{messages.YellowPage_Name}" style="xls-font: red bold 10 Verdana" />
+      </f:facet>
+      <e:cell value="#{ypage.name}" forceType="text" />
+    </e:column>
+    <e:column style="xls-column-autosize: true">
+      <f:facet name="header">
+        <e:cell value="#{messages.YellowPage_Comment}" style="xls-font: red bold 10 Verdana" />
+      </f:facet>
+      <e:cell value="#{ypage.comment}" />
+    </e:column>
+    <e:column style="xls-column-autosize: true">
+      <f:facet name="header">
+        <e:cell value="#{messages.YellowPage_Address}" style="xls-font: red bold 10 Verdana" />
+      </f:facet>
+      <e:cell value="#{ypage.fullAddress}" />
+    </e:column>
+    <e:column style="xls-column-autosize: true">
+      <f:facet name="header">
+        <e:cell value="#{messages.YellowPage_City}" style="xls-font: red bold 10 Verdana" />
+      </f:facet>
+      <e:cell value="#{ypage.city}, #{ypage.state} #{ypage.zip}" />
+    </e:column>
+    <e:column style="xls-column-autosize: true">
+      <f:facet name="header">
+        <e:cell value="#{messages.YellowPage_WebSite1}" style="xls-font: red bold 10 Verdana" />
+      </f:facet>
+      <e:cell value="#{ypage.webSite1}" />
+    </e:column>
+    <e:column style="xls-column-autosize: true">
+      <f:facet name="header">
+        <e:cell value="#{messages.YellowPage_WebSite2}" style="xls-font: red bold 10 Verdana" />
+      </f:facet>
+      <e:cell value="#{ypage.webSite2}" />
+    </e:column>
+    <e:column style="xls-column-autosize: true">
+      <f:facet name="header">
+        <e:cell value="#{messages.YellowPage_Phone1}" style="xls-font: red bold 10 Verdana" />
+      </f:facet>
+      <e:cell value="#{ypage.phone1}" />
+    </e:column>
+    <e:column style="xls-column-autosize: true">
+      <f:facet name="header">
+        <e:cell value="#{messages.YellowPage_Phone2}" style="xls-font: red bold 10 Verdana" />
+      </f:facet>
+      <e:cell value="#{ypage.phone2}" />
+    </e:column>
+  </e:worksheet>
+</e:workbook>
+</html>
+

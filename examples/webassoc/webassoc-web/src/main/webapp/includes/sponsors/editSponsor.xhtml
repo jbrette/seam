@@ -1,0 +1,163 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  template="/layout/template.xhtml">
+
+  <ui:define name="body">
+    <script type="text/javascript">
+           function confirmDelete()
+        {
+               return confirm("#{messages.jscript_confirmDelete}");
+        }
+        </script>
+
+    <h:form id="editForm" enctype="multipart/form-data">
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+
+      <s:validateAll>
+
+        <h:panelGrid id="panel" columns="3" width="100%">
+          <rich:panel bodyClass="panelbody" width="50%">
+            <f:facet name="header">
+              <h:outputText value="Address"></h:outputText>
+            </f:facet>
+            <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+              <h:outputText value="#{messages.Sponsor_SponsorName}:" />
+              <s:decorate id="sponsorNameDecorate">
+                <h:inputText id="sponsorName" value="#{sponsor.sponsorName}" required="true" />
+              </s:decorate>
+
+              <h:outputText value="#{messages.Sponsor_Address}:" />
+              <s:decorate id="addressDecorate">
+                <h:inputText id="address" value="#{sponsor.address}" />
+              </s:decorate>
+
+              <h:outputText value="#{messages.Sponsor_City}:" />
+              <h:panelGroup id="cityControls">
+                <s:decorate id="cityDecorate">
+                  <h:inputText id="city" value="#{sponsor.city}" />
+                  <h:selectOneMenu id="stateMenu" value="#{sponsor.state}">
+                    <s:selectItems value="#{codeList.USStateCodesAsStrings}" var="uscode" label="#{uscode}"
+                      noSelectionLabel="Select a State..." />
+                  </h:selectOneMenu>
+                  <h:inputText id="zip" value="#{sponsor.zip}" size="5" />
+                </s:decorate>
+              </h:panelGroup>
+
+              <h:outputText value="#{messages.Sponsor_Country}:" />
+              <s:decorate id="countryDecorate">
+                <h:inputText id="country" value="#{sponsor.country}" />
+              </s:decorate>
+
+            </h:panelGrid>
+          </rich:panel>
+
+
+          <rich:panel bodyClass="panelbody" width="50%">
+            <f:facet name="header">
+              <h:outputText value="Communicate:"></h:outputText>
+            </f:facet>
+            <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+              <h:outputText value="#{messages.Sponsor_Phone}:" />
+              <s:decorate id="phoneDecorate">
+                <h:inputText id="homePhone" value="#{sponsor.phone}" />
+              </s:decorate>
+
+              <h:outputText value="#{messages.Sponsor_Email}:" />
+              <s:decorate id="emailDecorate">
+                <h:inputText id="email" value="#{sponsor.email}" />
+              </s:decorate>
+
+              <h:outputText value="#{messages.Sponsor_WebSite}:" />
+              <s:decorate id="webSiteDecorate">
+                <h:inputText id="webSite" value="#{sponsor.webSite}" />
+              </s:decorate>
+
+              <h:outputText value="#{messages.Sponsor_SKind}:" />
+              <s:decorate id="kindDecorate">
+                <h:selectOneRadio id="ckind" value="#{sponsor.SKind}" layout="lineDirection" required="true">
+                  <f:selectItem id="item1" itemLabel="Advertiser Standard" itemValue="standard" />
+                  <f:selectItem id="item2" itemLabel="Advertiser Premium" itemValue="premium" />
+                  <f:selectItem id="item3" itemLabel="Sponsor Bronze" itemValue="bronze" />
+                  <f:selectItem id="item4" itemLabel="Sponsor Silver" itemValue="silver" />
+                  <f:selectItem id="item5" itemLabel="Sponsor Gold" itemValue="gold" />
+                  <f:selectItem id="item6" itemLabel="Sponsor Platinum" itemValue="platinum" />
+                </h:selectOneRadio>
+              </s:decorate>
+
+              <h:outputText value="#{messages.Sponsor_FPState}:" />
+              <s:decorate id="fpStateDecorate">
+                <h:selectOneRadio id="fpstate" value="#{sponsor.FPState}" layout="lineDirection" required="true">
+                  <f:selectItem id="item1" itemLabel="Hidden" itemValue="invisible" />
+                  <f:selectItem id="item2" itemLabel="Front Page" itemValue="visible" />
+                  <f:selectItem id="item3" itemLabel="Front Page with URL" itemValue="url" />
+                </h:selectOneRadio>
+              </s:decorate>
+
+              <h:outputText value="#{messages.Sponsor_SponsorshipValid}:" />
+              <s:decorate id="sponsorValidDecorate">
+                <h:selectBooleanCheckbox id="sponsorValid" value="#{sponsor.sponsorshipValid}" />
+              </s:decorate>
+
+            </h:panelGrid>
+          </rich:panel>
+
+        </h:panelGrid>
+        <rich:panel bodyClass="panelbody" width="100%" rendered="#{sponsorHome.managed}">
+          <f:facet name="header">
+            <h:outputText value="Image:"></h:outputText>
+          </f:facet>
+          <s:graphicImage fileName="editSponsor-#{sponsor.id}" rendered="#{sponsor.picture.dataNotEmpty}"
+            value="#{sponsor.picture.data}">
+            <s:transformImageSize width="100" maintainRatio="true" />
+          </s:graphicImage>
+          <h:outputLabel for="picture">Select an new image: </h:outputLabel>
+          <s:fileUpload id="picture" data="#{sponsorHome.uploadedData}" accept="images/*"
+            fileName="#{sponsorHome.uploadedFileName}" contentType="#{sponsorHome.uploadedContentType}" />
+          <h:commandButton image="/img/icons/icon-download.png" alt="Upload Picture"
+            action="#{sponsorHome.uploadImage}" />
+        </rich:panel>
+
+      </s:validateAll>
+
+      <!-- actions -->
+      <rich:toolBar>
+        <rich:toolBarGroup location="left">
+
+          <h:commandLink id="updateSponsor" action="#{sponsorHome.update}" value="Save Sponsor"
+            rendered="#{sponsorHome.managed}" />
+          <s:link id="cancelManaged" view="/includes/sponsors/searchSponsor.xhtml" value="Close"
+            rendered="#{sponsorHome.managed}" />
+
+          <h:commandLink id="createSponsor" action="#{sponsorHome.persist}" value="Save Sponsor"
+            rendered="#{!sponsorHome.managed}" />
+          <s:link id="cancel" view="/includes/sponsors/searchSponsor.xhtml" value="Cancel"
+            rendered="#{!sponsorHome.managed}" />
+
+        </rich:toolBarGroup>
+
+        <rich:toolBarGroup location="right">
+          <s:link id="deleteSponsor" action="#{sponsorHome.remove}" onclick="return confirmDelete()"
+            value="Delete Sponsor" rendered="#{sponsorHome.managed and s:hasRole('admin')}">
+          </s:link>
+        </rich:toolBarGroup>
+
+      </rich:toolBar>
+
+    </h:form>
+
+  </ui:define>
+</ui:composition>

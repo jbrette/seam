@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f='http:/jsf.exadel.com/template'
+    xmlns:u='http:/jsf.exadel.com/template/util'
+    xmlns="http://www.w3.org/1999/xhtml" >
+
+
+            <f:importResource src="org/richfaces/skins/webassoc/css/calendar.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/color-picker.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/combobox.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/context-menu.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/core.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/data-filter-slider.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/data-table.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/datascroller.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/drag-drop.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/dropdown-menu.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/editor.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/extended-data-table.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/file-upload.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/gmap.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/inplace-input.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/inplace-select.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/inputnumber-slider.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/inputnumber-spinner.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/layout.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/list-shuttle.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/menu-components.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/message.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/modal-panel.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/ordering-list.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/paint2d.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/panel.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/panelbar.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/panelmenu.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/pick-list.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/progress-bar.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/scrollable-data-table.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/separator.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/simple-toggle-panel.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/spacer.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/suggestionbox.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/tab-panel.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/toggle-panel.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/tool-bar.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/tooltip.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/tree.xcss" />
+            <f:importResource src="org/richfaces/skins/webassoc/css/virtual-earth.xcss" />
+
+</f:template>

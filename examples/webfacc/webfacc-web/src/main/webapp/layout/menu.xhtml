@@ -1,0 +1,286 @@
+<h:form id="menuForm" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:s="http://jboss.com/products/seam/taglib" xmlns:rich="http://richfaces.org/rich" itemSeparator="line">
+  <rich:toolBar>
+    <f:facet name="itemSeparator">
+      <rich:separator width="1" height="20" />
+    </f:facet>
+
+    <rich:dropDownMenu>
+      <f:facet name="label">
+        <h:panelGroup>
+          <h:graphicImage value="/img/icons/home.png" />
+        </h:panelGroup>
+      </f:facet>
+      <rich:menuItem submitMode="none">
+        <s:link view="/home.xhtml" id="webpage_01_01" value="#{messages.webpage_01_01}" propagation="none" />
+      </rich:menuItem>
+    </rich:dropDownMenu>
+
+    <rich:dropDownMenu>
+      <f:facet name="label">
+        <h:panelGroup>
+          <h:outputText value="#{messages.Menu_02}" />
+        </h:panelGroup>
+      </f:facet>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout1.xhtml" id="webpage_02_01" value="#{messages.webpage_02_01}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_02_01" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout1.xhtml" id="webpage_02_02" value="#{messages.webpage_02_02}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_02_02" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout1.xhtml" id="webpage_02_03" value="#{messages.webpage_02_03}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_02_03" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/searchNewsLetter.xhtml" id="webpage_02_04" value="#{messages.webpage_02_04}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_02_04" />
+        </s:link>
+      </rich:menuItem>
+    </rich:dropDownMenu>
+
+    <rich:dropDownMenu>
+      <f:facet name="label">
+        <h:panelGroup>
+          <h:outputText value="#{messages.Menu_03}" />
+        </h:panelGroup>
+      </f:facet>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout1.xhtml" id="webpage_03_01" value="#{messages.webpage_03_01}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_03_01" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout1.xhtml" id="webpage_03_02" value="#{messages.webpage_03_02}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_03_02" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildClassifiedPage.xhtml" id="webpage_03_03a" value="U.S Job Opportunities"
+          propagation="none">
+          <f:param name="pagesSearchFieldsCurrentPageInt" value="0" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout1.xhtml" id="webpage_03_03" value="#{messages.webpage_03_03}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_03_03" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout1.xhtml" id="webpage_03_04" value="#{messages.webpage_03_04}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_03_04" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout1.xhtml" id="webpage_03_05" value="#{messages.webpage_03_05}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_03_05" />
+        </s:link>
+      </rich:menuItem>
+    </rich:dropDownMenu>
+
+    <rich:dropDownMenu>
+      <f:facet name="label">
+        <h:panelGroup>
+          <h:outputText value="#{messages.Menu_04}" />
+        </h:panelGroup>
+      </f:facet>
+      <rich:menuItem submitMode="none">
+        <s:link view="/calendar.xhtml" id="webpage_04_01" value="#{messages.webpage_04_01}" propagation="none">
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/viewClub.xhtml" id="webpage_04_02" value="#{messages.webpage_04_02}" propagation="none">
+          <f:param name="pagesClubId" value="1" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/chooseClub.xhtml" id="webpage_04_03" value="#{messages.webpage_04_03}" propagation="none">
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/chooseAlbum.xhtml" id="webpage_04_04" value="#{messages.webpage_04_04}"
+          propagation="none">
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none" rendered="#{s:hasRole('admin')}">
+        <s:link view="/searchClub.xhtml" id="menuClubsSearchClubs" value="#{messages.Menu_Clubs_SearchClub}"
+          propagation="none" />
+      </rich:menuItem>
+    </rich:dropDownMenu>
+
+    <rich:dropDownMenu>
+      <f:facet name="label">
+        <h:panelGroup>
+          <h:outputText value="#{messages.Menu_05}" />
+        </h:panelGroup>
+      </f:facet>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout1.xhtml" id="webpage_05_01" value="#{messages.webpage_05_01}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_05_01" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout1.xhtml" id="webpage_05_02" value="#{messages.webpage_05_02}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_05_02" />
+        </s:link>
+      </rich:menuItem>
+
+      <rich:menuItem submitMode="none">
+        <s:link view="/exportAssocMember.xhtml" id="webpage_05_04" value="#{messages.webpage_05_04}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_05_04" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none"
+        rendered="#{s:hasRole('boardmember') or s:hasRole('membermgr') or s:hasRole('accounting')}">
+        <s:link view="/searchAssocMember.xhtml" id="webpage_05_05" value="#{messages.webpage_05_05}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_05_05" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout1.xhtml" id="webpage_05_06" value="#{messages.webpage_05_06}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_05_06" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/orderAccount.xhtml" id="webpage_05_03" value="#{messages.webpage_05_03}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_05_03" />
+        </s:link>
+      </rich:menuItem>
+    </rich:dropDownMenu>
+
+    <rich:dropDownMenu>
+      <f:facet name="label">
+        <h:panelGroup>
+          <h:outputText value="#{messages.Menu_06}" />
+        </h:panelGroup>
+      </f:facet>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout1.xhtml" id="webpage_06_01" value="#{messages.webpage_06_01}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_06_01" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout1.xhtml" id="webpage_06_02" value="#{messages.webpage_06_02}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_06_02" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout1.xhtml" id="webpage_06_03" value="#{messages.webpage_06_03}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_06_03" />
+        </s:link>
+      </rich:menuItem>
+    </rich:dropDownMenu>
+
+    <rich:dropDownMenu>
+      <f:facet name="label">
+        <h:panelGroup>
+          <h:outputText value="#{messages.Menu_07}" />
+        </h:panelGroup>
+      </f:facet>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout1.xhtml" id="webpage_07_01" value="#{messages.webpage_07_01}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_07_01" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout1.xhtml" id="webpage_07_02" value="#{messages.webpage_07_02}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_07_02" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout1.xhtml" id="webpage_07_03" value="#{messages.webpage_07_03}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_07_03" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout1.xhtml" id="webpage_07_04" value="#{messages.webpage_07_04}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_07_04" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout1.xhtml" id="webpage_07_05" value="#{messages.webpage_07_05}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_07_05" />
+        </s:link>
+      </rich:menuItem>
+      <rich:menuItem submitMode="none">
+        <s:link view="/buildPageLayout1.xhtml" id="webpage_07_06" value="#{messages.webpage_07_06}"
+          propagation="none">
+          <f:param name="pagesWebPageName" value="webpage_07_06" />
+        </s:link>
+      </rich:menuItem>
+    </rich:dropDownMenu>
+
+
+    <rich:dropDownMenu
+      rendered="#{s:hasRole('boardmember') or s:hasRole('admin') or s:hasRole('accounting') or s:hasRole('webcontentmgr')}">
+      <f:facet name="label">
+        <h:panelGroup>
+          <h:graphicImage value="/img/icons/bug.png" />
+          <h:outputText value="&#160;" />
+          <h:outputText value="#{messages.Menu_08}" />
+        </h:panelGroup>
+      </f:facet>
+      <rich:menuItem submitMode="none"
+        rendered="#{s:hasRole('boardmember') or s:hasRole('admin') or s:hasRole('accounting')}">
+        <s:link view="/includes/tests/searchBug.xhtml" id="menuBugsSearchBugs"
+          value="#{messages.Menu_Admin_SearchBugs}" propagation="none" />
+      </rich:menuItem>
+      <rich:menuItem submitMode="none" rendered="#{s:hasRole('webcontentmgr')}">
+        <s:link view="/includes/webcontent/searchWebPage.xhtml" id="menuBugsSearchPages"
+          value="#{messages.Menu_Admin_SearchArticles}" propagation="none" />
+      </rich:menuItem>
+      <rich:menuItem submitMode="none" rendered="false">
+        <s:link view="/includes/webcontent/searchArticle.xhtml" id="menuBugsSearchArticles"
+          value="#{messages.Menu_Admin_SearchArticles}" propagation="none" />
+      </rich:menuItem>
+      <rich:menuItem submitMode="none" rendered="#{s:hasRole('webcontentmgr')}">
+        <s:link view="/includes/classifieds/searchClassified.xhtml" id="menuBugsSearchClassifieds"
+          value="#{messages.Menu_Admin_SearchClassifieds}" propagation="none" />
+      </rich:menuItem>
+      <rich:menuItem submitMode="none" rendered="#{s:hasRole('webcontentmgr')}">
+        <s:link view="/includes/sponsors/searchSponsor.xhtml" id="menuBugsSearchSponsors"
+          value="#{messages.Menu_Admin_SearchSponsors}" propagation="none" />
+      </rich:menuItem>
+      <rich:menuSeparator rendered="#{s:hasRole('admin')}" />
+      <rich:menuItem submitMode="none" rendered="#{s:hasRole('admin')}">
+        <s:link view="/includes/security/usermanager.xhtml" id="um" value="Users" propagation="none" />
+      </rich:menuItem>
+      <rich:menuItem submitMode="none" rendered="#{s:hasRole('admin')}">
+        <s:link view="/includes/security/rolemanager.xhtml" id="rm" value="Roles" propagation="none" />
+      </rich:menuItem>
+      <rich:menuItem submitMode="none" rendered="#{s:hasRole('admin')}">
+        <s:link view="/includes/security/adminutil.xhtml" id="am" value="Utils" propagation="none" />
+      </rich:menuItem>
+    </rich:dropDownMenu>
+
+  </rich:toolBar>
+</h:form>

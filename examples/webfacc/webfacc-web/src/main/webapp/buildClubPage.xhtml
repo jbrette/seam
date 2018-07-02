@@ -1,0 +1,57 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a4j="http://richfaces.org/a4j" xmlns:e="http://jboss.com/products/seam/excel"
+  template="layout/template.xhtml">
+
+  <ui:define name="body">
+
+    <h:form id="searchForm">
+      <rich:panel styleClass="panelbodyNoBorder">
+        <rich:layout>
+          <rich:layoutPanel position="top" width="100%" style="padding:3px;">
+            <h:outputText styleClass="outputTextBig" escape="false" value="#{messages.Menu_Clubs_Other}" />
+            <hr />
+            <rich:spacer height="1" width="600" />
+          </rich:layoutPanel>
+          <rich:layoutPanel position="left" width="5%" style="padding:3px;">
+            <h:panelGroup>
+            </h:panelGroup>
+          </rich:layoutPanel>
+          <rich:layoutPanel position="center" width="90%" style="padding:3px;">
+            <a4j:outputPanel id="searchResult">
+              <rich:dataGrid value="#{clubOfPage.resultList}" var="club"
+                rendered="#{!empty clubOfPage.resultList}" id="clubTable" columns="1" elements="30" width="100%">
+                <rich:panel>
+                  <f:facet name="header">
+                    <s:link id="link" view="/viewClub.xhtml" value="#{club.name}">
+                      <f:param name="pagesClubId" value="#{club.id}" />
+                    </s:link>
+                  </f:facet>
+                  <h:panelGrid columns="2">
+
+                    <s:graphicImage fileName="buildClubPage-#{club.id}" value="#{club.picture.data}">
+                      <s:transformImageSize width="100" maintainRatio="true" />
+                    </s:graphicImage>
+
+                    <h:outputText escape="false" value="#{club.description}" />
+
+                  </h:panelGrid>
+                </rich:panel>
+              </rich:dataGrid>
+            </a4j:outputPanel>
+          </rich:layoutPanel>
+          <rich:layoutPanel position="right" width="5%" style="padding:3px;">
+            <h:panelGroup>
+            </h:panelGroup>
+          </rich:layoutPanel>
+          <rich:layoutPanel position="bottom" width="100%" style="padding:3px;">
+            <h:outputText escape="false" value="" />
+          </rich:layoutPanel>
+        </rich:layout>
+      </rich:panel>
+    </h:form>
+  </ui:define>
+</ui:composition>

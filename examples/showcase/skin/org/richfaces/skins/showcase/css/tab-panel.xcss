@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+        <u:selector name=".rich-tab-active">
+        </u:selector>
+
+        <u:selector name=".rich-tab-bottom-line">
+        </u:selector>
+
+        <u:selector name=".rich-tab-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-tab-header">
+        </u:selector>
+
+        <u:selector name=".rich-tab-inactive">
+        </u:selector>
+
+        <u:selector name=".rich-tabhdr-cell-active">
+        </u:selector>
+
+        <u:selector name=".rich-tabhdr-cell-disabled">
+        </u:selector>
+
+        <u:selector name=".rich-tabhdr-cell-inactive">
+        </u:selector>
+
+        <u:selector name=".rich-tabhdr-side-border">
+        </u:selector>
+
+        <u:selector name=".rich-tabhdr-side-cell">
+        </u:selector>
+
+        <u:selector name=".rich-tabpanel">
+        </u:selector>
+
+        <u:selector name=".rich-tabpanel-content">
+        </u:selector>
+
+        <u:selector name=".rich-tabpanel-content-position">
+        </u:selector>
+
+</f:template>

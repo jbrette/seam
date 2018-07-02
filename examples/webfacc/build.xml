@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<project name="WEBFACC" default="explode" basedir=".">
+
+    <!-- Example name -->
+    <property name="Name"                   value="French Chamber Of Commerce WEB Site"/>
+    <property name="example.name"           value="webfacc"/>
+
+    <!-- Libraries -->
+    <property name="seam.excel.lib"       value="yes"/>
+    <property name="seam.ui.lib"          value="yes"/>
+    <property name="seam.debug.lib"       value="yes"/>
+    <property name="facelets.lib"         value="yes"/>
+    <property name="richfaces.lib"        value="yes"/>
+    <property name="richfaces-ui.lib"     value="yes"/>
+    <property name="drools.lib"           value="yes"/>
+    <property name="jcaptcha.lib"         value="yes"/>
+    <property name="seam.mail.lib"        value="yes" />
+    <property name="quartz.lib"           value="yes" />
+    <property name="deploy.meldware.mail" value="yes" />
+    <property name="seam.remoting.lib" value="yes"/>
+
+    <import file="../build.xml"/>
+
+    <path id="build.classpath.extras">
+      <path location="${lib.dir}/jboss-seam-excel.jar" />
+      <path location="${lib.dir}/jboss-seam-pdf.jar" />
+    </path>
+
+    <fileset id="jar.extras" dir="${resources.dir}">
+	<include name="*.png" />
+	<include name="META-INF/standard-jaxws-endpoint-config.xml" />
+    </fileset>
+
+    <fileset id="war.extras" dir="${resources.dir}">
+	<include name="WEB-INF/*.skin.properties" />
+    </fileset>
+
+
+</project>
+

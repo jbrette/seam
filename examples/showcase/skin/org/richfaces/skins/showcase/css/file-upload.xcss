@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+        <u:selector name=".rich-file-upload-button">
+        </u:selector>
+
+        <u:selector name=".rich-file-upload-font">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-anc">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-button">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-button-border">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-button-content">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-button-dis">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-button-light">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-button-press">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-del">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-font">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-hidden">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-ico">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-ico-add">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-ico-add-dis">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-ico-clear">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-ico-clear-dis">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-ico-start">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-ico-start-dis">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-ico-stop">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-ico-stop-dis">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-list-decor">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-list-overflow">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-name">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-name-padding">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-scroll">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-table-td">
+        </u:selector>
+
+        <u:selector name=".rich-fileupload-toolbar-decor">
+        </u:selector>
+
+</f:template>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f="http://jsf.exadel.com/template"
+	xmlns:u="http://jsf.exadel.com/template/util"
+	xmlns="http://www.w3.org/1999/xhtml">
+
+        <u:selector name=".rich-datalist">
+        </u:selector>
+
+        <u:selector name=".rich-definition">
+        </u:selector>
+
+        <u:selector name=".rich-definition-term">
+        </u:selector>
+
+        <u:selector name=".rich-deflist">
+        </u:selector>
+
+        <u:selector name=".rich-filter-input">
+        </u:selector>
+
+        <u:selector name=".rich-inplace-view">
+        </u:selector>
+
+        <u:selector name=".rich-list-item">
+        </u:selector>
+
+        <u:selector name=".rich-orderedlist">
+        </u:selector>
+
+        <u:selector name=".rich-sort-icon">
+        </u:selector>
+
+        <u:selector name=".rich-subtable-">
+        </u:selector>
+
+        <u:selector name=".rich-subtable-cell">
+        </u:selector>
+
+        <u:selector name=".rich-subtable-firstrow">
+        </u:selector>
+
+        <u:selector name=".rich-subtable-row">
+        </u:selector>
+
+        <u:selector name=".rich-table">
+        </u:selector>
+
+        <u:selector name=".rich-table-caption">
+        </u:selector>
+
+        <u:selector name=".rich-table-cell">
+        </u:selector>
+
+        <u:selector name=".rich-table-firstrow">
+        </u:selector>
+
+        <u:selector name=".rich-table-footer">
+        </u:selector>
+
+        <u:selector name=".rich-table-footer-continue">
+        </u:selector>
+
+        <u:selector name=".rich-table-footercell">
+        </u:selector>
+
+        <u:selector name=".rich-table-header">
+        </u:selector>
+
+        <u:selector name=".rich-table-header-continue">
+        </u:selector>
+
+        <u:selector name=".rich-table-headercell">
+        </u:selector>
+
+        <u:selector name=".rich-table-row">
+        </u:selector>
+
+        <u:selector name=".rich-table-subfooter">
+        </u:selector>
+
+        <u:selector name=".rich-table-subfootercell">
+        </u:selector>
+
+        <u:selector name=".rich-table-subheader">
+        </u:selector>
+
+        <u:selector name=".rich-table-subheadercell">
+        </u:selector>
+
+        <u:selector name=".rich-tablerow">
+        </u:selector>
+
+</f:template>

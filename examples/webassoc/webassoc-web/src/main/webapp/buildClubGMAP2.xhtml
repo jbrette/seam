@@ -1,0 +1,84 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a4j="http://richfaces.org/a4j" template="layout/template.xhtml">
+
+  <ui:define name="body">
+    <ui:include src="includes/gmap/gmapscripts.xhtml" />
+
+    <h:form id="map_form">
+      <rich:panel styleClass="panelbodyNoBorder">
+        <rich:layout>
+          <rich:layoutPanel position="top" width="100%" style="padding:3px;">
+            <h:outputText styleClass="outputTextBig" value="#{club.name}" />
+            <hr width="100%" />
+          </rich:layoutPanel>
+          <rich:layoutPanel position="left" width="5%" style="padding:3px;">
+            <h:panelGroup>
+            </h:panelGroup>
+          </rich:layoutPanel>
+          <rich:layoutPanel position="center" width="90%" style="padding:3px;">
+            <rich:gmap mapType="G_NORMAL_MAP" gmapVar="map" gmapKey="#{globals.key}" lat="#{globals.dfltLat}"
+              lng="#{globals.dfltLng}" zoom="10" oninit="init(map)" id="map3" style="width:550px"
+              showGLargeMapControl="true" showGMapTypeControl="true" showGScaleControl="false" />
+          </rich:layoutPanel>
+          <rich:layoutPanel position="right" width="5" style="padding:3px;">
+            <h:panelGroup>
+              <h:graphicImage value="/img/icons/close24.png" />
+              <h:outputText value=" " />
+              <s:link id="cancelManaged" view="/viewClub.xhtml"
+                value="#{messages.clubMembershipPicker_btn_cancel}">
+                <f:param name="pagesClubId" value="#{club.id}" />
+              </s:link>
+            </h:panelGroup>
+          </rich:layoutPanel>
+          <rich:layoutPanel position="bottom" width="100%" style="padding:3px;">
+            <hr />
+            <rich:dataTable value="#{club.clubMembers}" var="mship" rendered="#{!empty club.clubMembers}"
+              id="mshipTable" rowClasses="datagridrow1, datagridrow2" width="100%" rows="500">
+              <rich:column>
+                <f:facet name="header">
+                  <h:outputText value="#{messages.ClubMembership_Member}" style="xls-font: red bold" />
+                </f:facet>
+                <h:outputText value="#{mship.member.lastName}  #{mship.member.firstName}" />
+              </rich:column>
+              <rich:column>
+                <f:facet name="header">
+                  <h:outputText value="#{messages.AssocMember_City}" style="xls-font: red bold" />
+                </f:facet>
+                <h:outputText value="#{mship.member.assocMember.city}" />
+              </rich:column>
+              <rich:column>
+                <f:facet name="header">
+                  <h:outputText value="#{messages.AssocMember_HomePhone}" style="xls-font: red bold" />
+                </f:facet>
+                <h:outputText value="#{mship.member.assocMember.homePhone}" />
+              </rich:column>
+              <rich:column>
+                <f:facet name="header">
+                  <h:outputText value="#{messages.FamilyMember_Age}" style="xls-font: red bold" />
+                </f:facet>
+                <h:outputText value="#{mship.member.age}" />
+              </rich:column>
+              <f:facet name="footer">
+                <rich:datascroller for="mshipTable" maxPages="10" />
+              </f:facet>
+            </rich:dataTable>
+          </rich:layoutPanel>
+        </rich:layout>
+      </rich:panel>
+    </h:form>
+
+    <script type="text/javascript">    
+            <ui:repeat var="gmapMbr" value="#{club.gmapAddressList}">
+                addAssocMember(
+                    '<h:outputText value="#{gmapMbr.assocName}"/>',
+                    '<h:outputText value="#{gmapMbr.GMAPLat}"/>',
+                    '<h:outputText value="#{gmapMbr.GMAPLng}"/>');
+            </ui:repeat>
+        </script>
+
+  </ui:define>
+</ui:composition>

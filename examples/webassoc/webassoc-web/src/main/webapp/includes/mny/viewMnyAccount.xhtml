@@ -1,0 +1,117 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a4j="http://richfaces.org/a4j" template="/layout/template.xhtml">
+
+  <ui:define name="body">
+    <script type="text/javascript">
+         function confirmDelete()
+          {
+                 return confirm("#{messages.jscript_confirmDelete}");
+          }
+        </script>
+    <h:form id="accountForm">
+      <rich:panel width="100%" bodyClass="panelbody">
+        <f:facet name="header">
+          <h:outputText value="#{mnyAccount.acctName}" />
+        </f:facet>
+        <h:panelGrid columns="2" columnClasses="panelgridcol1, panelgridcol2">
+          <h:outputText value="Initial Balance" />
+          <h:outputText value="#{mnyAccount.initBalance}" />
+          <h:outputText value="Old payment info field" />
+          <h:outputText value="#{mnyAccount.owner.paymentInfo}" />
+        </h:panelGrid>
+      </rich:panel>
+      <rich:toolBar>
+        <rich:toolBarGroup location="left">
+          <h:panelGroup id="cancelManagedControls" rendered="#{mnyAccountHome.managed}">
+            <h:graphicImage value="/img/icons/close16.png" />
+            <h:outputText value=" " />
+            <s:link id="cancelManaged" view="/viewAssocMember.xhtml" value="Close"
+              rendered="#{mnyAccountHome.managed}">
+              <f:param name="pagesAssocMemberId" value="#{mnyAccount.owner.id}" />
+            </s:link>
+          </h:panelGroup>
+        </rich:toolBarGroup>
+        <rich:toolBarGroup location="right">
+          <h:panelGroup id="addCheckControls" rendered="#{mnyAccountHome.managed}">
+            <h:graphicImage value="/img/icons/add1-16.png" />
+            <h:outputText value=" " />
+            <h:commandLink id="addCheck" action="#{mnyAccountHome.addCheck}" value="Add Check" />
+          </h:panelGroup>
+          <h:panelGroup id="addMembershipControls" rendered="#{mnyAccountHome.managed}">
+            <h:graphicImage value="/img/icons/add1-16.png" />
+            <h:outputText value=" " />
+            <h:commandLink id="addMembership" action="#{mnyAccountHome.addMembership}" value="Add Membership" />
+          </h:panelGroup>
+
+          <h:panelGroup id="recomputeControls" rendered="#{mnyAccountHome.managed}">
+            <h:graphicImage value="/img/icons/add1-16.png" />
+            <h:outputText value=" " />
+            <h:commandLink id="recomputeBalance" action="#{mnyAccountHome.recomputeBalance}" value="Recompute" />
+          </h:panelGroup>
+        </rich:toolBarGroup>
+      </rich:toolBar>
+      <rich:panel width="100%">
+        <f:facet name="header">
+          <h:outputText value="Transactions"></h:outputText>
+        </f:facet>
+        <rich:dataTable value="#{mnyAccount.acctRecords}" var="acctRecord" width="100%"
+          rendered="#{s:hasRole('accounting')}">
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Date" />
+            </f:facet>
+            <h:outputText value="#{acctRecord.date}">
+              <f:convertDateTime type="date" dateStyle="short" timeZone="CST" />
+            </h:outputText>
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Memo" />
+            </f:facet>
+            <h:outputText value="#{acctRecord.transMemo}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Amount" />
+            </f:facet>
+            <h:outputText value="$ #{acctRecord.transAmount}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="Balance" />
+            </f:facet>
+            <h:outputText value="$ #{acctRecord.balance}" />
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="-" />
+            </f:facet>
+            <s:link id="linkEventHosting" view="/includes/mny/editAcctRecord.xhtml" value="Edit">
+              <f:param name="pagesMnyAccountId" value="#{acctRecord.mnyAccount.id}" />
+              <f:param name="pagesAcctRecordId" value="#{acctRecord.id}" />
+            </s:link>
+          </rich:column>
+          <rich:column>
+            <f:facet name="header">
+              <h:outputText value="-" />
+            </f:facet>
+            <h:panelGroup id="deleteAcctRecordControls">
+              <h:graphicImage value="/img/icons/cancel16.png" />
+              <h:outputText value=" " />
+              <s:link value="Delete" action="#{mnyAccountHome.deleteAcctRecord}"
+                onclick="return confirmDelete()">
+                <f:param name="acctRecordId" value="#{acctRecord.id}" />
+              </s:link>
+            </h:panelGroup>
+          </rich:column>
+
+        </rich:dataTable>
+
+      </rich:panel>
+    </h:form>
+  </ui:define>
+</ui:composition>

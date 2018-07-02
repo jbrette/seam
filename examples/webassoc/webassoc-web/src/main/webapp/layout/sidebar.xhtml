@@ -1,0 +1,83 @@
+<h:panelGrid columns="1" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:s="http://jboss.com/products/seam/taglib" xmlns:rich="http://richfaces.org/rich"
+  xmlns:a="http://richfaces.org/a4j" width="100%">
+  <rich:panel width="100%">
+    <f:facet name="header">
+      <h:panelGroup>
+        <h:graphicImage value="/img/icons/user_silhouette.png" />
+        <h:outputText value="&#160;" />
+        <h:outputText value="Login" />
+      </h:panelGroup>
+    </f:facet>
+    <h:form id="login" rendered="#{not identity.loggedIn}">
+      <h:panelGroup id="guestHeaderControls">
+        <s:link id="loginLink" view="/includes/security/login.xhtml" value="#{messages.login}" rel="nofollow">
+        </s:link>
+        <h:outputText value="#{messages.panelg_separator}" escape="false" rendered="#{s:hasRole('admin')}" />
+        <h:outputLink value="#" id="registerLink" rendered="#{s:hasRole('admin')}" rel="nofollow">
+          <h:outputText value="#{messages.register}" />
+          <rich:componentControl for="registerPanel" attachTo="registerLink" operation="show" event="onclick" />
+        </h:outputLink>
+      </h:panelGroup>
+    </h:form>
+    <a:form id="logout" rendered="#{identity.loggedIn}">
+      <h:panelGroup id="authenticatedHeaderControls">
+        <h:outputText value="#{authenticatedMember.assocName}" />
+        <h:outputText value="#{messages.panelg_separator}" escape="false" />
+        <s:link value="#{messages.logout}" id="logoutLink" action="#{identity.logout}" />
+      </h:panelGroup>
+    </a:form>
+    <hr />
+    <h:form id="changeskin">
+      <h:panelGroup id="changeskinControls">
+        <h:selectOneMenu value="#{globals.skin}" onchange="submit()">
+          <f:selectItem itemLabel="Dallas Accueil" itemValue="webassoc" />
+          <f:selectItem itemLabel="Wine" itemValue="wine" />
+          <f:selectItem itemLabel="Ruby" itemValue="ruby" />
+          <f:selectItem itemLabel="Japan Cherry" itemValue="japanCherry" />
+          <f:selectItem itemLabel="Emerald Town" itemValue="emeraldTown" />
+          <f:selectItem itemLabel="Default" itemValue="DEFAULT" />
+          <f:selectItem itemLabel="Deep Marine" itemValue="deepMarine" />
+          <f:selectItem itemLabel="Classic" itemValue="classic" />
+          <f:selectItem itemLabel="Blue Sky" itemValue="blueSky" />
+        </h:selectOneMenu>
+      </h:panelGroup>
+      <h:panelGroup id="myProfileControls" rendered="#{identity.loggedIn}">
+        <h:outputText value="#{messages.panelg_separator}" escape="false" />
+        <s:link id="profile" view="/viewAssocMember.xhtml" value="#{messages.myprofile}">
+          <f:param name="pagesAssocMemberId" value="#{authenticatedMember.id}" />
+        </s:link>
+      </h:panelGroup>
+    </h:form>
+  </rich:panel>
+
+  <rich:panel width="100%">
+    <f:facet name="header">
+            Messages
+        </f:facet>
+    <h:messages globalOnly="true" id="messages" errorStyle="color: red" infoStyle="color: green" layout="table" />
+  </rich:panel>
+
+  <rich:panel width="100%">
+    <f:facet name="header">
+      <h:outputText value="#{messages.Sidebar_UpcomingEvents}"></h:outputText>
+    </f:facet>
+    <h:form id="upcomingEventsForm">
+      <rich:dataGrid value="#{clubEventHome.upcomingEvents}" var="cevent" columns="1" elements="15">
+        <h:panelGrid columns="1">
+          <s:link id="link" view="/editClubEvent.xhtml" value="#{cevent.title}" rel="nofollow">
+            <f:param name="pagesClubId" value="#{cevent.club.id}" />
+            <f:param name="pagesClubEventId" value="#{cevent.id}" />
+          </s:link>
+          <h:outputText value="#{cevent.hostName}" />
+          <h:outputText value="#{cevent.startTime}">
+            <f:convertDateTime type="date" dateStyle="full" timeZone="CST" />
+          </h:outputText>
+          <hr />
+        </h:panelGrid>
+      </rich:dataGrid>
+    </h:form>
+  </rich:panel>
+
+</h:panelGrid>

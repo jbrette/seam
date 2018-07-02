@@ -1,0 +1,67 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:rich="http://richfaces.org/rich" template="/layout/template.xhtml">
+
+  <ui:define name="body">
+
+    <script type="text/javascript">
+        function confirmRevoke()
+        {
+          return confirm("Are you sure you wish to revoke this permission? This action cannot be undone.");
+        }
+      </script>
+
+    <rich:panel bodyClass="panelbody">
+      <f:facet name="header">
+        <h:outputText value="#{permissionSearch.target.name}"></h:outputText>
+      </f:facet>
+      <h:form id="editForm">
+
+        <rich:dataTable id="threads" value="#{recipients}" var="recipient">
+          <rich:column width="auto">
+            <f:facet name="header">
+              Recipient
+            </f:facet>
+            #{recipient.name}
+          </rich:column>
+          <rich:column width="auto">
+            <f:facet name="header">
+              Actions Allowed
+            </f:facet>
+            #{permissionSearch.getActions(recipient)}
+          </rich:column>
+          <rich:column width="auto">
+            <f:facet name="header">
+              Action
+            </f:facet>
+            <s:link value="Edit" action="#{clubPermissionMgr.editPermission}"
+              rendered="#{s:hasPermission(permissionSearch.target, 'seam.revoke-permission')}" />
+            <span> | </span>
+            <s:link value="Revoke All" action="#{permissionSearch.revokeSelected}"
+              rendered="#{s:hasPermission(permissionSearch.target, 'seam.revoke-permission')}"
+              onclick="return confirmRevoke()" />
+          </rich:column>
+        </rich:dataTable>
+      </h:form>
+    </rich:panel>
+
+    <!-- actions -->
+    <rich:toolBar>
+      <rich:toolBarGroup>
+        <s:button action="#{clubPermissionMgr.createPermission}" value="Add Permission"
+          rendered="#{s:hasPermission(permissionSearch.target, 'seam.grant-permission')}" />
+        <s:button action="#{clubPermissionMgr.setupClubMembersRights}" value="Reset Club Permissions"
+          rendered="#{s:hasPermission(permissionSearch.target, 'seam.grant-permission')}" />
+        <s:link id="cancelManaged" view="/viewClub.xhtml" value="#{messages.clubMembershipPicker_btn_cancel}"
+          propagation="end">
+          <f:param name="pagesClubId" value="#{club.id}" />
+        </s:link>
+      </rich:toolBarGroup>
+    </rich:toolBar>
+
+  </ui:define>
+
+</ui:composition>

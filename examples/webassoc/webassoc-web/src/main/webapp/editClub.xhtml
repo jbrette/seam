@@ -1,0 +1,126 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:s="http://jboss.com/products/seam/taglib"
+  xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" template="layout/template.xhtml">
+
+  <ui:define name="body">
+
+    <h:form id="editForm" enctype="multipart/form-data">
+      <f:facet name="beforeInvalidField">
+        <h:graphicImage styleClass="errors" value="/img/icons/error.gif" />
+      </f:facet>
+      <f:facet name="aroundInvalidField">
+        <s:span styleClass="errors" />
+      </f:facet>
+      <f:facet name="afterInvalidField">
+        <s:span>&#160;<s:message styleClass="errors" />
+        </s:span>
+      </f:facet>
+
+      <s:validateAll>
+
+        <rich:panel bodyClass="panelbody">
+          <f:facet name="header">
+            <h:outputText value="#{messages.editClub_pnl_attributes}"></h:outputText>
+          </f:facet>
+          <h:panelGrid columnClasses="panelgridcol1, panelgridcol2" columns="2">
+
+            <h:outputText value="#{messages.Club_Name}:" />
+            <s:decorate id="nameDecorate">
+              <h:inputText id="assocName" value="#{club.name}" required="true" />
+            </s:decorate>
+
+            <h:outputText value="#{messages.Club_AutomaticMembership}:" />
+            <s:decorate id="automaticMembershipDecorate">
+              <h:selectBooleanCheckbox id="automaticMembership" value="#{club.automaticMembership}" />
+            </s:decorate>
+
+            <h:outputText value="#{messages.Club_OpenEnrollment}:" />
+            <s:decorate id="openEnrollmentDecorate">
+              <h:selectBooleanCheckbox id="openEnrollment" value="#{club.openEnrollment}" />
+            </s:decorate>
+
+            <h:outputText value="#{messages.Club_OpenedToKids}:" />
+            <s:decorate id="openedToKidsDecorate">
+              <h:selectBooleanCheckbox id="openedToKids" value="#{club.openedToKids}" />
+            </s:decorate>
+
+            <h:outputText value="#{messages.Club_OpenedToGuests}:" />
+            <s:decorate id="openedToGuestsDecorate">
+              <h:selectBooleanCheckbox id="openedToGuests" value="#{club.openedToGuests}" />
+            </s:decorate>
+
+            <h:outputText value="#{messages.Club_Discontinued}:" />
+            <s:decorate id="discontinuedDecorate">
+              <h:selectBooleanCheckbox id="discontinued" value="#{club.discontinued}" />
+            </s:decorate>
+
+            <h:outputText value="#{messages.Club_CKind}:" />
+            <s:decorate id="roleDecorate">
+              <h:selectOneRadio id="role" value="#{club.CKind}" layout="lineDirection" required="true">
+                <f:selectItem id="item1" itemLabel="For Everybody" itemValue="forEverybody" />
+                <f:selectItem id="item2" itemLabel="For The Head" itemValue="forTheHead" />
+                <f:selectItem id="item3" itemLabel="For The Hand" itemValue="forTheHand" />
+                <f:selectItem id="item4" itemLabel="For The Feet" itemValue="forTheFeet" />
+                <f:selectItem id="item5" itemLabel="For The Mouth" itemValue="forTheMouth" />
+                <f:selectItem id="item6" itemLabel="For The Grown Up" itemValue="forTheGrownUp" />
+                <f:selectItem id="item7" itemLabel="For The Kids" itemValue="forTheKids" />
+                <f:selectItem id="item8" itemLabel="other" itemValue="other" />
+              </h:selectOneRadio>
+            </s:decorate>
+
+          </h:panelGrid>
+        </rich:panel>
+        <rich:panel bodyClass="panelbody" width="100%" rendered="#{clubHome.managed}">
+          <f:facet name="header">
+            <h:outputText value="#{messages.editClub_pnl_image}:"></h:outputText>
+          </f:facet>
+          <s:graphicImage fileName="editClub-#{club.id}" rendered="#{club.picture.dataNotEmpty}"
+            value="#{club.picture.data}">
+            <s:transformImageSize width="100" maintainRatio="true" />
+          </s:graphicImage>
+          <h:outputLabel for="picture">Select an new image</h:outputLabel>
+          <s:fileUpload id="picture" data="#{clubHome.uploadedData}" accept="images/*"
+            fileName="#{clubHome.uploadedFileName}" contentType="#{clubHome.uploadedContentType}" />
+          <h:commandButton value="Upload New Image" action="#{clubHome.uploadImage}" />
+        </rich:panel>
+
+        <!--  -->
+        <rich:panel bodyClass="panelbody" width="100%">
+          <f:facet name="header">
+            <h:outputText value="#{messages.editClub_pnl_description}:"></h:outputText>
+          </f:facet>
+          <s:decorate id="descDecorate">
+            <rich:editor id="content" configuration="editorconfig" width="800" height="200"
+              value="#{club.description}" />
+          </s:decorate>
+        </rich:panel>
+
+
+      </s:validateAll>
+
+      <!-- actions -->
+      <rich:toolBar>
+        <rich:toolBarGroup location="left">
+
+          <h:commandLink id="updateClub" action="#{clubHome.update}" value="#{messages.editClub_btn_update}"
+            rendered="#{clubHome.managed}" />
+          <s:link id="cancelManaged" view="/viewClub.xhtml" value="#{messages.editClub_btn_close}"
+            rendered="#{clubHome.managed and s:hasRole('clubmgr')}" />
+
+          <h:commandLink id="createClub" action="#{clubHome.persist}" value="#{messages.editClub_btn_create}"
+            rendered="#{!clubHome.managed and s:hasRole('admin')}" />
+          <s:link id="cancel" view="/searchClub.xhtml" value="#{messages.editClub_btn_cancel}"
+            rendered="#{!clubHome.managed  and s:hasRole('clubmgr')}" />
+        </rich:toolBarGroup>
+        <rich:toolBarGroup location="right">
+          <s:link id="deleteClub" action="#{clubHome.remove}" value="#{messages.editClub_btn_delete}"
+            rendered="#{clubHome.managed and s:hasRole('admin')}">
+          </s:link>
+        </rich:toolBarGroup>
+      </rich:toolBar>
+    </h:form>
+
+  </ui:define>
+</ui:composition>
